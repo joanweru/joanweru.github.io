@@ -1,0 +1,48 @@
+---
+title: "My homepage"
+---
+An undergraduate statistic student well versed in data analysis and data visualization. Seeking to use data analysis skills to unearth insights that could help organizations in decision-making and boosting business performance. Also passionate about using statistical research to shine light on social issues. 
+
+Take a tour around my website to see projects I've done :)
+
+## Interests
+
+ * Data analysis
+ * Data wrangling and manipulation
+ * Data visualization
+ * Writing reports from a statistical findings 
+ 
+## Skills
+
+* Skilled in R and latex
+* Inferential statistics
+* Linear regression modelling
+* Time series analysis
+* Hypothesis testing
+* Report writing in rmarkdown
+* Building websites using R
+ 
+## Education
+
+<i class="fa fa-graduation-cap"></i><font size="3"> **Bachelor of Science in Statistics, expected 2021**
+
+University of Nairobi
+
+<i class="fa fa-graduation-cap"></i><font size="3"> **Kenya Certificate of Secondary Education, 2016**
+
+Kyeni Girls High school
+
+<i class="fa fa-graduation-cap"></i><font size="3"> **Kenya Certificate of Primary Education, 2012** </font> 
+
+Bonanza School
+
+## Certificates
+
+<i class="fa fa-award"></i><font size="3"> **R statistical Data Analysis Training, 2020**
+
+University of Nairobi
+
+
+
+
+

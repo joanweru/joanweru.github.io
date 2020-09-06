@@ -1,0 +1,32 @@
+name: "JOAN WERU"                                # CHANGE HERE 
+output_dir: "."
+navbar:
+  title: "JOAN WERU"                             # CHANGE HERE 
+  type: inverse
+  left:
+    - text: "Home"
+      icon: fa-home
+      href: index.html
+    - text: "Menu"
+      icon: fa-bars
+      menu:
+        - text: "Projects"
+        - text: "Happiness report,2020"
+          href: happiness20.html
+        - text: "Linear modelling"
+          href: linear-modelling.html
+
+  right:
+    - text: "CV"
+      icon: fa-file-pdf-o
+      href: cv.html
+    - text: "Contact me"
+      icon: fa-envelope-o
+      href: mailto:joanweru77@gmail.com                    # CHANGE HERE 
+    - text: "GitHub"
+      icon: fa-github
+      href: https://github.com/joanweru      # CHANGE HERE 
+output:
+  rmarkdown::html_document:
+    theme: flatly
+    highlight: zenburn
