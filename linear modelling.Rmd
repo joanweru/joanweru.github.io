@@ -1,0 +1,370 @@
+---
+title: "Linear modelling"
+---
+
+**Regression analysis**- a statistical technique for evaluating the relationship between two or more variables. The relationship if it exists is explained using a mathematical function known as the **regression model**.
+
+A **linear regression ** attempts to model the relationship between two variables by fitting a linear equation to the observed data.
+
+Linear regression model usually takes the form:
+\emph{data=pattern+residual}
+
+* data = response variable
+* pattern = set of particular variables
+* residual = error or noise
+
+# simple linear regression
+
+For **linear regression models** with one **quantitative predictor** 
+
+$$y=\beta_0+\beta_1X+\epsilon$$
+where:
+
+* x- predictor variable
+* y- response variable
+* $\beta_0$- constant/ intercept
+* $\beta_1$- $x$'s slope or co-efficient
+* $\epsilon$-error
+
+## Simple linear problems
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+library(dplyr)
+library(tidyverse)
+library(knitr)
+library(ggplot2)
+library(ggpubr)
+library(ggthemes)
+```
+
+```{r include=FALSE}
+setwd("~/R- CLASS DATASETS/joanweru.github.io")
+knitr::opts_chunk$set(comment = NA)
+```
+
+<font size="5"> The following are the scores that 12 students obtained on the midterm and final examination in  a course in statistics.  </font>
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+midterm<-read_csv("midterm.csv")
+```
+
+```{r echo=FALSE, message=TRUE, warning=TRUE}
+kable(midterm)
+```
+
+> <font size="4"> Find the best fit model that would predict a student's final exam score based on his/her midterm exam score. </font>
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+attach(midterm)
+model<-lm(final~midterm,data=midterm)
+model$coefficients
+```
+
+Therefore $\widehat{y}=31.6095+0.5816X$ is the best fit that would predict a students final exam based on his/her midterm exam score
+
+> <font size="4"> Interpret the regression parameters </font>
+
+For every additional mark in the midterm exam score, a students final exam score increases by 0.5816 points.
+
+> <font size="4">  Test for the significance of model fit </font>
+
+we test the hypothesis
+
+$H_0:$ Regression fit is not significant
+
+$H_1:$ Regression fit is significant
+
+using the f-statistic
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+sum_model=summary(model)
+sum_model$fstatistic
+```
+
+The F-statistic is 15.83 and the critical value from the f-distribution table is 4.96. The f-statistic is greater than the critical value. Therefore we reject $H_0$ and conclude that the model is indeed significant.
+
+
+> <font size="4"> How much of the variation is accounted for by the predictor. </font>
+
+```{r}
+sum_model$r.squared*100
+```
+
+From the summary 61.28% of the variation in the final exam score is accounted for by the midterm exam score. 
+
+> <font size="4"> What is the correlation between midterm exam scores and final exam scores. </font>
+
+```{r}
+cor(final,midterm)
+```
+
+The correlation is 0.7828. This indicates a strong relationship between midterm scores and final scores.
+
+
+**NB: Correlation explains the strength of the relationship between an independent and dependent variable. R-squared explains to what extent the variability of one variable explains the variability of the second variable.**
+
+> <font size="4"> Predict the final exam score for a student who scored 84 marks in the midterm exam </font>
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+predict(model,newdata=data.frame(midterm=84))
+```
+
+
+> <font size="4"> Find the 95% confidence interval for condition mean of final exam score obtained by students who obtained 80 marks in the midterm exam. </font>
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+predict(model,interval="confidence",se.fit=T,newdata=data.frame(midterm=80))
+```
+
+The 95% C.I becomes [71.913,84.362]
+
+> <font size="4"> Find the 95% prediction interval for the final exam score obtained by students who obtained 80 marks in the midterm exam. </font>
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+predict(model,interval ="prediction",newdata = data.frame(midterm=80))
+```
+
+The 95% P.I becomes [58.028,98.247]
+
+NB: When we create **confidence intervals** for **parameters**, but when we're predicting a single value, its not a parameter. So we call it a **prediction interval**
+
+> <font size="4"> Summary of the model in a plot </font>
+
+```{r echo=TRUE, message=FALSE, warning=FALSE,out.width="50%"}
+ggplot(midterm,aes(x=midterm,y=final))+geom_point()+geom_smooth(method=lm)+stat_regline_equation(aes(label=paste(..eq.label.., ..rr.label..,sep = "~~~~~~~")),position = "identity",geom = "label")+labs(title="Linear relationship between final exam scores and midterm exam scores")
+```
+
+
+# Multiple linear regression
+
+In *simple linear regression* we only consider one predictor variable. When we include more than one predictor variable, we have what is now a **multiple linear regression model**.
+Multiple linear regression allows us to investigate the joint effect of **several predictors** on the response variable.
+
+**NB: as with simple linear regression we have one response variable.**
+
+General form:
+
+$$y=\beta_0+\beta_1x_1+......\beta_k xk+\epsilon$$
+Where:
+
+* $y$-response variable
+* $x_1,x_2.....x_k$-independent variables
+* $\beta_0$-constant/intercept
+* $\beta_1....\beta_k$-slope parameters
+* $\epsilon$-random variable/error
+
+## Multiple linear problems
+
+<font size="5"> Many universities in the US develop regression models for predicting GPA of incoming freshman. This estimated GPA can then be used to make admission decisions. Below are data for 15 students showing their GPA results($Y$); scores for two exams verbal($x_1$), mathematics($x_2$) and age of students ($x_3$). </font>
+
+```{r echo=TRUE, message=TRUE, warning=FALSE}
+gpa<-read_csv("GPA.csv")
+```
+
+```{r include=FALSE}
+gpa<-rename(gpa,"GPA"=y,"Verbal"=x1,"math"=x2,"age"=x3)
+```
+
+```{r echo=FALSE}
+kable(gpa)
+```
+
+> <font size="4"> State the estimated regression model. </font>
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+model<-lm(GPA~Verbal+math+age,data = gpa)
+model$coefficients
+```
+
+$$y=-2.7047+0.02195x_1+0.0386x_2+0.0467 x_3$$
+
+
+> <font size="4"> Is there a linear relationship between GPA and the examination scores and age? State the hypothesis and test statistic. </font> 
+
+The hypothesis to be tested is
+
+$H_0$-*regression fit is not significant*
+
+$H_1$-*regression fit is significant*
+
+Using the f-statistic as the test statistic
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+sum_model=summary(model)
+sum_model$fstatistic
+```
+
+The calculated F-statistic is 8.828. From the f-distribution table, the critical value is 4.07. Therefore the F-statistic is greater than the critical value. So we reject $H_0$ and conclude that there is a linear relationship between GPA and the examination scores and age.
+
+> <font size="4">  Interpret the regression co-efficients </font>
+
+**Verbal**-*After adjusting for the math score and age of student, the average GPA increases by 0.021954 points for every additional point in verbal score*
+
+**math**-*After adjusting for the verbal score and age of student; the average GPA increases by 0.021954 points for every additional point in math.*
+
+**age**-*After adjusting for the math score and verbal score; the average GPA increases by 0.046695 points for every additional year in the age of a student*
+
+> <font size="4"> Are both scores and age individually related to GPA? </font>
+
+The hypothesis to be tested:
+
+$$H_0:\beta_j=0$$
+
+$$H_0:\beta_j\neq0$$
+where $j=1,2...n$
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+sum_model$coefficients
+```
+
+From the summary above.
+
+**verbal**
+The p-value is less than 0.05. therefore we reject $H_0$ and conclude that verbal score is a significant predictor for GPA.
+
+**math**
+.The p-value is less than 0.05. Therefore  we reject $H_0$ and conclude that verbal score is a significant predictor for GPA.
+
+**age**
+The p-value is more than 0.05. Therefore we fail to reject $H_0$ and and conclude that age is **not** a significant predictor for GPA.
+
+> <font size="4">  Calculate the co-efficient of multiple determination and interpret it </font>
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+sum_model$adj.r.squared
+```
+
+We see that co-efficient of multiple determination is 0.6265. Therefore 62.65% of the variation in the GPA score is explained by the set of predictor variables.
+
+> <font size="4">  Estimate the GPA of a 17.5 year student with a verbal score of 82 a mathematics score of 84. </font>
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+predict(model,newdata=data.frame(Verbal=82,math=84,age=17.5))
+```
+
+3.157217
+
+> <font size="4">  Summary of the model using a plot </font>
+
+```{r echo=TRUE, message=FALSE, warning=FALSE,fig.show='hold',out.width="50%"}
+ggplot(gpa,aes(x=Verbal,y=GPA))+geom_point()+geom_smooth(method="lm")+stat_regline_equation(aes(label=paste(..rr.label..)),position = "identity",geom = "label") +labs(title = "Linear relationship between GPA and verbal score")
+
+ggplot(gpa,aes(x=math,y=GPA))+geom_point()+geom_smooth(method ="lm")+stat_regline_equation(aes(label=paste(..rr.label..)),position = "identity",geom = "label")+labs(title = "Linear relationship between GPA and math score")
+
+ggplot(gpa,aes(x=age,y=GPA))+geom_point()+geom_smooth(method = "lm")+stat_regline_equation(aes(label=paste(..rr.label..)),position = "identity",geom = "label")+labs(title = "Linear relationship between GPA and age") 
+```
+
+
+# Multiple linear regression with qualitative and quantitative predictor variables.
+
+Regression analysis usually treats the predictor variables as numerical values or quantitative variables. However in some cases one may want to include an **attribute/categorical variable** to explain a response variable.
+
+**dummy variable/indicator variable-** is a variable that takes on the value 0 or 1. It represents a categorical variable with two distinct categories/levels
+
+**binary predictor**-is a variable that takes on only two possible values. e.g *gender(male or female), treatment(yes or no), smoking(smoker or non smoker)*
+
+General form
+
+$$y=\beta_0+\beta_1 x_1+\beta_2 x_2+\epsilon$$
+Where:
+
+* $y$=response variable
+* $\beta_0$=constant/ intercept
+* $x_1$=quantitative predictor variable
+* $x_2$=qualitative predictor variable
+* $\beta_1$=co-efficient
+* $\beta_2$=differential intercept coefficient; it measures the differential effect of the categorical variable i.e in general $\beta_2$ shows how much higher(lower) the mean response line is for the $1^{st}$ category compared to the line for the $2^{nd}$ category (base category) for any given value of the categorical variable.
+
+* $x_i2 =1$ if the response is in the $1^{st}$ category
+* $x_i2=0$  if the response is in the $2^{nd}$ category
+
+The average value of the response of individuals in the $2^{nd}$ category is:
+
+$E[Y|X_1,X_2=0]=\beta_0+\beta_1 X_1$ <-**base/category inference
+
+While the average value of the response of individuals in the $1^{st}$ category is:
+
+$E[Y|X_1,X_2=1]=\beta_0+\beta_1 X_1+\beta_2$
+
+## Multiple linear regression with one dummy/qualitative and one quantitative predictor variable problems
+
+<font size="5">  An economist wanted to see the relationship between the speed with which a particular insurance innovation is adopted ($y$) (measured in months) and the worth of the insurance firm ($x_1$) (in million of dollars) as well as the type of firm ($x_2$). He studied 6 mutual firms and 6  stock firms and information obtained is presented above </font>
+
+```{r include=FALSE}
+Type<-c(rep(1,6),rep(0,6))
+```
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+insurance<-read_csv("insurance.csv")
+```
+
+```{r include=FALSE}
+insurance=rename(insurance,"speed"=y)
+insurance$Type=Type
+```
+
+```{r echo=FALSE}
+kable(insurance[,1:3])
+```
+
+We assign a dummy variable to the type of firm. 1 if it is mutual, 0 if it is stock
+
+> <font size="4">  Fit the regression coefficients </font>
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+model<-lm(speed~worth+Type,data = insurance)
+```
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+model$coefficients
+```
+
+The fit of the model is thus $\widehat{y}=40.823-0.0994x_1-6.892x_2$
+
+> <font size="4">  Interpret the regression coefficients </font>
+
+While holding type of firm constant, for every additional $1 million in worth of firm, the time a firm takes to adopt an insurance innovation reduces by 0.1 months. Also while holding the worth of firm constant, the time mutual firm to adopt an innovation is on average  6.98 months shorter than the time taken to adopt an innovation is on average 6.89 months shorter than the time taken by the stocks firms.
+
+> <font size="4"> Test for the significance fit </font>
+
+The hypothesis to be tested is
+
+$H_o$: regression is not significant 
+
+$H_1$: regression is significant
+
+```{r}
+sum_model=summary(model)
+sum_model$fstatistic
+```
+
+From the summary the f statistic is 46.85. From the f-distribution table the critical value is $4.26$. The f-statistic is greater than the critical value. ,Therefore we reject $H_0$ and conclude that the regression fit is indeed significant.
+
+
+> <font size="4">  Are the predictors individually associated with the response. </font>
+
+The hypothesis to be tested 
+
+$$H_0:\beta_j=0$$
+
+$$H_1:\beta_j \neq0$$
+where $j=1,2...n$
+
+
+```{r echo=TRUE}
+sum_model$coefficients
+```
+
+**worth**- The p-value is less that 0.05, therefore we reject $H_0$ and conclude that the worth of a firm is individually associated with the the speed with which a particular insurance innovation is adopted.
+
+**Type of firm** - The p-value is less than 0.05, therefore we reject $H_0$ and conclude that the type of firm is individually associated with the speed with which a particular insurance innovation is adopted.
+
+> <font size="4"> Estimate the time that lapses before a mutual firm worth $173 million adopts on insurance innovation.</font>
+
+```{r echo=TRUE}
+predict(model,newdata = data.frame(worth=173,Type=1))
+```
+
+we get $16.73 \sim 17$months
+
+

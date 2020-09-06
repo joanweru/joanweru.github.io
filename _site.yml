@@ -14,7 +14,7 @@ navbar:
         - text: "Happiness report,2020"
           href: happiness20.html
         - text: "Linear modelling"
-          href: linear-modelling.html
+          href: linearmodelling.html
 
   right:
     - text: "CV"
