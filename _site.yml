@@ -28,5 +28,5 @@ navbar:
       href: https://github.com/joanweru      # CHANGE HERE 
 output:
   rmarkdown::html_document:
-    theme: flatly
+    theme: journal
     highlight: zenburn
