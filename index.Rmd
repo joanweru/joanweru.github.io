@@ -10,7 +10,7 @@ Take a tour around my website to see projects I've done :)
  * Data analysis
  * Data wrangling and manipulation
  * Data visualization
- * Writing reports from a statistical findings 
+ * Writing reports from statistical findings 
  
 ## Skills
 
@@ -38,7 +38,7 @@ Bonanza School
 
 ## Certificates
 
-<i class="fa fa-award"></i><font size="3"> **R statistical Data Analysis Training, 2020**
+<i class="fa fa-award"></i><font size="3"> **R Statistical Data Analysis Training, 2020**
 
 University of Nairobi
 

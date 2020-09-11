@@ -60,7 +60,7 @@ model<-lm(final~midterm,data=midterm)
 model$coefficients
 ```
 
-Therefore $\widehat{final}=31.6095+0.5816midterm$ is the best fit that would predict a students final exam based on his/her midterm exam score
+Therefore $\widehat{y}=31.6095+0.5816X$ is the best fit that would predict a students final exam based on his/her midterm exam score
 
 > <font size="4"> Interpret the regression parameters </font>
 
@@ -176,7 +176,7 @@ model<-lm(GPA~Verbal+math+age,data = gpa)
 model$coefficients
 ```
 
-$$GPA=-2.7047+0.02195verbal+0.0386math+0.0467age$$
+$$y=-2.7047+0.02195x_1+0.0386x_2+0.0467 x_3$$
 
 
 > <font size="4"> Is there a linear relationship between GPA and the examination scores and age? State the hypothesis and test statistic. </font> 
@@ -319,7 +319,7 @@ model<-lm(speed~worth+Type,data = insurance)
 model$coefficients
 ```
 
-The fit of the model is thus $speed\ of\ adoption =40.823-0.0994worth\ of\ firm-6.892 type\ of\ firm$
+The fit of the model is thus $\widehat{y}=40.823-0.0994x_1-6.892x_2$
 
 > <font size="4">  Interpret the regression coefficients </font>
 
