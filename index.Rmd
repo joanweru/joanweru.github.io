@@ -1,25 +1,27 @@
 ---
 title: "My homepage"
 ---
-An undergraduate statistic student well versed in data analysis and data visualization. Seeking to use data analysis skills to unearth insights that could help organizations in decision-making and boosting business performance. Also passionate about using statistical research to shine light on social issues. 
+An undergraduate statistic student well versed in statistical and computational methods. Seeking to use data analysis and machine learning methods to unearth insights that could help organizations in decision-making and boosting business performance. Also passionate about using statistical research to shine light on social issues. 
 
 Take a tour around my website to see projects I've done :)
 
 ## Interests
 
  * Data analysis
- * Data wrangling and manipulation
  * Data visualization
- * Writing reports from statistical findings 
+ * Machine learning
+ * Blogging
  
 ## Skills
 
-* Skilled in R and latex
-* Inferential statistics
+* R
+* Latex
+* Data wrangling and manipulation
 * Linear regression modelling
 * Time series analysis
 * Hypothesis testing
-* Report writing in rmarkdown
+* Inferential statistics
+* Report writing in Rmarkdown
 * Building websites using R
  
 ## Education
