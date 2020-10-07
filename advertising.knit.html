@@ -25,8 +25,6 @@
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -617,20 +615,20 @@ lm(formula = Sales ~ TV + Radio + Newspaper, data = TrainingSet)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--7.0024 -0.8580 -0.0001  0.8002  3.8806 
+-6.9682 -0.7503  0.1475  0.8667  3.9871 
 
 Coefficients:
             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) 4.217564   0.373298   11.30   &lt;2e-16 ***
-TV          0.056473   0.001739   32.47   &lt;2e-16 ***
-Radio       0.108341   0.010291   10.53   &lt;2e-16 ***
-Newspaper   0.006327   0.007273    0.87    0.386    
+(Intercept) 4.203964   0.380061   11.06   &lt;2e-16 ***
+TV          0.055755   0.001707   32.66   &lt;2e-16 ***
+Radio       0.108549   0.010273   10.57   &lt;2e-16 ***
+Newspaper   0.003066   0.007136    0.43    0.668    
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 
-Residual standard error: 1.66 on 129 degrees of freedom
-Multiple R-squared:  0.907, Adjusted R-squared:  0.9048 
-F-statistic: 419.4 on 3 and 129 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 1.665 on 129 degrees of freedom
+Multiple R-squared:  0.9094,    Adjusted R-squared:  0.9073 
+F-statistic: 431.8 on 3 and 129 DF,  p-value: &lt; 2.2e-16</code></pre>
 <ul>
 <li><p>The <strong>residuals</strong> sections provides summary statistics for the errors in our prediction. Here, we see that 50% of our errors fall between $ 1,303 over the true value and $ 1,172 under the true value.</p></li>
 <li><p>The <strong>adjusted r-squared</strong> value measures how much of the variation in the response variable is explained by the set of predictors. In this case 89.3% of the variation of in <code>Sales</code> is explained by the set of predictors. But this does not necessarily mean that the model will predict new data accurately.</p></li>
@@ -640,7 +638,7 @@ F-statistic: 419.4 on 3 and 129 DF,  p-value: &lt; 2.2e-16</code></pre>
 <span id="cb12-2"><a href="#cb12-2"></a>accuracy1=<span class="kw">data.frame</span>(<span class="kw">cbind</span>(<span class="dt">actual=</span>TestSet<span class="op">$</span>Sales,<span class="dt">predicted=</span>pred.model1))</span>
 <span id="cb12-3"><a href="#cb12-3"></a>cor1=<span class="kw">cor</span>(accuracy1)</span>
 <span id="cb12-4"><a href="#cb12-4"></a>cor1[<span class="dv">1</span>,<span class="dv">2</span>]</span></code></pre></div>
-<pre><code>[1] 0.9494533</code></pre>
+<pre><code>[1] 0.9442255</code></pre>
 <p>Our model predicted our test data with an accuracy of 94% .It seems our model is good for predicting but it wouldn’t hurt to improve our prediction accuracy.</p>
 </div>
 <div id="improving-model-performance" class="section level1" number="5">
@@ -653,23 +651,23 @@ lm(formula = Sales ~ (TV + Radio + Newspaper)^2, data = TrainingSet)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--5.5674 -0.8807 -0.1978  0.9534  3.4923 
+-5.6270 -0.7573  0.0527  0.9079  3.5418 
 
 Coefficients:
                   Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)      5.583e+00  6.409e-01   8.711 1.44e-14 ***
-TV               4.772e-02  3.281e-03  14.543  &lt; 2e-16 ***
-Radio            3.416e-02  2.171e-02   1.573    0.118    
-Newspaper        1.500e-02  2.241e-02   0.669    0.505    
-TV:Radio         4.704e-04  1.164e-04   4.042 9.17e-05 ***
-TV:Newspaper    -8.511e-05  8.310e-05  -1.024    0.308    
-Radio:Newspaper  1.607e-04  4.881e-04   0.329    0.742    
+(Intercept)      5.653e+00  7.336e-01   7.706 3.35e-12 ***
+TV               4.654e-02  3.503e-03  13.286  &lt; 2e-16 ***
+Radio            3.571e-02  2.424e-02   1.473 0.143240    
+Newspaper        9.930e-03  2.224e-02   0.446 0.656045    
+TV:Radio         4.671e-04  1.167e-04   4.004 0.000106 ***
+TV:Newspaper    -7.027e-05  7.493e-05  -0.938 0.350148    
+Radio:Newspaper  8.149e-05  5.480e-04   0.149 0.882026    
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 
-Residual standard error: 1.566 on 126 degrees of freedom
-Multiple R-squared:  0.9192,    Adjusted R-squared:  0.9153 
-F-statistic: 238.9 on 6 and 126 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 1.582 on 126 degrees of freedom
+Multiple R-squared:  0.9201,    Adjusted R-squared:  0.9163 
+F-statistic: 241.9 on 6 and 126 DF,  p-value: &lt; 2.2e-16</code></pre>
 <ul>
 <li><p>As expected there are some interaction effects. Here, between <code>TV</code> and <code>Radio</code>.</p></li>
 <li><p>Also, we see that 50% of our <strong>residuals</strong> fall between $ 1,0301 over the true value and $ 3,526 under the true value. This is an improvement from our previous model.</p></li>
@@ -681,14 +679,14 @@ F-statistic: 238.9 on 6 and 126 DF,  p-value: &lt; 2.2e-16</code></pre>
 <span id="cb16-3"><a href="#cb16-3"></a>cor2=<span class="kw">cor</span>(accuracy2)</span>
 <span id="cb16-4"><a href="#cb16-4"></a>cor2</span></code></pre></div>
 <pre><code>             actual predicted
-actual    1.0000000 0.9552413
-predicted 0.9552413 1.0000000</code></pre>
+actual    1.0000000 0.9518745
+predicted 0.9518745 1.0000000</code></pre>
 <p>In our improved model, the model accuracy is 95%, not quite a big improvement from our previous model, but an improvement nonetheless.</p>
 </div>
 <div id="summary-of-our-two-models-the-original-and-improved" class="section level1" number="6">
 <h1 number="6"><span class="header-section-number">6</span> Summary of our two models: The original and improved</h1>
 <p>We compare the two models</p>
-<p><span class="math display">\[Original\ model: Sales \approx \beta_0+\beta_1\cdot TV + \beta_2 \cdot Radio + \beta_3 \cdot Newspaper\]</span> <span class="math display">\[Improved\ model: Sales \approx \beta_0+\beta_1 \cdot TV+\beta_2 \cdot Radio+ \beta_3 \cdot Newspaper+\\ \beta_4\cdot (TV \cdot Radio)+ \beta_5 \cdot(TV \cdot Newspaper)+ \beta_6 \cdot (Radio \cdot Nespaper)\]</span></p>
+<p><span class="math display">\[Original\ model: Sales \approx \beta_0+\beta_1\cdot TV + \beta_2 \cdot Radio + \beta_3 \cdot Newspaper\]</span> <span class="math display">\[Improved\ model: Sales \approx \beta_0+\beta_1 \cdot TV+\beta_2 \cdot Radio+ \beta_3 \cdot Newspaper+ \beta_4\cdot (TV \cdot Radio)+ \beta_5 \cdot(TV \cdot Newspaper)+ \beta_6 \cdot (Radio \cdot Nespaper)\]</span></p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>RSE&lt;-<span class="kw">c</span>(<span class="kw">summary</span>(model1)<span class="op">$</span>sigma,<span class="kw">summary</span>(model2)<span class="op">$</span>sigma)</span>
 <span id="cb18-2"><a href="#cb18-2"></a>Rsquared&lt;-<span class="kw">c</span>(<span class="kw">summary</span>(model1)<span class="op">$</span>r.squared,<span class="kw">summary</span>(model2)<span class="op">$</span>r.squared)</span>
 <span id="cb18-3"><a href="#cb18-3"></a>prediction.accuracy&lt;-<span class="kw">c</span>(cor1[<span class="dv">1</span>,<span class="dv">2</span>],cor2[<span class="dv">1</span>,<span class="dv">2</span>])</span>
@@ -706,18 +704,18 @@ predicted 0.9552413 1.0000000</code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">RSE</td>
-<td align="right">1.6600305</td>
-<td align="right">1.5658416</td>
+<td align="right">1.6645668</td>
+<td align="right">1.5818489</td>
 </tr>
 <tr class="even">
 <td align="left">Rsquared</td>
-<td align="right">0.9070107</td>
-<td align="right">0.9191877</td>
+<td align="right">0.9094356</td>
+<td align="right">0.9201148</td>
 </tr>
 <tr class="odd">
 <td align="left">prediction.accuracy</td>
-<td align="right">0.9494533</td>
-<td align="right">0.9552413</td>
+<td align="right">0.9442255</td>
+<td align="right">0.9518745</td>
 </tr>
 </tbody>
 </table>
