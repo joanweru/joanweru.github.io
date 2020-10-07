@@ -130,7 +130,7 @@ summary(model2)
 
 * As expected there are some interaction effects. Here, between `TV` and `Radio`.
 
-* Also, we see that 50% of our **Residuals standard error** is \$1,566 This is an improvement from our previous model.
+* Also, we see that the **Residuals standard error** is \$1,566 This is an improvement from our previous model.
 
 * The **adjusted r-squared**  is 0.9192  Therefore in this case 92% of the variation in `Sales` is explained by the set of predictors. This is also an improvement from our previous model.
 

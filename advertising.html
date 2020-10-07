@@ -632,8 +632,8 @@ Residual standard error: 1.66 on 129 degrees of freedom
 Multiple R-squared:  0.907, Adjusted R-squared:  0.9048 
 F-statistic: 419.4 on 3 and 129 DF,  p-value: &lt; 2.2e-16</code></pre>
 <ul>
-<li><p>The <strong>residuals</strong> sections provides summary statistics for the errors in our prediction. Here, we see that 50% of our errors fall between $ 1,303 over the true value and $ 1,172 under the true value.</p></li>
-<li><p>The <strong>adjusted r-squared</strong> value measures how much of the variation in the response variable is explained by the set of predictors. In this case 89.3% of the variation of in <code>Sales</code> is explained by the set of predictors. But this does not necessarily mean that the model will predict new data accurately.</p></li>
+<li><p>Here, the <strong>Residual standard error</strong> are $1,660.</p></li>
+<li><p>The <strong>adjusted r-squared</strong> value measures how much of the variation in the response variable is explained by the set of predictors. In this case 90.7% of the variation of in <code>Sales</code> is explained by the set of predictors. But this does not necessarily mean that the model will predict new data accurately.</p></li>
 </ul>
 <p>Let’s tale a look at the <strong>model accuracy</strong>.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>pred.model1=<span class="kw">predict</span>(model1,<span class="dt">newdata =</span> TestSet)</span>
@@ -641,7 +641,7 @@ F-statistic: 419.4 on 3 and 129 DF,  p-value: &lt; 2.2e-16</code></pre>
 <span id="cb12-3"><a href="#cb12-3"></a>cor1=<span class="kw">cor</span>(accuracy1)</span>
 <span id="cb12-4"><a href="#cb12-4"></a>cor1[<span class="dv">1</span>,<span class="dv">2</span>]</span></code></pre></div>
 <pre><code>[1] 0.9494533</code></pre>
-<p>Our model predicted our test data with an accuracy of 94% .It seems our model is good for predicting but it wouldn’t hurt to improve our prediction accuracy.</p>
+<p>Our model predicted our test data with an accuracy of 94.95% .It seems our model is good for predicting but it wouldn’t hurt to improve our prediction accuracy.</p>
 </div>
 <div id="improving-model-performance" class="section level1" number="5">
 <h1 number="5"><span class="header-section-number">5</span> Improving model performance</h1>
@@ -672,7 +672,7 @@ Multiple R-squared:  0.9192,    Adjusted R-squared:  0.9153
 F-statistic: 238.9 on 6 and 126 DF,  p-value: &lt; 2.2e-16</code></pre>
 <ul>
 <li><p>As expected there are some interaction effects. Here, between <code>TV</code> and <code>Radio</code>.</p></li>
-<li><p>Also, we see that 50% of our <strong>residuals</strong> fall between $ 1,0301 over the true value and $ 3,526 under the true value. This is an improvement from our previous model.</p></li>
+<li><p>Also, we see that 50% of our <strong>Residuals standard error</strong> is $1,566 This is an improvement from our previous model.</p></li>
 <li><p>The <strong>adjusted r-squared</strong> is 0.9192 Therefore in this case 92% of the variation in <code>Sales</code> is explained by the set of predictors. This is also an improvement from our previous model.</p></li>
 </ul>
 <p>Let’s tale a look at the <strong>model accuracy</strong>.</p>
@@ -683,7 +683,7 @@ F-statistic: 238.9 on 6 and 126 DF,  p-value: &lt; 2.2e-16</code></pre>
 <pre><code>             actual predicted
 actual    1.0000000 0.9552413
 predicted 0.9552413 1.0000000</code></pre>
-<p>In our improved model, the model accuracy is 95%, not quite a big improvement from our previous model, but an improvement nonetheless.</p>
+<p>In our improved model, the model accuracy is 95.52%, not quite a big improvement from our previous model, but an improvement nonetheless.</p>
 </div>
 <div id="summary-of-our-two-models-the-original-and-improved" class="section level1" number="6">
 <h1 number="6"><span class="header-section-number">6</span> Summary of our two models: The original and improved</h1>
