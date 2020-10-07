@@ -11,7 +11,7 @@ output:
 
 # About the data
 
-This data set contains statistics about the sales of a product in 200 different markets together with advertising budgets in each of these markets for different media channels: TV,Radio,Newspaper .The sales are in thousands of units and the budget is in thousands of dollars. 
+This data set contains statistics about the sales of a product in 200 different markets together with advertising budgets in each of these markets for different media channels: TV, Radio, Newspaper. The sales are in thousands of units and the budget is in thousands of dollars. 
 
 ## Problem Statement
 
@@ -75,7 +75,7 @@ boxplot(TrainingSet$Newspaper,main="Newspaper",sub=paste('Outlier: ',boxplot.sta
 
 ```
 
-From the plots above it seems only `Newspaper` has outliers. Lets view a scatter plot if the outlier has any effect on it's relationship with `Sales`.
+From the plots above it seems only `Newspaper` has outliers. Lets' view a scatter plot to see if the outlier has any effect on it's relationship with `Sales`.
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE,fig.align='center'}
 ggplot(advertising,aes(x=Newspaper,y=Sales))+geom_point()+geom_smooth(method = 'lm')+labs(title="Sales~Newspaper")+theme_minimal()
@@ -90,7 +90,7 @@ cor.matrix<-cor(advertising)
 corrplot.mixed(cor.matrix)
 ```
 
-There seems to be a significant correlation between `Sales` and `TV` as well as `Sales` and `Radio`, but not so much with `Sales` and `Newspaper`. We could decide to drop it we'll  check to see if there are any **interaction effects** between `Newspaper` and any other predictor variable.
+There seems to be a significant correlation between `Sales` and `TV` as well as `Sales` and `Radio`, but not so much with `Sales` and `Newspaper`. We could decide to drop it but we'll  check to see if there are any **interaction effects** between `Newspaper` and any other predictor variable.
 
 **NB** *The* **main effect** *is the effect of  one of the predictor variables on the response variable. An* **interaction effect** *on the other hand occurs if there is an interaction between the predictor variables that affect the outcome of the response variables*.
 
@@ -106,11 +106,11 @@ model1<-lm(Sales~TV+Radio+Newspaper,data=TrainingSet)
 summary(model1)
 ```
 
-*  Here, the **Residual standard error** are \$1,660.
+*  Here, the **Residual standard error** is 1.66.
 
-* The **adjusted r-squared** value measures how much of the variation in the response variable is explained  by the set of predictors. In this case 90.7% of the variation of in `Sales` is explained by the set of predictors. But this does not necessarily mean that the model will predict new data accurately.
+* The **adjusted r-squared** value measures how much of the variation in the response variable is explained  by the set of predictors. In this case 90.7% of the variation in `Sales` is explained by the set of predictors. But this does not necessarily mean that the model will predict new data accurately.
 
-Let's tale a look at the **model accuracy**.
+Let's take a look at the **model accuracy**.
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 pred.model1=predict(model1,newdata = TestSet)
@@ -121,7 +121,7 @@ cor1[1,2]
 
 Our model predicted our test data with an accuracy of 94.95% .It seems our model is good for predicting but it wouldn't hurt to improve our prediction accuracy.
 
-# Improving model performance 
+# Improving model performance: accounting for interaction effects 
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 model2<-lm(Sales~(TV+Radio+Newspaper)^2,data=TrainingSet)
@@ -130,17 +130,17 @@ summary(model2)
 
 * As expected there are some interaction effects. Here, between `TV` and `Radio`.
 
-* Also, we see that the **Residuals standard error** is \$1,566 This is an improvement from our previous model.
+* Also, we see that the **Residuals standard error** is 1.566. This is an improvement from our previous model.
 
 * The **adjusted r-squared**  is 0.9192  Therefore in this case 92% of the variation in `Sales` is explained by the set of predictors. This is also an improvement from our previous model.
 
-Let's tale a look at the **model accuracy**.
+Let's take a look at the **model accuracy**.
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 pred.model2=predict(model2,newdata = TestSet)
 accuracy2=data.frame(cbind(actual=TestSet$Sales,predicted=pred.model2))
 cor2=cor(accuracy2)
-cor2
+cor2[1,2]
 ```
 
 In our improved model, the model accuracy is 95.52%, not quite a big improvement from our previous model, but an improvement nonetheless.

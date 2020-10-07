@@ -500,7 +500,7 @@ div.tocify {
 
 <div id="about-the-data" class="section level1" number="1">
 <h1 number="1"><span class="header-section-number">1</span> About the data</h1>
-<p>This data set contains statistics about the sales of a product in 200 different markets together with advertising budgets in each of these markets for different media channels: TV,Radio,Newspaper .The sales are in thousands of units and the budget is in thousands of dollars.</p>
+<p>This data set contains statistics about the sales of a product in 200 different markets together with advertising budgets in each of these markets for different media channels: TV, Radio, Newspaper. The sales are in thousands of units and the budget is in thousands of dollars.</p>
 <div id="problem-statement" class="section level2" number="1.1">
 <h2 number="1.1"><span class="header-section-number">1.1</span> Problem Statement</h2>
 <p>In this report we want to build a model that will predict sales as accurately as possible.</p>
@@ -589,7 +589,7 @@ div.tocify {
 <span id="cb6-6"><a href="#cb6-6"></a></span>
 <span id="cb6-7"><a href="#cb6-7"></a><span class="kw">boxplot</span>(TrainingSet<span class="op">$</span>Newspaper,<span class="dt">main=</span><span class="st">&quot;Newspaper&quot;</span>,<span class="dt">sub=</span><span class="kw">paste</span>(<span class="st">&#39;Outlier: &#39;</span>,<span class="kw">boxplot.stats</span>(TrainingSet<span class="op">$</span>Newspaper)<span class="op">$</span>out))</span></code></pre></div>
 <p><img src="advertising_files/figure-html/unnamed-chunk-7-1.png" width="50%" /><img src="advertising_files/figure-html/unnamed-chunk-7-2.png" width="50%" /><img src="advertising_files/figure-html/unnamed-chunk-7-3.png" width="50%" /><img src="advertising_files/figure-html/unnamed-chunk-7-4.png" width="50%" /></p>
-<p>From the plots above it seems only <code>Newspaper</code> has outliers. Lets view a scatter plot if the outlier has any effect on it’s relationship with <code>Sales</code>.</p>
+<p>From the plots above it seems only <code>Newspaper</code> has outliers. Lets’ view a scatter plot to see if the outlier has any effect on it’s relationship with <code>Sales</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">ggplot</span>(advertising,<span class="kw">aes</span>(<span class="dt">x=</span>Newspaper,<span class="dt">y=</span>Sales))<span class="op">+</span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&#39;lm&#39;</span>)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Sales~Newspaper&quot;</span>)<span class="op">+</span><span class="kw">theme_minimal</span>()</span></code></pre></div>
 <p><img src="advertising_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>The outlier seems to have no significance so we move on.</p>
@@ -599,7 +599,7 @@ div.tocify {
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>cor.matrix&lt;-<span class="kw">cor</span>(advertising)</span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="kw">corrplot.mixed</span>(cor.matrix)</span></code></pre></div>
 <p><img src="advertising_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>There seems to be a significant correlation between <code>Sales</code> and <code>TV</code> as well as <code>Sales</code> and <code>Radio</code>, but not so much with <code>Sales</code> and <code>Newspaper</code>. We could decide to drop it we’ll check to see if there are any <strong>interaction effects</strong> between <code>Newspaper</code> and any other predictor variable.</p>
+<p>There seems to be a significant correlation between <code>Sales</code> and <code>TV</code> as well as <code>Sales</code> and <code>Radio</code>, but not so much with <code>Sales</code> and <code>Newspaper</code>. We could decide to drop it but we’ll check to see if there are any <strong>interaction effects</strong> between <code>Newspaper</code> and any other predictor variable.</p>
 <p><strong>NB</strong> <em>The</em> <strong>main effect</strong> <em>is the effect of one of the predictor variables on the response variable. An</em> <strong>interaction effect</strong> <em>on the other hand occurs if there is an interaction between the predictor variables that affect the outcome of the response variables</em>.</p>
 </div>
 </div>
@@ -632,10 +632,10 @@ Residual standard error: 1.66 on 129 degrees of freedom
 Multiple R-squared:  0.907, Adjusted R-squared:  0.9048 
 F-statistic: 419.4 on 3 and 129 DF,  p-value: &lt; 2.2e-16</code></pre>
 <ul>
-<li><p>Here, the <strong>Residual standard error</strong> are $1,660.</p></li>
-<li><p>The <strong>adjusted r-squared</strong> value measures how much of the variation in the response variable is explained by the set of predictors. In this case 90.7% of the variation of in <code>Sales</code> is explained by the set of predictors. But this does not necessarily mean that the model will predict new data accurately.</p></li>
+<li><p>Here, the <strong>Residual standard error</strong> is 1.66.</p></li>
+<li><p>The <strong>adjusted r-squared</strong> value measures how much of the variation in the response variable is explained by the set of predictors. In this case 90.7% of the variation in <code>Sales</code> is explained by the set of predictors. But this does not necessarily mean that the model will predict new data accurately.</p></li>
 </ul>
-<p>Let’s tale a look at the <strong>model accuracy</strong>.</p>
+<p>Let’s take a look at the <strong>model accuracy</strong>.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>pred.model1=<span class="kw">predict</span>(model1,<span class="dt">newdata =</span> TestSet)</span>
 <span id="cb12-2"><a href="#cb12-2"></a>accuracy1=<span class="kw">data.frame</span>(<span class="kw">cbind</span>(<span class="dt">actual=</span>TestSet<span class="op">$</span>Sales,<span class="dt">predicted=</span>pred.model1))</span>
 <span id="cb12-3"><a href="#cb12-3"></a>cor1=<span class="kw">cor</span>(accuracy1)</span>
@@ -643,8 +643,8 @@ F-statistic: 419.4 on 3 and 129 DF,  p-value: &lt; 2.2e-16</code></pre>
 <pre><code>[1] 0.9494533</code></pre>
 <p>Our model predicted our test data with an accuracy of 94.95% .It seems our model is good for predicting but it wouldn’t hurt to improve our prediction accuracy.</p>
 </div>
-<div id="improving-model-performance" class="section level1" number="5">
-<h1 number="5"><span class="header-section-number">5</span> Improving model performance</h1>
+<div id="improving-model-performance-accounting-for-interaction-effects" class="section level1" number="5">
+<h1 number="5"><span class="header-section-number">5</span> Improving model performance: accounting for interaction effects</h1>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>model2&lt;-<span class="kw">lm</span>(Sales<span class="op">~</span>(TV<span class="op">+</span>Radio<span class="op">+</span>Newspaper)<span class="op">^</span><span class="dv">2</span>,<span class="dt">data=</span>TrainingSet)</span>
 <span id="cb14-2"><a href="#cb14-2"></a><span class="kw">summary</span>(model2)</span></code></pre></div>
 <pre><code>
@@ -672,17 +672,15 @@ Multiple R-squared:  0.9192,    Adjusted R-squared:  0.9153
 F-statistic: 238.9 on 6 and 126 DF,  p-value: &lt; 2.2e-16</code></pre>
 <ul>
 <li><p>As expected there are some interaction effects. Here, between <code>TV</code> and <code>Radio</code>.</p></li>
-<li><p>Also, we see that the <strong>Residuals standard error</strong> is $1,566 This is an improvement from our previous model.</p></li>
+<li><p>Also, we see that the <strong>Residuals standard error</strong> is 1.566. This is an improvement from our previous model.</p></li>
 <li><p>The <strong>adjusted r-squared</strong> is 0.9192 Therefore in this case 92% of the variation in <code>Sales</code> is explained by the set of predictors. This is also an improvement from our previous model.</p></li>
 </ul>
-<p>Let’s tale a look at the <strong>model accuracy</strong>.</p>
+<p>Let’s take a look at the <strong>model accuracy</strong>.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>pred.model2=<span class="kw">predict</span>(model2,<span class="dt">newdata =</span> TestSet)</span>
 <span id="cb16-2"><a href="#cb16-2"></a>accuracy2=<span class="kw">data.frame</span>(<span class="kw">cbind</span>(<span class="dt">actual=</span>TestSet<span class="op">$</span>Sales,<span class="dt">predicted=</span>pred.model2))</span>
 <span id="cb16-3"><a href="#cb16-3"></a>cor2=<span class="kw">cor</span>(accuracy2)</span>
-<span id="cb16-4"><a href="#cb16-4"></a>cor2</span></code></pre></div>
-<pre><code>             actual predicted
-actual    1.0000000 0.9552413
-predicted 0.9552413 1.0000000</code></pre>
+<span id="cb16-4"><a href="#cb16-4"></a>cor2[<span class="dv">1</span>,<span class="dv">2</span>]</span></code></pre></div>
+<pre><code>[1] 0.9552413</code></pre>
 <p>In our improved model, the model accuracy is 95.52%, not quite a big improvement from our previous model, but an improvement nonetheless.</p>
 </div>
 <div id="summary-of-our-two-models-the-original-and-improved" class="section level1" number="6">
