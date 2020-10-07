@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Joan Weru" />
+
+
+<title>Forecasting sales from advertisement</title>
+
+<script src="site_libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  { color: #cccccc; background-color: #303030; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ffcfaf; } /* Alert */
+code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #dca3a3; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #f0dfaf; } /* ControlFlow */
+code span.ch { color: #dca3a3; } /* Char */
+code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code span.co { color: #7f9f7f; } /* Comment */
+code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code span.do { color: #7f9f7f; } /* Documentation */
+code span.dt { color: #dfdfbf; } /* DataType */
+code span.dv { color: #dcdccc; } /* DecVal */
+code span.er { color: #c3bf9f; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #c0bed1; } /* Float */
+code span.fu { color: #efef8f; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+code span.kw { color: #f0dfaf; } /* Keyword */
+code span.op { color: #f0efd0; } /* Operator */
+code span.ot { color: #efef8f; } /* Other */
+code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code span.sc { color: #dca3a3; } /* SpecialChar */
+code span.ss { color: #cc9393; } /* SpecialString */
+code span.st { color: #cc9393; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #cc9393; } /* VerbatimString */
+code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">JOAN WERU</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-bars"></span>
+     
+    Menu
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Projects</li>
+    <li>
+      <a href="happiness20.html">Happiness report,2020</a>
+    </li>
+    <li>
+      <a href="linearmodelling.html">Linear modelling</a>
+    </li>
+    <li class="dropdown-header">Machine learning</li>
+    <li>
+      <a href="advertising.html">Predicting Sales using advertising budgets</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="cv.html">
+    <span class="fa fa-file-pdf-o"></span>
+     
+    CV
+  </a>
+</li>
+<li>
+  <a href="https://github.com/joanweru">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
+<li>
+  <a href="https://rpubs.com/joanweru">
+    <span class="fa fa-bar-chart"></span>
+     
+    Rpubs
+  </a>
+</li>
+<li>
+  <a href="mailto:joanweru77@gmail.com">
+    <span class="fa fa-envelope-o"></span>
+     
+    Contact me
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Forecasting sales from advertisement</h1>
+<h4 class="author">Joan Weru</h4>
+<h4 class="date">9/30/2020</h4>
+
+</div>
+
+
+<div id="importing-and-preparing-the-data" class="section level1" number="1">
+<h1 number="1"><span class="header-section-number">1</span> Importing and preparing the data</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">library</span>(knitr)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="kw">library</span>(caTools)</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="kw">library</span>(corrplot)</span></code></pre></div>
+<div id="about-the-data" class="section level2" number="1.1">
+<h2 number="1.1"><span class="header-section-number">1.1</span> About the data</h2>
+<p>This data set contains statistics about the sales of a product in 200 different markets together with advertising budgets in each of these markets for different media channels: TV,Radio,Newspaper .The sales are in thousands of units and the budget is in thousands of dollars.</p>
+</div>
+<div id="problem-statement" class="section level2" number="1.2">
+<h2 number="1.2"><span class="header-section-number">1.2</span> Problem Statement</h2>
+<p>In this report we want to build a model that will predict sales as accurately as possible.</p>
+</div>
+<div id="importing-the-data" class="section level2" number="1.3">
+<h2 number="1.3"><span class="header-section-number">1.3</span> Importing the data</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>advertising&lt;-<span class="kw">read_csv</span>(<span class="st">&quot;advertising.csv&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">kable</span>(<span class="kw">head</span>(advertising))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">TV</th>
+<th align="right">Radio</th>
+<th align="right">Newspaper</th>
+<th align="right">Sales</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">230.1</td>
+<td align="right">37.8</td>
+<td align="right">69.2</td>
+<td align="right">22.1</td>
+</tr>
+<tr class="even">
+<td align="right">44.5</td>
+<td align="right">39.3</td>
+<td align="right">45.1</td>
+<td align="right">10.4</td>
+</tr>
+<tr class="odd">
+<td align="right">17.2</td>
+<td align="right">45.9</td>
+<td align="right">69.3</td>
+<td align="right">12.0</td>
+</tr>
+<tr class="even">
+<td align="right">151.5</td>
+<td align="right">41.3</td>
+<td align="right">58.5</td>
+<td align="right">16.5</td>
+</tr>
+<tr class="odd">
+<td align="right">180.8</td>
+<td align="right">10.8</td>
+<td align="right">58.4</td>
+<td align="right">17.9</td>
+</tr>
+<tr class="even">
+<td align="right">8.7</td>
+<td align="right">48.9</td>
+<td align="right">75.0</td>
+<td align="right">7.2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="splitting-the-data-set-into-the-training-set-and-test-set" class="section level2" number="1.4">
+<h2 number="1.4"><span class="header-section-number">1.4</span> Splitting the data set into the training set and test set</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>split=<span class="kw">sample.split</span>(advertising<span class="op">$</span>Sales,<span class="dt">SplitRatio =</span> <span class="dv">2</span><span class="op">/</span><span class="dv">3</span>)</span></code></pre></div>
+<div id="training-set" class="section level3" number="1.4.1">
+<h3 number="1.4.1"><span class="header-section-number">1.4.1</span> Training set</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>TrainingSet=<span class="kw">subset</span>(advertising,split<span class="op">==</span><span class="ot">TRUE</span>)</span></code></pre></div>
+</div>
+<div id="test-set" class="section level3" number="1.4.2">
+<h3 number="1.4.2"><span class="header-section-number">1.4.2</span> Test set</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>TestSet=<span class="kw">subset</span>(advertising,split<span class="op">==</span><span class="ot">FALSE</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="exploratory-analysis-on-the-training-data" class="section level2" number="1.5">
+<h2 number="1.5"><span class="header-section-number">1.5</span> Exploratory analysis on the training data</h2>
+<div id="box-plot" class="section level3" number="1.5.1">
+<h3 number="1.5.1"><span class="header-section-number">1.5.1</span> Box plot</h3>
+<p>We’re going to use a box plot to provide indication of the data’s <strong>symmetry</strong> and <strong>skewness</strong> and to detect any <strong>outliers</strong>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">boxplot</span>(TrainingSet<span class="op">$</span>Sales,<span class="dt">main=</span><span class="st">&quot;Sales&quot;</span>,<span class="dt">sub=</span><span class="kw">paste</span>(<span class="kw">boxplot.stats</span>(TrainingSet<span class="op">$</span>Sales)<span class="op">$</span>out))</span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="kw">boxplot</span>(TrainingSet<span class="op">$</span>TV,<span class="dt">main=</span><span class="st">&quot;TV&quot;</span>,<span class="dt">sub=</span><span class="kw">paste</span>(<span class="kw">boxplot.stats</span>(TrainingSet<span class="op">$</span>TV)<span class="op">$</span>out))</span>
+<span id="cb6-4"><a href="#cb6-4"></a></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="kw">boxplot</span>(TrainingSet<span class="op">$</span>Radio,<span class="dt">main=</span><span class="st">&quot;Radio&quot;</span>,<span class="dt">sub=</span><span class="kw">paste</span>( <span class="kw">boxplot.stats</span>(TrainingSet<span class="op">$</span>Radio)<span class="op">$</span>out))</span>
+<span id="cb6-6"><a href="#cb6-6"></a></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="kw">boxplot</span>(TrainingSet<span class="op">$</span>Newspaper,<span class="dt">main=</span><span class="st">&quot;Newspaper&quot;</span>,<span class="dt">sub=</span><span class="kw">paste</span>(<span class="st">&#39;Outlier: &#39;</span>,<span class="kw">boxplot.stats</span>(TrainingSet<span class="op">$</span>Newspaper)<span class="op">$</span>out))</span></code></pre></div>
+<p><img src="advertising_files/figure-html/unnamed-chunk-7-1.png" width="50%" /><img src="advertising_files/figure-html/unnamed-chunk-7-2.png" width="50%" /><img src="advertising_files/figure-html/unnamed-chunk-7-3.png" width="50%" /><img src="advertising_files/figure-html/unnamed-chunk-7-4.png" width="50%" /></p>
+<p>From the plots above it seems only <code>Newspaper</code> has outliers. Lets view a scatter plot if the outlier has any effect on it’s relationship with <code>Sales</code>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">ggplot</span>(advertising,<span class="kw">aes</span>(<span class="dt">x=</span>Newspaper,<span class="dt">y=</span>Sales))<span class="op">+</span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&#39;lm&#39;</span>)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Sales~Newspaper&quot;</span>)<span class="op">+</span><span class="kw">theme_minimal</span>()</span></code></pre></div>
+<p><img src="advertising_files/figure-html/unnamed-chunk-8-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p>The outlier seems to have no significance so we move on.</p>
+</div>
+<div id="correlation-plot" class="section level3" number="1.5.2">
+<h3 number="1.5.2"><span class="header-section-number">1.5.2</span> Correlation plot</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>cor.matrix&lt;-<span class="kw">cor</span>(advertising)</span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="kw">corrplot.mixed</span>(cor.matrix)</span></code></pre></div>
+<p><img src="advertising_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>There seems to be a significant correlation between <code>Sales</code> and <code>TV</code> as well as <code>Sales</code> and <code>Radio</code>, but not so much with <code>Sales</code> and <code>Newspaper</code>. We could decide to drop it we’ll check to see if there are any <strong>interaction effects</strong> between <code>Newspaper</code> and any other predictor variable.</p>
+<p><strong>NB</strong> <em>The</em> <strong>main effect</strong> <em>is the effect of one of the predictor variables on the response variable. An</em> <strong>interaction effect</strong> <em>on the other hand occurs if there is an interaction between the predictor variables that affect the outcome of the response variables</em>.</p>
+</div>
+</div>
+</div>
+<div id="building-the-regression-model" class="section level1" number="2">
+<h1 number="2"><span class="header-section-number">2</span> Building the regression model</h1>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>model1&lt;-<span class="kw">lm</span>(Sales<span class="op">~</span>TV<span class="op">+</span>Radio<span class="op">+</span>Newspaper,<span class="dt">data=</span>TrainingSet)</span></code></pre></div>
+</div>
+<div id="evaluating-model-performance" class="section level1" number="3">
+<h1 number="3"><span class="header-section-number">3</span> Evaluating model performance</h1>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">summary</span>(model1)</span></code></pre></div>
+<pre><code>
+Call:
+lm(formula = Sales ~ TV + Radio + Newspaper, data = TrainingSet)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-7.0024 -0.8580 -0.0001  0.8002  3.8806 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 4.217564   0.373298   11.30   &lt;2e-16 ***
+TV          0.056473   0.001739   32.47   &lt;2e-16 ***
+Radio       0.108341   0.010291   10.53   &lt;2e-16 ***
+Newspaper   0.006327   0.007273    0.87    0.386    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 1.66 on 129 degrees of freedom
+Multiple R-squared:  0.907, Adjusted R-squared:  0.9048 
+F-statistic: 419.4 on 3 and 129 DF,  p-value: &lt; 2.2e-16</code></pre>
+<ul>
+<li><p>The <strong>residuals</strong> sections provides summary statistics for the errors in our prediction. Here, we see that 50% of our errors fall between $ 1,303 over the true value and $ 1,172 under the true value.</p></li>
+<li><p>The <strong>adjusted r-squared</strong> value measures how much of the variation in the response variable is explained by the set of predictors. In this case 89.3% of the variation of in <code>Sales</code> is explained by the set of predictors. But this does not necessarily mean that the model will predict new data accurately.</p></li>
+</ul>
+<p>Let’s tale a look at the <strong>model accuracy</strong>.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>pred.model1=<span class="kw">predict</span>(model1,<span class="dt">newdata =</span> TestSet)</span>
+<span id="cb12-2"><a href="#cb12-2"></a>accuracy1=<span class="kw">data.frame</span>(<span class="kw">cbind</span>(<span class="dt">actual=</span>TestSet<span class="op">$</span>Sales,<span class="dt">predicted=</span>pred.model1))</span>
+<span id="cb12-3"><a href="#cb12-3"></a>cor1=<span class="kw">cor</span>(accuracy1)</span>
+<span id="cb12-4"><a href="#cb12-4"></a>cor1[<span class="dv">1</span>,<span class="dv">2</span>]</span></code></pre></div>
+<pre><code>[1] 0.9494533</code></pre>
+<p>Our model predicted our test data with an accuracy of 94% .It seems our model is good for predicting but it wouldn’t hurt to improve our prediction accuracy.</p>
+</div>
+<div id="improving-model-performance" class="section level1" number="4">
+<h1 number="4"><span class="header-section-number">4</span> Improving model performance</h1>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>model2&lt;-<span class="kw">lm</span>(Sales<span class="op">~</span>(TV<span class="op">+</span>Radio<span class="op">+</span>Newspaper)<span class="op">^</span><span class="dv">2</span>,<span class="dt">data=</span>TrainingSet)</span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="kw">summary</span>(model2)</span></code></pre></div>
+<pre><code>
+Call:
+lm(formula = Sales ~ (TV + Radio + Newspaper)^2, data = TrainingSet)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-5.5674 -0.8807 -0.1978  0.9534  3.4923 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)      5.583e+00  6.409e-01   8.711 1.44e-14 ***
+TV               4.772e-02  3.281e-03  14.543  &lt; 2e-16 ***
+Radio            3.416e-02  2.171e-02   1.573    0.118    
+Newspaper        1.500e-02  2.241e-02   0.669    0.505    
+TV:Radio         4.704e-04  1.164e-04   4.042 9.17e-05 ***
+TV:Newspaper    -8.511e-05  8.310e-05  -1.024    0.308    
+Radio:Newspaper  1.607e-04  4.881e-04   0.329    0.742    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 1.566 on 126 degrees of freedom
+Multiple R-squared:  0.9192,    Adjusted R-squared:  0.9153 
+F-statistic: 238.9 on 6 and 126 DF,  p-value: &lt; 2.2e-16</code></pre>
+<ul>
+<li><p>As expected there are some interaction effects. Here, between <code>TV</code> and <code>Radio</code>.</p></li>
+<li><p>Also, we see that 50% of our <strong>residuals</strong> fall between $ 1,0301 over the true value and $ 3,526 under the true value. This is an improvement from our previous model.</p></li>
+<li><p>The <strong>adjusted r-squared</strong> is 0.9192 Therefore in this case 92% of the variation in <code>Sales</code> is explained by the set of predictors. This is also an improvement from our previous model.</p></li>
+</ul>
+<p>Let’s tale a look at the <strong>model accuracy</strong>.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>pred.model2=<span class="kw">predict</span>(model2,<span class="dt">newdata =</span> TestSet)</span>
+<span id="cb16-2"><a href="#cb16-2"></a>accuracy2=<span class="kw">data.frame</span>(<span class="kw">cbind</span>(<span class="dt">actual=</span>TestSet<span class="op">$</span>Sales,<span class="dt">predicted=</span>pred.model2))</span>
+<span id="cb16-3"><a href="#cb16-3"></a>cor2=<span class="kw">cor</span>(accuracy2)</span>
+<span id="cb16-4"><a href="#cb16-4"></a>cor2</span></code></pre></div>
+<pre><code>             actual predicted
+actual    1.0000000 0.9552413
+predicted 0.9552413 1.0000000</code></pre>
+<p>In our improved model, the model accuracy is 95%, not quite a big improvement from our previous model, but an improvement nonetheless.</p>
+</div>
+<div id="summary-of-our-two-models-the-original-and-improved" class="section level1" number="5">
+<h1 number="5"><span class="header-section-number">5</span> Summary of our two models: The original and improved</h1>
+<p>We compare the two models</p>
+<p><span class="math display">\[Original\ model: Sales \approx \beta_0+\beta_1\cdot TV + \beta_2 \cdot Radio + \beta_3 \cdot Newspaper\]</span> <span class="math display">\[Improved\ model: Sales \approx \beta_0+\beta_1 \cdot TV+\beta_2 \cdot Radio+ \beta_3 \cdot Newspaper+ \beta_4\cdot (TV \cdot Radio)+ \beta_5 \cdot(TV \cdot Newspaper)+ \beta_6 \cdot (Radio \cdot Nespaper)\]</span></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>RSE&lt;-<span class="kw">c</span>(<span class="kw">summary</span>(model1)<span class="op">$</span>sigma,<span class="kw">summary</span>(model2)<span class="op">$</span>sigma)</span>
+<span id="cb18-2"><a href="#cb18-2"></a>Rsquared&lt;-<span class="kw">c</span>(<span class="kw">summary</span>(model1)<span class="op">$</span>r.squared,<span class="kw">summary</span>(model2)<span class="op">$</span>r.squared)</span>
+<span id="cb18-3"><a href="#cb18-3"></a>prediction.accuracy&lt;-<span class="kw">c</span>(cor1[<span class="dv">1</span>,<span class="dv">2</span>],cor2[<span class="dv">1</span>,<span class="dv">2</span>])</span>
+<span id="cb18-4"><a href="#cb18-4"></a>overview&lt;-<span class="kw">data.frame</span>(RSE,Rsquared,prediction.accuracy)</span>
+<span id="cb18-5"><a href="#cb18-5"></a><span class="kw">rownames</span>(overview)&lt;-<span class="kw">c</span>(<span class="st">&quot;Original model&quot;</span>,<span class="st">&quot;Improved model&quot;</span>)</span>
+<span id="cb18-6"><a href="#cb18-6"></a><span class="kw">kable</span>(<span class="kw">t</span>(overview))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Original model</th>
+<th align="right">Improved model</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">RSE</td>
+<td align="right">1.6600305</td>
+<td align="right">1.5658416</td>
+</tr>
+<tr class="even">
+<td align="left">Rsquared</td>
+<td align="right">0.9070107</td>
+<td align="right">0.9191877</td>
+</tr>
+<tr class="odd">
+<td align="left">prediction.accuracy</td>
+<td align="right">0.9494533</td>
+<td align="right">0.9552413</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

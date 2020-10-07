@@ -1,0 +1,173 @@
+---
+title: "Forecasting sales from advertisement"
+author: "Joan Weru"
+date: "9/30/2020"
+output: 
+  html_document:
+   theme: flatly
+   highlight: zenburn
+   toc: true
+   number_sections: true
+   toc_float: true
+---
+
+# Importing and preparing the data
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+library(dplyr)
+library(tidyverse)
+library(knitr)
+library(ggplot2)
+library(caTools)
+library(corrplot)
+
+```
+
+## About the data
+
+This data set contains statistics about the sales of a product in 200 different markets together with advertising budgets in each of these markets for different media channels: TV,Radio,Newspaper .The sales are in thousands of units and the budget is in thousands of dollars. 
+
+## Problem Statement
+
+In this report we want to build a model that will predict sales as accurately as possible.
+
+## Importing the data
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+setwd("~/R- CLASS DATASETS/joanweru.github.io")
+knitr::opts_chunk$set(comment = NA)
+```
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+advertising<-read_csv("advertising.csv")
+kable(head(advertising))
+```
+
+## Splitting the data set into the training set and test set
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+split=sample.split(advertising$Sales,SplitRatio = 2/3)
+```
+
+### Training set
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+TrainingSet=subset(advertising,split==TRUE)
+```
+
+### Test set
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+TestSet=subset(advertising,split==FALSE)
+```
+
+
+## Exploratory analysis on the training data
+
+### Box plot
+
+We're going to use a box plot to provide indication of the data's **symmetry** and **skewness** and to detect any **outliers**.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE,fig.show='hold',out.width='50%'}
+boxplot(TrainingSet$Sales,main="Sales",sub=paste(boxplot.stats(TrainingSet$Sales)$out))
+
+boxplot(TrainingSet$TV,main="TV",sub=paste(boxplot.stats(TrainingSet$TV)$out))
+
+boxplot(TrainingSet$Radio,main="Radio",sub=paste( boxplot.stats(TrainingSet$Radio)$out))
+
+boxplot(TrainingSet$Newspaper,main="Newspaper",sub=paste('Outlier: ',boxplot.stats(TrainingSet$Newspaper)$out))
+
+```
+
+From the plots above it seems only `Newspaper` has outliers. Lets view a scatter plot if the outlier has any effect on it's relationship with `Sales`.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE,fig.align='center',out.width='50%'}
+ggplot(advertising,aes(x=Newspaper,y=Sales))+geom_point()+geom_smooth(method = 'lm')+labs(title="Sales~Newspaper")+theme_minimal()
+```
+
+The outlier seems to have no significance so we move on.
+
+### Correlation plot
+
+```{r echo=TRUE, message=TRUE, warning=FALSE,fig.align='center'}
+cor.matrix<-cor(advertising)
+corrplot.mixed(cor.matrix)
+```
+
+There seems to be a significant correlation between `Sales` and `TV` as well as `Sales` and `Radio`, but not so much with `Sales` and `Newspaper`. We could decide to drop it we'll  check to see if there are any **interaction effects** between `Newspaper` and any other predictor variable.
+
+**NB** *The* **main effect** *is the effect of  one of the predictor variables on the response variable. An* **interaction effect** *on the other hand occurs if there is an interaction between the predictor variables that affect the outcome of the response variables*.
+
+
+# Building the regression model
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+model1<-lm(Sales~TV+Radio+Newspaper,data=TrainingSet)
+```
+
+# Evaluating model performance
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+summary(model1)
+```
+
+* The **residuals** sections provides summary statistics for the errors in our prediction. Here, we see that 50% of our errors fall between   \$ 1,303  over the true value and \$ 1,172 under the true value.
+
+* The **adjusted r-squared** value measures how much of the variation in the response variable is explained  by the set of predictors. In this case 89.3% of the variation of in `Sales` is explained by the set of predictors. But this does not necessarily mean that the model will predict new data accurately.
+
+Let's tale a look at the **model accuracy**.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+pred.model1=predict(model1,newdata = TestSet)
+accuracy1=data.frame(cbind(actual=TestSet$Sales,predicted=pred.model1))
+cor1=cor(accuracy1)
+cor1[1,2]
+```
+
+Our model predicted our test data with an accuracy of 94% .It seems our model is good for predicting but it wouldn't hurt to improve our prediction accuracy.
+
+# Improving model performance 
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+model2<-lm(Sales~(TV+Radio+Newspaper)^2,data=TrainingSet)
+summary(model2)
+```
+
+* As expected there are some interaction effects. Here, between `TV` and `Radio`.
+
+* Also, we see that 50% of our **residuals** fall between \$ 1,0301 over the true value and \$ 3,526 under the true value. This is an improvement from our previous model.
+
+* The **adjusted r-squared**  is 0.9192  Therefore in this case 92% of the variation in `Sales` is explained by the set of predictors. This is also an improvement from our previous model.
+
+Let's tale a look at the **model accuracy**.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+pred.model2=predict(model2,newdata = TestSet)
+accuracy2=data.frame(cbind(actual=TestSet$Sales,predicted=pred.model2))
+cor2=cor(accuracy2)
+cor2
+```
+
+In our improved model, the model accuracy is 95%, not quite a big improvement from our previous model, but an improvement nonetheless.
+
+# Summary of our two models: The original and improved
+
+We compare the two models
+
+$$Original\ model: Sales \approx \beta_0+\beta_1\cdot TV + \beta_2 \cdot Radio + \beta_3 \cdot Newspaper$$
+$$Improved\ model: Sales \approx \beta_0+\beta_1 \cdot TV+\beta_2 \cdot Radio+ \beta_3 \cdot Newspaper+ \beta_4\cdot (TV \cdot Radio)+ \beta_5 \cdot(TV \cdot Newspaper)+ \beta_6 \cdot (Radio \cdot Nespaper)$$
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+RSE<-c(summary(model1)$sigma,summary(model2)$sigma)
+Rsquared<-c(summary(model1)$r.squared,summary(model2)$r.squared)
+prediction.accuracy<-c(cor1[1,2],cor2[1,2])
+overview<-data.frame(RSE,Rsquared,prediction.accuracy)
+rownames(overview)<-c("Original model","Improved model")
+kable(t(overview))
+```
+
+
+
+
+
+

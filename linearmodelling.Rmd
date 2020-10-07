@@ -2,11 +2,10 @@
 title: "Linear modelling"
 ---
 
-**Regression analysis**- a statistical technique for evaluating the relationship between two or more variables. The relationship if it exists is explained using a mathematical function known as the **regression model**.
+Linear regression is one of the most common type of **machine learning methods**[cite]
+Linear regression is a supervisd learneng algorithim used to predict a continous dependent variable (Y) based on the value of one or more independent variables (X) which can be continous or discrete. It attempts to model the relationship between the variables by fitting a linear equation to the observed data.
 
-A **linear regression ** attempts to model the relationship between two variables by fitting a linear equation to the observed data.
-
-Linear regression model usually takes the form:
+A linear regression model usually takes the form:
 \emph{data=pattern+residual}
 
 * data = response variable
@@ -35,12 +34,14 @@ library(knitr)
 library(ggplot2)
 library(ggpubr)
 library(ggthemes)
+library(caTools)
 ```
 
 ```{r include=FALSE}
 setwd("~/R- CLASS DATASETS/joanweru.github.io")
 knitr::opts_chunk$set(comment = NA)
 ```
+
 
 <font size="5"> The following are the scores that 12 students obtained on the midterm and final examination in  a course in statistics.  </font>
 
@@ -52,7 +53,7 @@ midterm<-read_csv("midterm.csv")
 kable(midterm)
 ```
 
-> <font size="4"> Find the best fit model that would predict a student's final exam score based on his/her midterm exam score. </font>
+> <font size="4"> Fit a linear regression to the data. </font>
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 attach(midterm)
@@ -92,7 +93,7 @@ sum_model$r.squared*100
 
 From the summary 61.28% of the variation in the final exam score is accounted for by the midterm exam score. 
 
-> <font size="4"> What is the correlation between midterm exam scores and final exam scores. </font>
+> <font size="4"> What is the correlation between midterm exam scores and final exam scores. > <font size="4"> 
 
 ```{r}
 cor(final,midterm)
@@ -100,8 +101,14 @@ cor(final,midterm)
 
 The correlation is 0.7828. This indicates a strong relationship between midterm scores and final scores.
 
+> <font size="4"> Calculate the prediction accuracy > <font size="4"> 
 
-**NB: Correlation explains the strength of the relationship between an independent and dependent variable. R-squared explains to what extent the variability of one variable explains the variability of the second variable.**
+```{r}
+pred=predict(model,newdata = )
+
+```
+
+**NB: Correlation explains the strength of the relationship between an independent and dependent variable. R-squared explains to what extent the variability of one variable explains the variability of the second variable, therefore showing if the predictor variable is significant in predicting the response variable**
 
 > <font size="4"> Predict the final exam score for a student who scored 84 marks in the midterm exam </font>
 
@@ -134,6 +141,11 @@ NB: When we create **confidence intervals** for **parameters**, but when we're p
 ggplot(midterm,aes(x=midterm,y=final))+geom_point()+geom_smooth(method=lm)+stat_regline_equation(aes(label=paste(..eq.label.., ..rr.label..,sep = "~~~~~~~")),position = "identity",geom = "label")+labs(title="Linear relationship between final exam scores and midterm exam scores")
 ```
 
+
+
+
+  
+  
 
 # Multiple linear regression
 

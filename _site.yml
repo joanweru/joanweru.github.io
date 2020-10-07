@@ -15,6 +15,9 @@ navbar:
           href: happiness20.html
         - text: "Linear modelling"
           href: linearmodelling.html
+        - text: "Machine learning"
+        - text: "Predicting Sales using advertising budgets"
+          href: advertising.html
 
   right:
     - text: "CV"
