@@ -6,7 +6,7 @@ output:
    highlight: zenburn
    toc: true
    number_sections: true
-   toc_float: true
+   
 ---
 
 Linear regression is one of the most common type of **machine learning methods**[cite]

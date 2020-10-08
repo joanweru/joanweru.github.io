@@ -7,15 +7,17 @@ navbar:
     - text: "Home"
       icon: fa-home
       href: index.html
-    - text: "Menu"
+    - text: "Projects"
       icon: fa-bars
       menu:
-        - text: "Projects"
         - text: "Happiness report,2020"
           href: happiness20.html
         - text: "Linear modelling"
           href: linearmodelling.html
-        - text: "Machine learning"
+          
+    - text: "Machine Learning"
+      icon: fa-cogs
+      menu: 
         - text: "Predicting Sales using advertising budgets"
           href: advertising.html
 

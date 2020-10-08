@@ -20,9 +20,6 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
@@ -329,69 +326,6 @@ $(document).ready(function () {
 
 
 
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
 
 </head>
 
@@ -399,16 +333,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -436,19 +360,28 @@ div.tocify {
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fa fa-bars"></span>
      
-    Menu
+    Projects
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Projects</li>
     <li>
       <a href="happiness20.html">Happiness report,2020</a>
     </li>
     <li>
       <a href="linearmodelling.html">Linear modelling</a>
     </li>
-    <li class="dropdown-header">Machine learning</li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-cogs"></span>
+     
+    Machine Learning
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
     <li>
       <a href="advertising.html">Predicting Sales using advertising budgets</a>
     </li>
@@ -497,6 +430,22 @@ div.tocify {
 
 </div>
 
+<div id="TOC">
+<ul>
+<li><a href="#simple-linear-regression"><span class="toc-section-number">1</span> simple linear regression</a>
+<ul>
+<li><a href="#simple-linear-problems"><span class="toc-section-number">1.1</span> Simple linear problems</a></li>
+</ul></li>
+<li><a href="#multiple-linear-regression"><span class="toc-section-number">2</span> Multiple linear regression</a>
+<ul>
+<li><a href="#multiple-linear-problems"><span class="toc-section-number">2.1</span> Multiple linear problems</a></li>
+</ul></li>
+<li><a href="#multiple-linear-regression-with-qualitative-and-quantitative-predictor-variables."><span class="toc-section-number">3</span> Multiple linear regression with qualitative and quantitative predictor variables.</a>
+<ul>
+<li><a href="#multiple-linear-regression-with-one-dummyqualitative-and-one-quantitative-predictor-variable-problems"><span class="toc-section-number">3.1</span> Multiple linear regression with one dummy/qualitative and one quantitative predictor variable problems</a></li>
+</ul></li>
+</ul>
+</div>
 
 <p>Linear regression is one of the most common type of <strong>machine learning methods</strong>[cite] Linear regression is a supervisd learneng algorithim used to predict a continous dependent variable (Y) based on the value of one or more independent variables (X) which can be continous or discrete. It attempts to model the relationship between the variables by fitting a linear equation to the observed data.</p>
 <p>A linear regression model usually takes the form: </p>
@@ -1003,8 +952,6 @@ Type        -6.89163261 1.57840681 -4.366195 1.807076e-03</code></pre>
 
 
 
-</div>
-</div>
 
 </div>
 
@@ -1037,32 +984,6 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
