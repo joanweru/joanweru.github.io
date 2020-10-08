@@ -9,8 +9,8 @@ output:
    
 ---
 
-Linear regression is one of the most common type of **machine learning methods**[cite]
-Linear regression is a supervisd learneng algorithim used to predict a continous dependent variable (Y) based on the value of one or more independent variables (X) which can be continous or discrete. It attempts to model the relationship between the variables by fitting a linear equation to the observed data.
+Linear regression is one of the most common types of **machine learning methods**.
+Linear regression is a supervised learning algorithm used to predict a continuous dependent variable (Y) based on the value of one or more independent variables (X_i) which can be continuous or discrete. It attempts to model the relationship between the variables by fitting a linear equation to the observed data.
 
 A linear regression model usually takes the form:
 \emph{data=pattern+residual}
@@ -144,7 +144,7 @@ NB: When we create **confidence intervals** for **parameters**, but when we're p
 
 > <font size="4"> Summary of the model in a plot </font>
 
-```{r echo=TRUE, message=FALSE, warning=FALSE,out.width="50%"}
+```{r echo=TRUE, message=FALSE, warning=FALSE,fig.align='center'}
 ggplot(midterm,aes(x=midterm,y=final))+geom_point()+geom_smooth(method=lm)+stat_regline_equation(aes(label=paste(..eq.label.., ..rr.label..,sep = "~~~~~~~")),position = "identity",geom = "label")+labs(title="Linear relationship between final exam scores and midterm exam scores")
 ```
 
@@ -265,7 +265,7 @@ predict(model,newdata=data.frame(Verbal=82,math=84,age=17.5))
 
 > <font size="4">  Summary of the model using a plot </font>
 
-```{r echo=TRUE, message=FALSE, warning=FALSE,fig.show='hold',out.width="50%"}
+```{r echo=TRUE, message=FALSE, warning=FALSE,fig.show='hold',out.width="70%"}
 ggplot(gpa,aes(x=Verbal,y=GPA))+geom_point()+geom_smooth(method="lm")+stat_regline_equation(aes(label=paste(..rr.label..)),position = "identity",geom = "label") +labs(title = "Linear relationship between GPA and verbal score")
 
 ggplot(gpa,aes(x=math,y=GPA))+geom_point()+geom_smooth(method ="lm")+stat_regline_equation(aes(label=paste(..rr.label..)),position = "identity",geom = "label")+labs(title = "Linear relationship between GPA and math score")

@@ -447,7 +447,7 @@ $(document).ready(function () {
 </ul>
 </div>
 
-<p>Linear regression is one of the most common type of <strong>machine learning methods</strong>[cite] Linear regression is a supervisd learneng algorithim used to predict a continous dependent variable (Y) based on the value of one or more independent variables (X) which can be continous or discrete. It attempts to model the relationship between the variables by fitting a linear equation to the observed data.</p>
+<p>Linear regression is one of the most common types of <strong>machine learning methods</strong>. Linear regression is a supervised learning algorithm used to predict a continuous dependent variable (Y) based on the value of one or more independent variables (X_i) which can be continuous or discrete. It attempts to model the relationship between the variables by fitting a linear equation to the observed data.</p>
 <p>A linear regression model usually takes the form: </p>
 <ul>
 <li>data = response variable</li>
@@ -612,7 +612,7 @@ $residual.scale
 <p><font size="4"> Summary of the model in a plot </font></p>
 </blockquote>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">ggplot</span>(midterm,<span class="kw">aes</span>(<span class="dt">x=</span>midterm,<span class="dt">y=</span>final))<span class="op">+</span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm)<span class="op">+</span><span class="kw">stat_regline_equation</span>(<span class="kw">aes</span>(<span class="dt">label=</span><span class="kw">paste</span>(..eq.label.., ..rr.label..,<span class="dt">sep =</span> <span class="st">&quot;~~~~~~~&quot;</span>)),<span class="dt">position =</span> <span class="st">&quot;identity&quot;</span>,<span class="dt">geom =</span> <span class="st">&quot;label&quot;</span>)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Linear relationship between final exam scores and midterm exam scores&quot;</span>)</span></code></pre></div>
-<p><img src="linearmodelling_files/figure-html/unnamed-chunk-13-1.png" width="50%" /></p>
+<p><img src="linearmodelling_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="multiple-linear-regression" class="section level1" number="2">
@@ -804,7 +804,7 @@ age          0.04669531 0.123893994  0.3768973 0.7134194757</code></pre>
 <span id="cb31-3"><a href="#cb31-3"></a><span class="kw">ggplot</span>(gpa,<span class="kw">aes</span>(<span class="dt">x=</span>math,<span class="dt">y=</span>GPA))<span class="op">+</span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span><span class="st">&quot;lm&quot;</span>)<span class="op">+</span><span class="kw">stat_regline_equation</span>(<span class="kw">aes</span>(<span class="dt">label=</span><span class="kw">paste</span>(..rr.label..)),<span class="dt">position =</span> <span class="st">&quot;identity&quot;</span>,<span class="dt">geom =</span> <span class="st">&quot;label&quot;</span>)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Linear relationship between GPA and math score&quot;</span>)</span>
 <span id="cb31-4"><a href="#cb31-4"></a></span>
 <span id="cb31-5"><a href="#cb31-5"></a><span class="kw">ggplot</span>(gpa,<span class="kw">aes</span>(<span class="dt">x=</span>age,<span class="dt">y=</span>GPA))<span class="op">+</span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)<span class="op">+</span><span class="kw">stat_regline_equation</span>(<span class="kw">aes</span>(<span class="dt">label=</span><span class="kw">paste</span>(..rr.label..)),<span class="dt">position =</span> <span class="st">&quot;identity&quot;</span>,<span class="dt">geom =</span> <span class="st">&quot;label&quot;</span>)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Linear relationship between GPA and age&quot;</span>) </span></code></pre></div>
-<p><img src="linearmodelling_files/figure-html/unnamed-chunk-22-1.png" width="50%" /><img src="linearmodelling_files/figure-html/unnamed-chunk-22-2.png" width="50%" /><img src="linearmodelling_files/figure-html/unnamed-chunk-22-3.png" width="50%" /></p>
+<p><img src="linearmodelling_files/figure-html/unnamed-chunk-22-1.png" width="70%" /><img src="linearmodelling_files/figure-html/unnamed-chunk-22-2.png" width="70%" /><img src="linearmodelling_files/figure-html/unnamed-chunk-22-3.png" width="70%" /></p>
 </div>
 </div>
 <div id="multiple-linear-regression-with-qualitative-and-quantitative-predictor-variables." class="section level1" number="3">
