@@ -16,7 +16,7 @@ topics. It contains achievements done **first** by African Americans. Breakthrou
 
 <i class="fa fa-link"></i><font size="3"> **Science.csv** </font> 
 
-This [data set](https://en.wikipedia.org/wiki/List_of_African-American_firsts) also celebrates the achievements of African Americans, specifically related to Patents and scientific achievements. One of the amazing scientists present in this data set is David Blackwell [cite] an African american mathematician and statistician with significant contributions to game theory, information theory, and Bayesian statistics.
+This [data set](https://en.wikipedia.org/wiki/List_of_African-American_firsts) also celebrates the achievements of African Americans, specifically related to Patents and scientific achievements. One of the amazing scientists present in this data set is [David Blackwell](https://en.m.wikipedia.org/wiki/David_Blackwell) an African american mathematician and statistician with significant contributions to game theory, information theory, and Bayesian statistics.
 
 <i class="fa fa-link"></i><font size="3"> **The Black Lives Matter raised fist symbol** </font> 
 
@@ -57,7 +57,7 @@ black<-readPNG("images-5.png")
 ```
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
-g<-rasterGrob(black,interpolate = TRUE,width = unit(3,"cm"),x=unit(1,"npc"),hjust=1,vjust=-1,just = "bottom",)
+g<-rasterGrob(black,interpolate = TRUE,width = unit(2,"cm"),x=unit(1,"npc"),hjust=1,vjust=-1,just = "bottom",)
 ```
 
 
@@ -85,7 +85,7 @@ first%>%group_by(category,gender)%>%count(category,gender)%>%
   ggplot(aes(x=category,y=n,fill=gender))+geom_col(position = "dodge")+
   scale_fill_manual(values = c("salmon3","saddlebrown"))+
   coord_flip()+theme(legend.position = "right",legend.direction = "vertical")+theme_fivethirtyeight()+
-  labs(title="MAJOR BREAKTHROUGHS BY AFRICAN AMERICANS BY GENDER AND CATEGORY",caption = "Github: @joanweru")+annotation_custom(g,xmin = -4,ymin=12)+theme(plot.title = element_text(size = 12.5,hjust =0.5))
+  labs(title="MAJOR BREAKTHROUGHS BY AFRICAN AMERICANS BY GENDER AND CATEGORY",caption = "Github: @joanweru")+annotation_custom(g,xmin = -11,ymin = 0)+theme(plot.title = element_text(size = 12.5,hjust =0.5))
 ```
 
 
@@ -94,8 +94,8 @@ We will also visualize breakthrough achievements as they happened throughout the
 ```{r echo=TRUE, fig.align='center', fig.height=5, fig.width=10, message=FALSE, warning=FALSE, dpi=300}
 first%>%mutate(personal=paste(person,accomplishment,sep = "----"))%>%add_count(category)%>%
   ggplot(aes(x=year,y=n,color=category))+geom_point(size=3)+
-  scale_color_manual(values = c("chocolate2","sienna4","tomato4","tomato3","salmon4","black","red4","firebrick"))+theme_fivethirtyeight()+theme(legend.position = "right",legend.direction = "vertical",plot.title = element_text(hjust = -0.5,size = 12.5))+
-  scale_x_continuous(breaks = seq(1738,2050,30))+annotation_custom(g,xmin = -0.5,ymin = 2)+labs(caption ="Github: @joanweru",title="HISTORY OF MAJOR BREAKTHROUGHS BY AFRICAN AMERICANS IN VARIOUS FIELDS")+coord_cartesian(clip="off")
+  scale_color_manual(values = c("chocolate2","sienna4","tomato4","tomato3","salmon4","black","red4","firebrick"))+theme_fivethirtyeight()+theme(legend.position = "right",legend.direction = "vertical",plot.title = element_text(hjust = 0.7,size = 12.5))+
+  scale_x_continuous(breaks = seq(1738,2050,30))+annotation_custom(g,ymin = -150,xmin = 2070)+labs(caption ="Github: @joanweru",title="HISTORY OF MAJOR BREAKTHROUGHS BY AFRICAN AMERICANS IN VARIOUS FIELDS")+coord_cartesian(clip="off")
 ```
 
 
@@ -163,10 +163,10 @@ science1$decade<-as.numeric(science1$decade)
 
 
 
-```{r echo=TRUE, fig.align='center', fig.height=5.5, fig.width=15, message=FALSE, warning=FALSE, dpi=300}
+```{r echo=TRUE, fig.align='center', fig.height=10, fig.width=15, message=FALSE, warning=FALSE, dpi=300}
 science1%>%ggplot(aes(x=decade,y=n,fill=field))+geom_bar(stat = "identity")+theme_fivethirtyeight()+scale_x_continuous(breaks=seq(1730,2010,by=10),labels = paste0(seq(1730,2010,by=10),"s"))+ scale_y_continuous(breaks = seq(0,500,by=30))+
  theme(legend.direction = "vertical",legend.position = "right",plot.title = element_text(size = 15,hjust = 0.5))+
-  annotation_custom(g,xmin =max(science1$decade))+coord_cartesian(clip="off")+
+  annotation_custom(g,xmin =2010,ymin = -350)+coord_cartesian(clip="off")+
   labs(caption = "Github:@joanweru",
        title="HISTORY OF NOTABLE AFRICAN AMERICAN INVENTIONS AND CONTRIBUTIONS IN VARIOUS SCIENTIFIC FIELDS")
 

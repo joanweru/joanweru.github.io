@@ -12,7 +12,7 @@ output:
 
 The [world happiness report](https://worldhappiness.report/ed/2020/) is an annual publication of the United Nations Sustainable Development Solutions Network. It contains articles and rankings of national happiness based on respondent ratings of their own lives, which the report also correlates with various life factors. The happiness rankings are based on individuals own assessments of their lives as revealed by their own answers to the [Cantril ladder question](https://news.gallup.com/poll/122453/understanding-gallup-uses-cantril-scale.aspx) that invites survey participants to imagine their current position on a ladder with steps numbered from 0 to 10, where the top represents the best possible and the bottom the worst possible life for themselves.
 
-NB: The happiness rankings are not based on an index of the six variables `GDP per capita` , `social support`, `health life expectancy`, `freedom`, `generosity` and `perceptions of corruption``. The variables however explain the variation of happiness across countries and also show how measures of well being are themselves affected by the six life factors. 
+NB: The happiness rankings are not based on an index of the six variables `GDP per capita` , `social support`, `health life expectancy`, `freedom`, `generosity` and `perceptions of corruption` . The variables however explain the variation of happiness across countries and also show how measures of well being are themselves affected by the six life factors. 
 
 ## Goal of this report
 
