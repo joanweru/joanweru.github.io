@@ -358,9 +358,9 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-bars"></span>
+    <span class="fa fa-pie-chart"></span>
      
-    Projects
+    Data Visualiztion
      
     <span class="caret"></span>
   </a>
@@ -369,7 +369,7 @@ $(document).ready(function () {
       <a href="happiness20.html">Happiness report,2020</a>
     </li>
     <li>
-      <a href="linearmodelling.html">Linear modelling</a>
+      <a href="tidy-black.html">Notable African American achievements throughout the years</a>
     </li>
   </ul>
 </li>
@@ -384,6 +384,9 @@ $(document).ready(function () {
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="advertising.html">Predicting Sales using advertising budgets</a>
+    </li>
+    <li>
+      <a href="linearmodelling.html">Linear regression modelling</a>
     </li>
   </ul>
 </li>
@@ -564,93 +567,96 @@ $(document).ready(function () {
 </div>
 <div id="building-the-regression-model" class="section level1" number="3">
 <h1 number="3"><span class="header-section-number">3</span> Building the regression model</h1>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>model1&lt;-<span class="kw">lm</span>(Sales<span class="op">~</span>TV<span class="op">+</span>Radio<span class="op">+</span>Newspaper,<span class="dt">data=</span>TrainingSet)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>model1&lt;-<span class="kw">lm</span>(Sales<span class="op">~</span>TV<span class="op">+</span>Radio<span class="op">+</span>Newspaper,<span class="dt">data=</span>TrainingSet)</span>
+<span id="cb9-2"><a href="#cb9-2"></a>model1<span class="op">$</span>coefficients</span></code></pre></div>
+<pre><code> (Intercept)           TV        Radio    Newspaper 
+ 4.903108382  0.054134024  0.109476517 -0.005805077 </code></pre>
 </div>
 <div id="evaluating-model-performance" class="section level1" number="4">
 <h1 number="4"><span class="header-section-number">4</span> Evaluating model performance</h1>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">summary</span>(model1)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">summary</span>(model1)</span></code></pre></div>
 <pre><code>
 Call:
 lm(formula = Sales ~ TV + Radio + Newspaper, data = TrainingSet)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--7.0024 -0.8580 -0.0001  0.8002  3.8806 
+-3.2000 -0.9256  0.0044  0.8760  3.5081 
 
 Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) 4.217564   0.373298   11.30   &lt;2e-16 ***
-TV          0.056473   0.001739   32.47   &lt;2e-16 ***
-Radio       0.108341   0.010291   10.53   &lt;2e-16 ***
-Newspaper   0.006327   0.007273    0.87    0.386    
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  4.903108   0.329838  14.865   &lt;2e-16 ***
+TV           0.054134   0.001603  33.777   &lt;2e-16 ***
+Radio        0.109477   0.010049  10.894   &lt;2e-16 ***
+Newspaper   -0.005805   0.006592  -0.881     0.38    
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 
-Residual standard error: 1.66 on 129 degrees of freedom
-Multiple R-squared:  0.907, Adjusted R-squared:  0.9048 
-F-statistic: 419.4 on 3 and 129 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 1.546 on 129 degrees of freedom
+Multiple R-squared:  0.9195,    Adjusted R-squared:  0.9176 
+F-statistic: 491.3 on 3 and 129 DF,  p-value: &lt; 2.2e-16</code></pre>
 <ul>
-<li><p>Here, the <strong>Residual standard error</strong> is 1.66.</p></li>
-<li><p>The <strong>adjusted r-squared</strong> value measures how much of the variation in the response variable is explained by the set of predictors. In this case 90.7% of the variation in <code>Sales</code> is explained by the set of predictors. But this does not necessarily mean that the model will predict new data accurately.</p></li>
+<li><p>Here, the <strong>Residual standard error</strong> is 1.546.</p></li>
+<li><p>The <strong>adjusted r-squared</strong> value measures how much of the variation in the response variable is explained by the set of predictors. In this case 91.95% of the variation in <code>Sales</code> is explained by the set of predictors. But this does not necessarily mean that the model will predict new data accurately.</p></li>
 </ul>
 <p>Let’s take a look at the <strong>model accuracy</strong>.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>pred.model1=<span class="kw">predict</span>(model1,<span class="dt">newdata =</span> TestSet)</span>
-<span id="cb12-2"><a href="#cb12-2"></a>accuracy1=<span class="kw">data.frame</span>(<span class="kw">cbind</span>(<span class="dt">actual=</span>TestSet<span class="op">$</span>Sales,<span class="dt">predicted=</span>pred.model1))</span>
-<span id="cb12-3"><a href="#cb12-3"></a>cor1=<span class="kw">cor</span>(accuracy1)</span>
-<span id="cb12-4"><a href="#cb12-4"></a>cor1[<span class="dv">1</span>,<span class="dv">2</span>]</span></code></pre></div>
-<pre><code>[1] 0.9494533</code></pre>
-<p>Our model predicted our test data with an accuracy of 94.95% .It seems our model is good for predicting but it wouldn’t hurt to improve our prediction accuracy.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>pred.model1=<span class="kw">predict</span>(model1,<span class="dt">newdata =</span> TestSet)</span>
+<span id="cb13-2"><a href="#cb13-2"></a>accuracy1=<span class="kw">data.frame</span>(<span class="kw">cbind</span>(<span class="dt">actual=</span>TestSet<span class="op">$</span>Sales,<span class="dt">predicted=</span>pred.model1))</span>
+<span id="cb13-3"><a href="#cb13-3"></a>cor1=<span class="kw">cor</span>(accuracy1)</span>
+<span id="cb13-4"><a href="#cb13-4"></a>cor1[<span class="dv">1</span>,<span class="dv">2</span>]</span></code></pre></div>
+<pre><code>[1] 0.9305309</code></pre>
+<p>Our model predicted our test data with an accuracy of 93.05% .It seems our model is good for predicting but it wouldn’t hurt to improve our prediction accuracy.</p>
 </div>
 <div id="improving-model-performance-accounting-for-interaction-effects" class="section level1" number="5">
 <h1 number="5"><span class="header-section-number">5</span> Improving model performance: accounting for interaction effects</h1>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>model2&lt;-<span class="kw">lm</span>(Sales<span class="op">~</span>(TV<span class="op">+</span>Radio<span class="op">+</span>Newspaper)<span class="op">^</span><span class="dv">2</span>,<span class="dt">data=</span>TrainingSet)</span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="kw">summary</span>(model2)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>model2&lt;-<span class="kw">lm</span>(Sales<span class="op">~</span>(TV<span class="op">+</span>Radio<span class="op">+</span>Newspaper)<span class="op">^</span><span class="dv">2</span>,<span class="dt">data=</span>TrainingSet)</span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="kw">summary</span>(model2)</span></code></pre></div>
 <pre><code>
 Call:
 lm(formula = Sales ~ (TV + Radio + Newspaper)^2, data = TrainingSet)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--5.5674 -0.8807 -0.1978  0.9534  3.4923 
+-3.6692 -0.8839 -0.0694  0.9555  3.5529 
 
 Coefficients:
                   Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)      5.583e+00  6.409e-01   8.711 1.44e-14 ***
-TV               4.772e-02  3.281e-03  14.543  &lt; 2e-16 ***
-Radio            3.416e-02  2.171e-02   1.573    0.118    
-Newspaper        1.500e-02  2.241e-02   0.669    0.505    
-TV:Radio         4.704e-04  1.164e-04   4.042 9.17e-05 ***
-TV:Newspaper    -8.511e-05  8.310e-05  -1.024    0.308    
-Radio:Newspaper  1.607e-04  4.881e-04   0.329    0.742    
+(Intercept)      6.058e+00  5.893e-01  10.281  &lt; 2e-16 ***
+TV               4.709e-02  3.157e-03  14.916  &lt; 2e-16 ***
+Radio            5.630e-02  2.279e-02   2.471  0.01482 *  
+Newspaper       -1.249e-02  1.959e-02  -0.637  0.52503    
+TV:Radio         3.093e-04  1.179e-04   2.624  0.00976 ** 
+TV:Newspaper    -1.936e-05  6.857e-05  -0.282  0.77810    
+Radio:Newspaper  3.297e-04  4.566e-04   0.722  0.47154    
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 
-Residual standard error: 1.566 on 126 degrees of freedom
-Multiple R-squared:  0.9192,    Adjusted R-squared:  0.9153 
-F-statistic: 238.9 on 6 and 126 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 1.511 on 126 degrees of freedom
+Multiple R-squared:  0.9248,    Adjusted R-squared:  0.9212 
+F-statistic: 258.3 on 6 and 126 DF,  p-value: &lt; 2.2e-16</code></pre>
 <ul>
 <li><p>As expected there are some interaction effects. Here, between <code>TV</code> and <code>Radio</code>.</p></li>
-<li><p>Also, we see that the <strong>Residuals standard error</strong> is 1.566. This is an improvement from our previous model.</p></li>
-<li><p>The <strong>adjusted r-squared</strong> is 0.9192 Therefore in this case 92% of the variation in <code>Sales</code> is explained by the set of predictors. This is also an improvement from our previous model.</p></li>
+<li><p>Also, we see that the <strong>Residuals standard error</strong> is 1.511. This is an improvement from our previous model.</p></li>
+<li><p>The <strong>adjusted r-squared</strong> is 0.9192 Therefore in this case 93% of the variation in <code>Sales</code> is explained by the set of predictors. This is also an improvement from our previous model.</p></li>
 </ul>
 <p>Let’s take a look at the <strong>model accuracy</strong>.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>pred.model2=<span class="kw">predict</span>(model2,<span class="dt">newdata =</span> TestSet)</span>
-<span id="cb16-2"><a href="#cb16-2"></a>accuracy2=<span class="kw">data.frame</span>(<span class="kw">cbind</span>(<span class="dt">actual=</span>TestSet<span class="op">$</span>Sales,<span class="dt">predicted=</span>pred.model2))</span>
-<span id="cb16-3"><a href="#cb16-3"></a>cor2=<span class="kw">cor</span>(accuracy2)</span>
-<span id="cb16-4"><a href="#cb16-4"></a>cor2[<span class="dv">1</span>,<span class="dv">2</span>]</span></code></pre></div>
-<pre><code>[1] 0.9552413</code></pre>
-<p>In our improved model, the model accuracy is 95.52%, not quite a big improvement from our previous model, but an improvement nonetheless.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>pred.model2=<span class="kw">predict</span>(model2,<span class="dt">newdata =</span> TestSet)</span>
+<span id="cb17-2"><a href="#cb17-2"></a>accuracy2=<span class="kw">data.frame</span>(<span class="kw">cbind</span>(<span class="dt">actual=</span>TestSet<span class="op">$</span>Sales,<span class="dt">predicted=</span>pred.model2))</span>
+<span id="cb17-3"><a href="#cb17-3"></a>cor2=<span class="kw">cor</span>(accuracy2)</span>
+<span id="cb17-4"><a href="#cb17-4"></a>cor2[<span class="dv">1</span>,<span class="dv">2</span>]</span></code></pre></div>
+<pre><code>[1] 0.9415642</code></pre>
+<p>In our improved model, the model accuracy is 94.16%, not quite a big improvement from our previous model, but an improvement nonetheless.</p>
 </div>
 <div id="summary-of-our-two-models-the-original-and-improved" class="section level1" number="6">
 <h1 number="6"><span class="header-section-number">6</span> Summary of our two models: The original and improved</h1>
 <p>We compare the two models</p>
 <p><span class="math display">\[Original\ model: Sales \approx \beta_0+\beta_1\cdot TV + \beta_2 \cdot Radio + \beta_3 \cdot Newspaper\]</span> <span class="math display">\[Improved\ model: Sales \approx \beta_0+\beta_1 \cdot TV+\beta_2 \cdot Radio+ \beta_3 \cdot Newspaper+\\ \beta_4\cdot (TV \cdot Radio)+ \beta_5 \cdot(TV \cdot Newspaper)+ \beta_6 \cdot (Radio \cdot Nespaper)\]</span></p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>RSE&lt;-<span class="kw">c</span>(<span class="kw">summary</span>(model1)<span class="op">$</span>sigma,<span class="kw">summary</span>(model2)<span class="op">$</span>sigma)</span>
-<span id="cb18-2"><a href="#cb18-2"></a>Rsquared&lt;-<span class="kw">c</span>(<span class="kw">summary</span>(model1)<span class="op">$</span>r.squared,<span class="kw">summary</span>(model2)<span class="op">$</span>r.squared)</span>
-<span id="cb18-3"><a href="#cb18-3"></a>prediction.accuracy&lt;-<span class="kw">c</span>(cor1[<span class="dv">1</span>,<span class="dv">2</span>],cor2[<span class="dv">1</span>,<span class="dv">2</span>])</span>
-<span id="cb18-4"><a href="#cb18-4"></a>overview&lt;-<span class="kw">data.frame</span>(RSE,Rsquared,prediction.accuracy)</span>
-<span id="cb18-5"><a href="#cb18-5"></a><span class="kw">rownames</span>(overview)&lt;-<span class="kw">c</span>(<span class="st">&quot;Original model&quot;</span>,<span class="st">&quot;Improved model&quot;</span>)</span>
-<span id="cb18-6"><a href="#cb18-6"></a><span class="kw">kable</span>(<span class="kw">t</span>(overview))</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>RSE&lt;-<span class="kw">c</span>(<span class="kw">summary</span>(model1)<span class="op">$</span>sigma,<span class="kw">summary</span>(model2)<span class="op">$</span>sigma)</span>
+<span id="cb19-2"><a href="#cb19-2"></a>Rsquared&lt;-<span class="kw">c</span>(<span class="kw">summary</span>(model1)<span class="op">$</span>r.squared,<span class="kw">summary</span>(model2)<span class="op">$</span>r.squared)</span>
+<span id="cb19-3"><a href="#cb19-3"></a>prediction.accuracy&lt;-<span class="kw">c</span>(cor1[<span class="dv">1</span>,<span class="dv">2</span>],cor2[<span class="dv">1</span>,<span class="dv">2</span>])</span>
+<span id="cb19-4"><a href="#cb19-4"></a>overview&lt;-<span class="kw">data.frame</span>(RSE,Rsquared,prediction.accuracy)</span>
+<span id="cb19-5"><a href="#cb19-5"></a><span class="kw">rownames</span>(overview)&lt;-<span class="kw">c</span>(<span class="st">&quot;Original model&quot;</span>,<span class="st">&quot;Improved model&quot;</span>)</span>
+<span id="cb19-6"><a href="#cb19-6"></a><span class="kw">kable</span>(<span class="kw">t</span>(overview))</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -662,18 +668,18 @@ F-statistic: 238.9 on 6 and 126 DF,  p-value: &lt; 2.2e-16</code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">RSE</td>
-<td align="right">1.6600305</td>
-<td align="right">1.5658416</td>
+<td align="right">1.5455151</td>
+<td align="right">1.5113351</td>
 </tr>
 <tr class="even">
 <td align="left">Rsquared</td>
-<td align="right">0.9070107</td>
-<td align="right">0.9191877</td>
+<td align="right">0.9195142</td>
+<td align="right">0.9248247</td>
 </tr>
 <tr class="odd">
 <td align="left">prediction.accuracy</td>
-<td align="right">0.9494533</td>
-<td align="right">0.9552413</td>
+<td align="right">0.9305309</td>
+<td align="right">0.9415642</td>
 </tr>
 </tbody>
 </table>

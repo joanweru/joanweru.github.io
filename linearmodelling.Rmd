@@ -34,8 +34,11 @@ where:
 
 ## Simple linear problems
 
-```{r echo=TRUE, message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, include=FALSE}
 library(dplyr)
+```
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(knitr)
 library(ggplot2)
@@ -100,20 +103,13 @@ sum_model$r.squared*100
 
 From the summary 61.28% of the variation in the final exam score is accounted for by the midterm exam score. 
 
-> <font size="4"> What is the correlation between midterm exam scores and final exam scores. > <font size="4"> 
+> <font size="4"> What is the correlation between midterm exam scores and final exam scores. <font size="4"> 
 
 ```{r}
 cor(final,midterm)
 ```
 
 The correlation is 0.7828. This indicates a strong relationship between midterm scores and final scores.
-
-> <font size="4"> Calculate the prediction accuracy > <font size="4"> 
-
-```{r}
-pred=predict(model,newdata = )
-
-```
 
 **NB: Correlation explains the strength of the relationship between an independent and dependent variable. R-squared explains to what extent the variability of one variable explains the variability of the second variable, therefore showing if the predictor variable is significant in predicting the response variable**
 
@@ -147,12 +143,6 @@ NB: When we create **confidence intervals** for **parameters**, but when we're p
 ```{r echo=TRUE, message=FALSE, warning=FALSE,fig.align='center'}
 ggplot(midterm,aes(x=midterm,y=final))+geom_point()+geom_smooth(method=lm)+stat_regline_equation(aes(label=paste(..eq.label.., ..rr.label..,sep = "~~~~~~~")),position = "identity",geom = "label")+labs(title="Linear relationship between final exam scores and midterm exam scores")
 ```
-
-
-
-
-  
-  
 
 # Multiple linear regression
 

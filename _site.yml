@@ -7,19 +7,21 @@ navbar:
     - text: "Home"
       icon: fa-home
       href: index.html
-    - text: "Projects"
-      icon: fa-bars
+    - text: "Data Visualiztion"
+      icon: fa-pie-chart
       menu:
         - text: "Happiness report,2020"
           href: happiness20.html
-        - text: "Linear modelling"
-          href: linearmodelling.html
+        - text: "Notable African American achievements throughout the years"
+          href: tidy-black.html
           
     - text: "Machine Learning"
       icon: fa-cogs
       menu: 
         - text: "Predicting Sales using advertising budgets"
           href: advertising.html
+        - text: "Linear regression modelling"
+          href: linearmodelling.html
 
   right:
     - text: "CV"

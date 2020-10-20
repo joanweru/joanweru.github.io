@@ -358,9 +358,9 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-bars"></span>
+    <span class="fa fa-pie-chart"></span>
      
-    Projects
+    Data Visualiztion
      
     <span class="caret"></span>
   </a>
@@ -369,7 +369,7 @@ $(document).ready(function () {
       <a href="happiness20.html">Happiness report,2020</a>
     </li>
     <li>
-      <a href="linearmodelling.html">Linear modelling</a>
+      <a href="tidy-black.html">Notable African American achievements throughout the years</a>
     </li>
   </ul>
 </li>
@@ -384,6 +384,9 @@ $(document).ready(function () {
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="advertising.html">Predicting Sales using advertising budgets</a>
+    </li>
+    <li>
+      <a href="linearmodelling.html">Linear regression modelling</a>
     </li>
   </ul>
 </li>
@@ -914,10 +917,10 @@ age          0.04669531 0.123893994  0.3768973 0.7134194757</code></pre>
 <p><span class="math display">\[H_0:\beta_j=0\]</span></p>
 <p><span class="math display">\[H_1:\beta_j \neq0\]</span> where <span class="math inline">\(j=1,2...n\)</span></p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>sum_model<span class="op">$</span>coefficients</span></code></pre></div>
-<pre><code>               Estimate Std. Error   t value     Pr(&gt;|t|)
-(Intercept) 40.82316274 2.31438063 17.638915 2.741261e-08
-worth       -0.09940233 0.01101488 -9.024367 8.351230e-06
-Type        -6.89163261 1.57840681 -4.366195 1.807076e-03</code></pre>
+<pre><code>               Estimate Std. Error   t value         Pr(&gt;|t|)
+(Intercept) 40.82316274 2.31438063 17.638915 0.00000002741261
+worth       -0.09940233 0.01101488 -9.024367 0.00000835123047
+Type        -6.89163261 1.57840681 -4.366195 0.00180707598422</code></pre>
 <p><strong>worth</strong>- The p-value is less that 0.05, therefore we reject <span class="math inline">\(H_0\)</span> and conclude that the worth of a firm is individually associated with the the speed with which a particular insurance innovation is adopted.</p>
 <p><strong>Type of firm</strong> - The p-value is less than 0.05, therefore we reject <span class="math inline">\(H_0\)</span> and conclude that the type of firm is individually associated with the speed with which a particular insurance innovation is adopted.</p>
 <blockquote>
