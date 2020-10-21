@@ -435,7 +435,7 @@ $(document).ready(function () {
 
 <div id="TOC">
 <ul>
-<li><a href="#simple-linear-regression"><span class="toc-section-number">1</span> simple linear regression</a>
+<li><a href="#simple-linear-regression"><span class="toc-section-number">1</span> Simple linear regression</a>
 <ul>
 <li><a href="#simple-linear-problems"><span class="toc-section-number">1.1</span> Simple linear problems</a></li>
 </ul></li>
@@ -450,7 +450,7 @@ $(document).ready(function () {
 </ul>
 </div>
 
-<p>Linear regression is one of the most common types of <strong>machine learning methods</strong>. Linear regression is a supervised learning algorithm used to predict a continuous dependent variable (Y) based on the value of one or more independent variables (X_i) which can be continuous or discrete. It attempts to model the relationship between the variables by fitting a linear equation to the observed data.</p>
+<p>Linear regression is one of the most common types of <strong>machine learning methods</strong>. It is a supervised learning algorithm used to predict a continuous dependent variable (<span class="math inline">\(Y\)</span>) based on the value of one or more independent variables (<span class="math inline">\(X_i\)</span>) which can be continuous or discrete. It attempts to model the relationship between the variables by fitting a linear equation to the observed data.</p>
 <p>A linear regression model usually takes the form: </p>
 <ul>
 <li>data = response variable</li>
@@ -458,7 +458,7 @@ $(document).ready(function () {
 <li>residual = error or noise</li>
 </ul>
 <div id="simple-linear-regression" class="section level1" number="1">
-<h1 number="1"><span class="header-section-number">1</span> simple linear regression</h1>
+<h1 number="1"><span class="header-section-number">1</span> Simple linear regression</h1>
 <p>For <strong>linear regression models</strong> with one <strong>quantitative predictor</strong></p>
 <p><span class="math display">\[y=\beta_0+\beta_1X+\epsilon\]</span> where:</p>
 <ul>
@@ -544,11 +544,11 @@ $(document).ready(function () {
 <span id="cb3-3"><a href="#cb3-3"></a>model<span class="op">$</span>coefficients</span></code></pre></div>
 <pre><code>(Intercept)     midterm 
  31.6094612   0.5816001 </code></pre>
-<p>Therefore <span class="math inline">\(\widehat{final}=31.6095+0.5816midterm\)</span> is the best fit that would predict a students final exam based on his/her midterm exam score</p>
+<p>Therefore <span class="math inline">\(\widehat{final}=31.6095+0.5816midterm\)</span> is the best fit that would predict a students <code>final</code> exam based on his/her <code>midterm</code> exam score</p>
 <blockquote>
 <p><font size="4"> Interpret the regression parameters </font></p>
 </blockquote>
-<p>For every additional mark in the midterm exam score, a students final exam score increases by 0.5816 points.</p>
+<p>For every additional mark in the <code>midterm</code> exam score, a students <code>final</code> exam score increases by 0.5816 points.</p>
 <blockquote>
 <p><font size="4"> Test for the significance of model fit </font></p>
 </blockquote>
@@ -566,14 +566,14 @@ $(document).ready(function () {
 </blockquote>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>sum_model<span class="op">$</span>r.squared<span class="op">*</span><span class="dv">100</span></span></code></pre></div>
 <pre><code>[1] 61.279</code></pre>
-<p>From the summary 61.28% of the variation in the final exam score is accounted for by the midterm exam score.</p>
+<p>From the summary 61.28% of the variation in the <code>final</code> exam score is accounted for by the <code>midterm</code> exam score.</p>
 <blockquote>
 <p><font size="4"> What is the correlation between midterm exam scores and final exam scores. <font size="4"></p>
 </blockquote>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">cor</span>(final,midterm)</span></code></pre></div>
 <pre><code>      midterm final
 [1,] 0.782809     1</code></pre>
-<p>The correlation is 0.7828. This indicates a strong relationship between midterm scores and final scores.</p>
+<p>The correlation is 0.7828. This indicates a strong relationship between <code>midterm</code> scores and <code>final</code> scores.</p>
 <p><strong>NB: Correlation explains the strength of the relationship between an independent and dependent variable. R-squared explains to what extent the variability of one variable explains the variability of the second variable, therefore showing if the predictor variable is significant in predicting the response variable</strong></p>
 <blockquote>
 <p><font size="4"> Predict the final exam score for a student who scored 84 marks in the midterm exam </font></p>
@@ -758,13 +758,13 @@ cols(
 <span id="cb22-2"><a href="#cb22-2"></a>sum_model<span class="op">$</span>fstatistic</span></code></pre></div>
 <pre><code>    value     numdf     dendf 
  8.828339  3.000000 11.000000 </code></pre>
-<p>The calculated F-statistic is 8.828. From the f-distribution table, the critical value is 4.07. Therefore the F-statistic is greater than the critical value. So we reject <span class="math inline">\(H_0\)</span> and conclude that there is a linear relationship between GPA and the examination scores and age.</p>
+<p>The calculated F-statistic is 8.828. From the f-distribution table, the critical value is 4.07. Therefore the F-statistic is greater than the critical value. So we reject <span class="math inline">\(H_0\)</span> and conclude that there is a linear relationship between <code>GPA</code> ,the <code>verbal</code> and <code>math</code> score and <code>age</code> of a student.</p>
 <blockquote>
 <p><font size="4"> Interpret the regression co-efficients </font></p>
 </blockquote>
-<p><strong>Verbal</strong>-<em>After adjusting for the math score and age of student, the average GPA increases by 0.021954 points for every additional point in verbal score</em></p>
-<p><strong>math</strong>-<em>After adjusting for the verbal score and age of student; the average GPA increases by 0.021954 points for every additional point in math.</em></p>
-<p><strong>age</strong>-<em>After adjusting for the math score and verbal score; the average GPA increases by 0.046695 points for every additional year in the age of a student</em></p>
+<p><strong>Verbal</strong> - After adjusting for the <code>math</code> score and <code>age</code> of student, the average <code>GPA</code> increases by 0.021954 points for every additional point in the <code>verbal</code> score.</p>
+<p><strong>math</strong> - After adjusting for the <code>verbal</code> score and <code>age</code> of student, the average <code>GPA</code> increases by 0.021954 points for every additional point in the <code>math</code> score.</p>
+<p><strong>age</strong> - After adjusting for the <code>math</code> score and <code>verbal</code> score, the average <code>GPA</code> increases by 0.046695 points for every additional year in the <code>age</code> of a student</p>
 <blockquote>
 <p><font size="4"> Are both scores and age individually related to GPA? </font></p>
 </blockquote>
@@ -778,15 +778,15 @@ Verbal       0.02195390 0.009025470  2.4324389 0.0332655987
 math         0.03862480 0.008215196  4.7016284 0.0006484308
 age          0.04669531 0.123893994  0.3768973 0.7134194757</code></pre>
 <p>From the summary above.</p>
-<p><strong>verbal</strong> The p-value is less than 0.05. therefore we reject <span class="math inline">\(H_0\)</span> and conclude that verbal score is a significant predictor for GPA.</p>
-<p><strong>math</strong> .The p-value is less than 0.05. Therefore we reject <span class="math inline">\(H_0\)</span> and conclude that verbal score is a significant predictor for GPA.</p>
-<p><strong>age</strong> The p-value is more than 0.05. Therefore we fail to reject <span class="math inline">\(H_0\)</span> and and conclude that age is <strong>not</strong> a significant predictor for GPA.</p>
+<p><strong>verbal</strong> The p-value is less than 0.05. therefore we reject <span class="math inline">\(H_0\)</span> and conclude that <code>verbal</code> score is a significant predictor for <code>GPA</code>.</p>
+<p><strong>math</strong> .The p-value is less than 0.05. Therefore we reject <span class="math inline">\(H_0\)</span> and conclude that verbal score is a significant predictor for <code>GPA</code>.</p>
+<p><strong>age</strong> The p-value is more than 0.05. Therefore we fail to reject <span class="math inline">\(H_0\)</span> and and conclude that <code>age</code> is <strong>not</strong> a significant predictor for <code>GPA</code>.</p>
 <blockquote>
 <p><font size="4"> Calculate the co-efficient of multiple determination and interpret it </font></p>
 </blockquote>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>sum_model<span class="op">$</span>adj.r.squared</span></code></pre></div>
 <pre><code>[1] 0.6265174</code></pre>
-<p>We see that co-efficient of multiple determination is 0.6265. Therefore 62.65% of the variation in the GPA score is explained by the set of predictor variables.</p>
+<p>We see that co-efficient of multiple determination is 0.6265. Therefore 62.65% of the variation in the <code>GPA</code> score is explained by the set of predictor variables.</p>
 <blockquote>
 <p><font size="4"> Estimate the GPA of a 17.5 year student with a verbal score of 82 a mathematics score of 84. </font></p>
 </blockquote>
@@ -901,7 +901,7 @@ age          0.04669531 0.123893994  0.3768973 0.7134194757</code></pre>
 </tr>
 </tbody>
 </table>
-<p>We assign a dummy variable to the type of firm. 1 if it is mutual, 0 if it is stock</p>
+<p>We assign a dummy variable to the type of firm. 1 if it is mutual, 0 if it is stock. This will help impprove model accuracy.</p>
 <blockquote>
 <p><font size="4"> Fit the regression coefficients </font></p>
 </blockquote>
@@ -909,11 +909,11 @@ age          0.04669531 0.123893994  0.3768973 0.7134194757</code></pre>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>model<span class="op">$</span>coefficients</span></code></pre></div>
 <pre><code>(Intercept)       worth        Type 
 40.82316274 -0.09940233 -6.89163261 </code></pre>
-<p>The fit of the model is thus <span class="math inline">\(speed\ of\ adoption =40.823-0.0994worth\ of\ firm-6.892 type\ of\ firm\)</span></p>
+<p>The fit of the model is thus <span class="math inline">\(\widehat {speed\ of\ adoption} =40.823-0.0994worth\ of\ firm-6.892 type\ of\ firm\)</span></p>
 <blockquote>
 <p><font size="4"> Interpret the regression coefficients </font></p>
 </blockquote>
-<p>While holding type of firm constant, for every additional $1 million in worth of firm, the time a firm takes to adopt an insurance innovation reduces by 0.1 months. Also while holding the worth of firm constant, the time mutual firm to adopt an innovation is on average 6.98 months shorter than the time taken to adopt an innovation is on average 6.89 months shorter than the time taken by the stocks firms.</p>
+<p>While holding <code>type of firm</code> constant, for every additional $1 million in <code>worth of firm</code>, the time a firm takes to adopt an insurance innovation reduces by 0.1 months. Also while holding the <code>worth of firm</code> constant, the time mutual firm to adopt an innovation is on average 6.98 months shorter than the time taken by the <code>stocks firms</code>.</p>
 <blockquote>
 <p><font size="4"> Test for the significance fit </font></p>
 </blockquote>
@@ -936,8 +936,8 @@ age          0.04669531 0.123893994  0.3768973 0.7134194757</code></pre>
 (Intercept) 40.82316274 2.31438063 17.638915 0.00000002741261
 worth       -0.09940233 0.01101488 -9.024367 0.00000835123047
 Type        -6.89163261 1.57840681 -4.366195 0.00180707598422</code></pre>
-<p><strong>worth</strong>- The p-value is less that 0.05, therefore we reject <span class="math inline">\(H_0\)</span> and conclude that the worth of a firm is individually associated with the the speed with which a particular insurance innovation is adopted.</p>
-<p><strong>Type of firm</strong> - The p-value is less than 0.05, therefore we reject <span class="math inline">\(H_0\)</span> and conclude that the type of firm is individually associated with the speed with which a particular insurance innovation is adopted.</p>
+<p><strong>worth</strong>- The p-value is less that 0.05, therefore we reject <span class="math inline">\(H_0\)</span> and conclude that the <code>worth of a firm</code> is individually associated with the the <code>speed</code> with which a particular insurance innovation is adopted.</p>
+<p><strong>Type of firm</strong> - The p-value is less than 0.05, therefore we reject <span class="math inline">\(H_0\)</span> and conclude that the <code>type of firm</code> is individually associated with the <code>speed</code> with which a particular insurance innovation is adopted.</p>
 <blockquote>
 <p><font size="4"> Estimate the time that lapses before a mutual firm worth $173 million adopts on insurance innovation.</font></p>
 </blockquote>

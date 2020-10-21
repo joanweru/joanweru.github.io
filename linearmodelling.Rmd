@@ -10,7 +10,7 @@ output:
 ---
 
 Linear regression is one of the most common types of **machine learning methods**.
-Linear regression is a supervised learning algorithm used to predict a continuous dependent variable (Y) based on the value of one or more independent variables (X_i) which can be continuous or discrete. It attempts to model the relationship between the variables by fitting a linear equation to the observed data.
+It is a supervised learning algorithm used to predict a continuous dependent variable ($Y$) based on the value of one or more independent variables ($X_i$) which can be continuous or discrete. It attempts to model the relationship between the variables by fitting a linear equation to the observed data.
 
 A linear regression model usually takes the form:
 \emph{data=pattern+residual}
@@ -19,7 +19,7 @@ A linear regression model usually takes the form:
 * pattern = set of particular variables
 * residual = error or noise
 
-# simple linear regression
+# Simple linear regression
 
 For **linear regression models** with one **quantitative predictor** 
 
@@ -71,11 +71,11 @@ model<-lm(final~midterm,data=midterm)
 model$coefficients
 ```
 
-Therefore $\widehat{final}=31.6095+0.5816midterm$ is the best fit that would predict a students final exam based on his/her midterm exam score
+Therefore $\widehat{final}=31.6095+0.5816midterm$ is the best fit that would predict a students `final` exam based on his/her `midterm` exam score
 
 > <font size="4"> Interpret the regression parameters </font>
 
-For every additional mark in the midterm exam score, a students final exam score increases by 0.5816 points.
+For every additional mark in the `midterm` exam score, a students `final` exam score increases by 0.5816 points.
 
 > <font size="4">  Test for the significance of model fit </font>
 
@@ -101,7 +101,7 @@ The F-statistic is 15.83 and the critical value from the f-distribution table is
 sum_model$r.squared*100
 ```
 
-From the summary 61.28% of the variation in the final exam score is accounted for by the midterm exam score. 
+From the summary 61.28% of the variation in the `final` exam score is accounted for by the `midterm` exam score. 
 
 > <font size="4"> What is the correlation between midterm exam scores and final exam scores. <font size="4"> 
 
@@ -109,7 +109,7 @@ From the summary 61.28% of the variation in the final exam score is accounted fo
 cor(final,midterm)
 ```
 
-The correlation is 0.7828. This indicates a strong relationship between midterm scores and final scores.
+The correlation is 0.7828. This indicates a strong relationship between `midterm` scores and `final` scores.
 
 **NB: Correlation explains the strength of the relationship between an independent and dependent variable. R-squared explains to what extent the variability of one variable explains the variability of the second variable, therefore showing if the predictor variable is significant in predicting the response variable**
 
@@ -203,15 +203,15 @@ sum_model=summary(model)
 sum_model$fstatistic
 ```
 
-The calculated F-statistic is 8.828. From the f-distribution table, the critical value is 4.07. Therefore the F-statistic is greater than the critical value. So we reject $H_0$ and conclude that there is a linear relationship between GPA and the examination scores and age.
+The calculated F-statistic is 8.828. From the f-distribution table, the critical value is 4.07. Therefore the F-statistic is greater than the critical value. So we reject $H_0$ and conclude that there is a linear relationship between `GPA` ,the `verbal`  and `math` score and `age` of a student.
 
 > <font size="4">  Interpret the regression co-efficients </font>
 
-**Verbal**-*After adjusting for the math score and age of student, the average GPA increases by 0.021954 points for every additional point in verbal score*
+**Verbal** - After adjusting for the `math` score and `age` of student, the average `GPA` increases by 0.021954 points for every additional point in the `verbal` score.
 
-**math**-*After adjusting for the verbal score and age of student; the average GPA increases by 0.021954 points for every additional point in math.*
+**math** - After adjusting for the `verbal` score and `age` of student, the average `GPA` increases by 0.021954 points for every additional point in the `math` score.
 
-**age**-*After adjusting for the math score and verbal score; the average GPA increases by 0.046695 points for every additional year in the age of a student*
+**age** - After adjusting for the `math` score and `verbal` score, the average `GPA` increases by 0.046695 points for every additional year in the `age` of a student
 
 > <font size="4"> Are both scores and age individually related to GPA? </font>
 
@@ -229,13 +229,13 @@ sum_model$coefficients
 From the summary above.
 
 **verbal**
-The p-value is less than 0.05. therefore we reject $H_0$ and conclude that verbal score is a significant predictor for GPA.
+The p-value is less than 0.05. therefore we reject $H_0$ and conclude that `verbal` score is a significant predictor for `GPA`.
 
 **math**
-.The p-value is less than 0.05. Therefore  we reject $H_0$ and conclude that verbal score is a significant predictor for GPA.
+.The p-value is less than 0.05. Therefore  we reject $H_0$ and conclude that verbal score is a significant predictor for `GPA`.
 
 **age**
-The p-value is more than 0.05. Therefore we fail to reject $H_0$ and and conclude that age is **not** a significant predictor for GPA.
+The p-value is more than 0.05. Therefore we fail to reject $H_0$ and and conclude that `age` is **not** a significant predictor for `GPA`.
 
 > <font size="4">  Calculate the co-efficient of multiple determination and interpret it </font>
 
@@ -243,7 +243,7 @@ The p-value is more than 0.05. Therefore we fail to reject $H_0$ and and conclud
 sum_model$adj.r.squared
 ```
 
-We see that co-efficient of multiple determination is 0.6265. Therefore 62.65% of the variation in the GPA score is explained by the set of predictor variables.
+We see that co-efficient of multiple determination is 0.6265. Therefore 62.65% of the variation in the `GPA` score is explained by the set of predictor variables.
 
 > <font size="4">  Estimate the GPA of a 17.5 year student with a verbal score of 82 a mathematics score of 84. </font>
 
@@ -316,8 +316,12 @@ insurance$Type=Type
 kable(insurance[,1:3])
 ```
 
-We assign a dummy variable to the type of firm. 1 if it is mutual, 0 if it is stock
+We assign a dummy variable to the type of firm. 1 if it is mutual, 0 if it is stock. This will help impprove model accuracy.
 
+```{r message=FALSE, warning=FALSE, include=FALSE}
+insurance<-insurance%>%select(speed,worth,Type)
+kable(insurance)
+```
 > <font size="4">  Fit the regression coefficients </font>
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
@@ -328,11 +332,11 @@ model<-lm(speed~worth+Type,data = insurance)
 model$coefficients
 ```
 
-The fit of the model is thus $speed\ of\ adoption =40.823-0.0994worth\ of\ firm-6.892 type\ of\ firm$
+The fit of the model is thus $\widehat {speed\ of\ adoption} =40.823-0.0994worth\ of\ firm-6.892 type\ of\ firm$
 
 > <font size="4">  Interpret the regression coefficients </font>
 
-While holding type of firm constant, for every additional $1 million in worth of firm, the time a firm takes to adopt an insurance innovation reduces by 0.1 months. Also while holding the worth of firm constant, the time mutual firm to adopt an innovation is on average  6.98 months shorter than the time taken to adopt an innovation is on average 6.89 months shorter than the time taken by the stocks firms.
+While holding `type of firm` constant, for every additional $1 million in `worth of firm`, the time a firm takes to adopt an insurance innovation reduces by 0.1 months. Also while holding the `worth of firm` constant, the time mutual firm to adopt an innovation is on average  6.98 months shorter than the time  taken by the `stocks firms`.
 
 > <font size="4"> Test for the significance fit </font>
 
@@ -364,9 +368,9 @@ where $j=1,2...n$
 sum_model$coefficients
 ```
 
-**worth**- The p-value is less that 0.05, therefore we reject $H_0$ and conclude that the worth of a firm is individually associated with the the speed with which a particular insurance innovation is adopted.
+**worth**- The p-value is less that 0.05, therefore we reject $H_0$ and conclude that the `worth of a firm` is individually associated with the the `speed` with which a particular insurance innovation is adopted.
 
-**Type of firm** - The p-value is less than 0.05, therefore we reject $H_0$ and conclude that the type of firm is individually associated with the speed with which a particular insurance innovation is adopted.
+**Type of firm** - The p-value is less than 0.05, therefore we reject $H_0$ and conclude that the `type of firm` is individually associated with the `speed` with which a particular insurance innovation is adopted.
 
 > <font size="4"> Estimate the time that lapses before a mutual firm worth $173 million adopts on insurance innovation.</font>
 
