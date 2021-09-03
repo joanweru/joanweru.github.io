@@ -523,8 +523,8 @@ $(document).ready(function () {
 <h1 number="4"><span class="header-section-number">4</span> Building the Regression Model</h1>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>model1&lt;-<span class="kw">lm</span>(Sales<span class="op">~</span>TV<span class="op">+</span>Radio<span class="op">+</span>Newspaper,<span class="dt">data=</span>TrainingSet)</span>
 <span id="cb9-2"><a href="#cb9-2"></a>model1<span class="op">$</span>coefficients</span></code></pre></div>
-<pre><code> (Intercept)           TV        Radio    Newspaper 
- 4.255611311  0.056409347  0.114152603 -0.003170063 </code></pre>
+<pre><code>(Intercept)          TV       Radio   Newspaper 
+4.696527460 0.054419308 0.105439600 0.003119786 </code></pre>
 </div>
 <div id="evaluating-model-performance" class="section level1" number="5">
 <h1 number="5"><span class="header-section-number">5</span> Evaluating Model Performance</h1>
@@ -535,20 +535,20 @@ lm(formula = Sales ~ TV + Radio + Newspaper, data = TrainingSet)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--7.1880 -0.9539  0.1363  0.9571  4.0304 
+-7.3372 -0.7072  0.0112  0.8628  3.6352 
 
 Coefficients:
-             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  4.255611   0.400826  10.617   &lt;2e-16 ***
-TV           0.056409   0.001719  32.816   &lt;2e-16 ***
-Radio        0.114153   0.010920  10.454   &lt;2e-16 ***
-Newspaper   -0.003170   0.007772  -0.408    0.684    
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 4.696527   0.380610  12.339   &lt;2e-16 ***
+TV          0.054419   0.001742  31.244   &lt;2e-16 ***
+Radio       0.105440   0.010541  10.003   &lt;2e-16 ***
+Newspaper   0.003120   0.008050   0.388    0.699    
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 
-Residual standard error: 1.73 on 129 degrees of freedom
-Multiple R-squared:  0.9041,    Adjusted R-squared:  0.9019 
-F-statistic: 405.6 on 3 and 129 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 1.719 on 129 degrees of freedom
+Multiple R-squared:  0.9003,    Adjusted R-squared:  0.8979 
+F-statistic: 388.1 on 3 and 129 DF,  p-value: &lt; 2.2e-16</code></pre>
 <ul>
 <li><p>Here, the <strong>Residual standard error</strong> is 1.546.</p></li>
 <li><p>The <strong>adjusted r-squared</strong> value measures how much of the variation in the response variable is explained by the set of predictors. In this case 91.95% of the variation in <code>Sales</code> is explained by the set of predictors. But this does not necessarily mean that the model will predict new data accurately.</p></li>
@@ -558,7 +558,7 @@ F-statistic: 405.6 on 3 and 129 DF,  p-value: &lt; 2.2e-16</code></pre>
 <span id="cb13-2"><a href="#cb13-2"></a>accuracy1=<span class="kw">data.frame</span>(<span class="kw">cbind</span>(<span class="dt">actual=</span>TestSet<span class="op">$</span>Sales,<span class="dt">predicted=</span>pred.model1))</span>
 <span id="cb13-3"><a href="#cb13-3"></a>cor1=<span class="kw">cor</span>(accuracy1)</span>
 <span id="cb13-4"><a href="#cb13-4"></a>cor1[<span class="dv">1</span>,<span class="dv">2</span>]</span></code></pre></div>
-<pre><code>[1] 0.9507073</code></pre>
+<pre><code>[1] 0.9538277</code></pre>
 <p>Our model predicted our test data with an accuracy of 93.05% .It seems our model is good for predicting but it wouldn’t hurt to improve our prediction accuracy.</p>
 </div>
 <div id="improving-model-performance-accounting-for-interaction-effects" class="section level1" number="6">
@@ -571,23 +571,23 @@ lm(formula = Sales ~ (TV + Radio + Newspaper)^2, data = TrainingSet)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--5.1230 -0.9295  0.0832  1.0770  3.5519 
+-5.9796 -0.9965 -0.0091  0.9570  3.5703 
 
 Coefficients:
                   Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)      6.159e+00  7.010e-01   8.785 9.60e-15 ***
-TV               4.682e-02  3.349e-03  13.981  &lt; 2e-16 ***
-Radio            6.736e-03  2.544e-02   0.265    0.792    
-Newspaper        7.313e-03  2.238e-02   0.327    0.744    
-TV:Radio         5.791e-04  1.204e-04   4.810 4.23e-06 ***
-TV:Newspaper    -1.643e-04  7.341e-05  -2.238    0.027 *  
-Radio:Newspaper  5.397e-04  5.236e-04   1.031    0.305    
+(Intercept)      7.340e+00  7.047e-01  10.416  &lt; 2e-16 ***
+TV               4.208e-02  3.229e-03  13.030  &lt; 2e-16 ***
+Radio            3.413e-03  2.321e-02   0.147   0.8833    
+Newspaper       -3.195e-02  2.333e-02  -1.370   0.1733    
+TV:Radio         5.117e-04  1.109e-04   4.615 9.52e-06 ***
+TV:Newspaper    -1.662e-07  7.846e-05  -0.002   0.9983    
+Radio:Newspaper  9.823e-04  5.532e-04   1.776   0.0782 .  
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 
-Residual standard error: 1.598 on 126 degrees of freedom
-Multiple R-squared:  0.9201,    Adjusted R-squared:  0.9163 
-F-statistic: 241.9 on 6 and 126 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 1.566 on 126 degrees of freedom
+Multiple R-squared:  0.9192,    Adjusted R-squared:  0.9153 
+F-statistic: 238.8 on 6 and 126 DF,  p-value: &lt; 2.2e-16</code></pre>
 <ul>
 <li><p>As expected there are some interaction effects. Here, between <code>TV</code> and <code>Radio</code>.</p></li>
 <li><p>Also, we see that the <strong>Residuals standard error</strong> is 1.511. This is an improvement from our previous model.</p></li>
@@ -598,7 +598,7 @@ F-statistic: 241.9 on 6 and 126 DF,  p-value: &lt; 2.2e-16</code></pre>
 <span id="cb17-2"><a href="#cb17-2"></a>accuracy2=<span class="kw">data.frame</span>(<span class="kw">cbind</span>(<span class="dt">actual=</span>TestSet<span class="op">$</span>Sales,<span class="dt">predicted=</span>pred.model2))</span>
 <span id="cb17-3"><a href="#cb17-3"></a>cor2=<span class="kw">cor</span>(accuracy2)</span>
 <span id="cb17-4"><a href="#cb17-4"></a>cor2[<span class="dv">1</span>,<span class="dv">2</span>]</span></code></pre></div>
-<pre><code>[1] 0.9443892</code></pre>
+<pre><code>[1] 0.9481132</code></pre>
 <p>In our improved model, the model accuracy is 94.16%, not quite a big improvement from our previous model, but an improvement nonetheless.</p>
 </div>
 <div id="summary-of-our-two-models-the-original-and-improved" class="section level1" number="7">
@@ -622,18 +622,18 @@ F-statistic: 241.9 on 6 and 126 DF,  p-value: &lt; 2.2e-16</code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">RSE</td>
-<td align="right">1.7303314</td>
-<td align="right">1.5981441</td>
+<td align="right">1.7193601</td>
+<td align="right">1.5662711</td>
 </tr>
 <tr class="even">
 <td align="left">Rsquared</td>
-<td align="right">0.9041459</td>
-<td align="right">0.9201335</td>
+<td align="right">0.9002620</td>
+<td align="right">0.9191571</td>
 </tr>
 <tr class="odd">
 <td align="left">prediction.accuracy</td>
-<td align="right">0.9507073</td>
-<td align="right">0.9443892</td>
+<td align="right">0.9538277</td>
+<td align="right">0.9481132</td>
 </tr>
 </tbody>
 </table>
