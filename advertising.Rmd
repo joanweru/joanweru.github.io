@@ -9,7 +9,7 @@ output:
 
 ---
 
-# About the data
+# About the Data
 
 This data set contains statistics about the sales of a product in 200 different markets together with advertising budgets in each of these markets for different media channels: `TV`, `Radio`, `Newspaper`. The sales are in thousands of units and the budget is in thousands of dollars. 
 
@@ -17,7 +17,7 @@ This data set contains statistics about the sales of a product in 200 different 
 
 In this report we want to build a model that will predict sales as accurately as possible.
 
-# Importing and preparing the data
+# Importing and Preparing the Data
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 library(dplyr)
@@ -35,34 +35,32 @@ knitr::opts_chunk$set(comment = NA)
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 advertising<-read_csv("advertising.csv")
-kable(head(advertising))
+rmarkdown::paged_table(advertising)
 ```
 
-## Splitting the data set into the training set and test set
+## Splitting the Data Set into the Training Set and Test Set
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 split=sample.split(advertising$Sales,SplitRatio = 2/3)
 ```
 
-### Training set
+### Training Set
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 TrainingSet=subset(advertising,split==TRUE)
 ```
 
-### Test set
+### Test Set
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 TestSet=subset(advertising,split==FALSE)
 ```
 
 
-## Exploratory analysis on the training data
+## Exploratory Analysis on the Training Data
 
 
-
-
-### Box plot
+### Box Plot
 
 We're going to use a box plot to provide indication of the data's **symmetry** and **skewness** and to detect any **outliers**.
 
@@ -85,7 +83,7 @@ ggplot(advertising,aes(x=Newspaper,y=Sales))+geom_point()+geom_smooth(method = '
 
 The outlier seems to have no significance so we move on.
 
-### Correlation plot
+### Correlation Plot
 
 ```{r echo=TRUE, message=TRUE, warning=FALSE,fig.align='center'}
 cor.matrix<-cor(advertising)
@@ -96,7 +94,7 @@ There seems to be a significant correlation between `Sales` and `TV` as well as 
 
 **NB** *The* **main effect** *is the effect of  one of the predictor variables on the response variable. An* **interaction effect** *on the other hand occurs if there is an interaction between the predictor variables that affect the outcome of the response variables*.
 
-# Building the regression model
+# Building the Regression Model
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 model1<-lm(Sales~TV+Radio+Newspaper,data=TrainingSet)
@@ -104,13 +102,13 @@ model1$coefficients
 ```
 
 
-# Evaluating model performance
+# Evaluating Model Performance
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 summary(model1)
 ```
 
-*  Here, the **Residual standard error** is 1.546.
+* Here, the **Residual standard error** is 1.546.
 
 * The **adjusted r-squared** value measures how much of the variation in the response variable is explained  by the set of predictors. In this case 91.95% of the variation in `Sales` is explained by the set of predictors. But this does not necessarily mean that the model will predict new data accurately.
 
@@ -125,7 +123,7 @@ cor1[1,2]
 
 Our model predicted our test data with an accuracy of 93.05% .It seems our model is good for predicting but it wouldn't hurt to improve our prediction accuracy.
 
-# Improving model performance: accounting for interaction effects 
+# Improving Model Performance: Accounting For Interaction Effects 
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 model2<-lm(Sales~(TV+Radio+Newspaper)^2,data=TrainingSet)
@@ -149,12 +147,12 @@ cor2[1,2]
 
 In our improved model, the model accuracy is 94.16%, not quite a big improvement from our previous model, but an improvement nonetheless.
 
-# Summary of our two models: The original and improved
+# Summary of Our Two Models: The Original and Improved
 
 We compare the two models
 
 $$Original\ model: Sales \approx \beta_0+\beta_1\cdot TV + \beta_2 \cdot Radio + \beta_3 \cdot Newspaper$$
-$$Improved\ model: Sales \approx \beta_0+\beta_1 \cdot TV+\beta_2 \cdot Radio+ \beta_3 \cdot Newspaper+\\ \beta_4\cdot (TV \cdot Radio)+ \beta_5 \cdot(TV \cdot Newspaper)+ \beta_6 \cdot (Radio \cdot Nespaper)$$
+$$Improved\ model: Sales \approx \beta_0+\beta_1 \cdot TV+\beta_2 \cdot Radio+ \beta_3 \cdot Newspaper+\\O\beta_4\cdot (TV \cdot Radio)+ \beta_5 \cdot(TV \cdot Newspaper)+ \beta_6 \cdot (Radio \cdot Nespaper)$$
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 RSE<-c(summary(model1)$sigma,summary(model2)$sigma)
