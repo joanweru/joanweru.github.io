@@ -10,18 +10,15 @@ navbar:
     - text: "Data Visualization"
       icon: fa-pie-chart
       menu:
-        - text: "Happiness report,2020"
+        - text: "Happiness Report,2020"
           href: happiness20.html
-        - text: "Notable African American achievements throughout the years"
-          href: tidy-black.html
-          
     - text: "Machine Learning"
       icon: fa-cogs
       menu: 
-        - text: "Predicting Sales using advertising budgets"
+        - text: "Predicting Sales Using Advertising Budgets"
           href: advertising.html
-        - text: "Linear regression modelling"
-          href: linearmodelling.html
+        - text: "Predicting Credit Card Cancellations"
+          href: churnproject.html
 
   right:
     - text: "CV"
@@ -30,9 +27,9 @@ navbar:
     - text: "GitHub"
       icon: fa-github
       href: https://github.com/joanweru 
-    - text: "Rpubs"
-      icon: fa-bar-chart
-      href: https://rpubs.com/joanweru
+    - text: "Linkedin"
+      icon: fa-linkedin-square
+      href: https://www.linkedin.com./in/joan-weru-6b601b1b7
     - text: "Contact me"
       icon: fa-envelope-o
       href: mailto:joanweru77@gmail.com  

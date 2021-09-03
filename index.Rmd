@@ -1,42 +1,47 @@
 ---
 title: "My homepage"
 ---
-An undergraduate statistic student well versed in statistical and computational methods. Seeking to use data analysis and machine learning methods to unearth insights that could help organizations in decision-making and boosting business performance. Also passionate about using statistical research to shine light on social issues. 
+Resourceful and highly motivated graduate statistic student skilled in data analysis and machine learning methods. Seeking to my skills to help organizations in decision-making and boosting business performance. Proven to be adept in problem solving and encouraging team work. Also passionate about using statistical research to shine light on social issues. 
 
-Take a tour around my website to see projects I've done :)
+Take a tour around my website to see some of the projects I've done.
 
-## Interests
+## Key skills
 
- * Data analysis
- * Data visualization
- * Machine learning
- * Blogging
- 
-## Skills
+<style>
+  .col2 {
+    columns: 2 100px;
+    -webtik-columns: 2 100px
+    -moz-columns: 2 100px;
+}
+</style>
 
-* R
-* Latex
-* Data wrangling and manipulation
-* Linear regression modelling
+<div class="col2">
+
+* Data analysis
+* Data visualization
+* Machine learning
+* Microsoft excel
+* Coding - R, Latex
 * Time series analysis
 * Hypothesis testing
 * Inferential statistics
 * Report writing in Rmarkdown
 * Building websites using R
+
+</div>
+ 
+## Soft skills
+
+* Problem solving
+* Analytical skills
+* Excellent research skills
+* Communication and interpersonal skills
  
 ## Education
 
-<i class="fa fa-graduation-cap"></i><font size="3"> **Bachelor of Science in Statistics, expected 2021**
+<i class="fa fa-graduation-cap"></i><font size="3"> **Bachelor of Science in Statistics, 2021**
 
 University of Nairobi
-
-<i class="fa fa-graduation-cap"></i><font size="3"> **Kenya Certificate of Secondary Education, 2016**
-
-Kyeni Girls High school
-
-<i class="fa fa-graduation-cap"></i><font size="3"> **Kenya Certificate of Primary Education, 2012** </font> 
-
-Bonanza School
 
 ## Certificates
 

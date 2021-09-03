@@ -8,17 +8,17 @@ output:
    number_sections: true
 ---
 
-# About the report
+# About the Report
 
 The [world happiness report](https://worldhappiness.report/ed/2020/) is an annual publication of the United Nations Sustainable Development Solutions Network. It contains articles and rankings of national happiness based on respondent ratings of their own lives, which the report also correlates with various life factors. The happiness rankings are based on individuals own assessments of their lives as revealed by their own answers to the [Cantril ladder question](https://news.gallup.com/poll/122453/understanding-gallup-uses-cantril-scale.aspx) that invites survey participants to imagine their current position on a ladder with steps numbered from 0 to 10, where the top represents the best possible and the bottom the worst possible life for themselves.
 
 NB: The happiness rankings are not based on an index of the six variables `GDP per capita` , `social support`, `health life expectancy`, `freedom`, `generosity` and `perceptions of corruption` . The variables however explain the variation of happiness across countries and also show how measures of well being are themselves affected by the six life factors. 
 
-## Goal of this report
+## Goal of this Report
 
 Use data visualization to unearth key insights that could help decision makers in improving the quality of life in their countries.
 
-# Importing the data
+# Importing the Data
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 library(dplyr)
@@ -52,7 +52,7 @@ rmarkdown::paged_table(happiness20)
 attach(happiness20)
 ```
 
-# Visualizing the linear relationship between the happiness score and various life factors
+# Visualizing the Linear Relationship Between the Happiness Score and Various Life Factors
 
 I use `geom_point` and `geom_smooth` with `method=lm` to show the strength and direction of the linear relationship between the happiness score and the various life factors.
 
@@ -105,11 +105,12 @@ annotate_figure(g,top=text_grob("Linear relationship between happiness and vario
 ```
 
 
-# Visualizing the top ten happiest countries and top ten worst countries 
+# Visualizing the Top Ten Happiest Countries and Top Ten Worst Countries 
 
 We use `geom_flag` for to visualize the countries alongside their individual flags
 
 ```{r echo=TRUE,message=FALSE, warning=FALSE,out.width="\\textwidth",fig.height=7,fig.width=12,fig.align="center"}
+
 happiness20$iso<-countrycode(sourcevar = happiness20[[1]],origin = "country.name",destination = "iso2c",custom_match = c(Kosovo="Europe"))
 
 happiness20_arranged<-arrange(happiness20,desc(`Ladder score`))

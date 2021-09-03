@@ -11,9 +11,9 @@ output:
 
 # About the data
 
-This data set contains statistics about the sales of a product in 200 different markets together with advertising budgets in each of these markets for different media channels: TV, Radio, Newspaper. The sales are in thousands of units and the budget is in thousands of dollars. 
+This data set contains statistics about the sales of a product in 200 different markets together with advertising budgets in each of these markets for different media channels: `TV`, `Radio`, `Newspaper`. The sales are in thousands of units and the budget is in thousands of dollars. 
 
-## Problem Statement
+# Problem Statement
 
 In this report we want to build a model that will predict sales as accurately as possible.
 
