@@ -1,0 +1,344 @@
+---
+title: "Predicting Credit Card Cancellations (96.91% Accuracy)"
+output: 
+  html_document:
+   theme: flatly
+   highlight: zenburn
+   toc: true
+   number_sections: true
+
+---
+
+# Project Description
+
+## Problem Statement
+
+A manager at the bank is disturbed with more and more customer leaving their credit card services. They would really appreciate if one could predict for them who is gonna get churned so they can proactively go to the customer to provide them better services and turn customers' decisions in the opposite direction.
+
+## Goal of this Project
+
+* Create a model that can accurately predict which customer will churn.
+* Identify customer characteristics and behavioral aspects that are key in predicting customer churn.
+
+## About the data
+
+This data set contains 10,000 customers mentioning their age, salary, marital_status, credit card limit, credit card category, etc.
+
+I tried to divide the variables into the following segments that i thought unearth insights into which variables are more likely to predict churn.
+
+**Target Variable** 
+
+* `Attrition ﬂag` -  If the credit card subscription has been cancelled or not("*Attrited Customer*"=it is cancelled, "*Existing Cutomer*"=it is not cancelled)
+
+
+**Demographic Variables**
+
+* `Customer age` - Customer`s age in years
+* `Gender` - Customer`s gender (M=Male, F=Female)
+* `Dependent Count` - Number of dependents
+* `Education Level` - Education qualification of customer(high school, college, graduation, etc.)
+* `Marital Status` - Married, single, divorced, unknown
+* `Income Category` - Demographic variable - Annual income category of the account holder(< \$ 40k, \$ 40k-\$ 60k, \$60k-\$80k, \$80k-\$120k, > \$120k, Unknown)
+
+**Product Related Variables**
+
+* `Card category` - Type of card(Blue, silver, Gold, Platinum)
+* `Credit Limit` -  Credit limit on the credit card
+* `Total Relationship Count` -   Total numbers of products held by the customer(cards, accounts, etc.)
+
+**Customer/Company Interaction Variables**
+
+* `Months on book` - Period of relationship with bank 
+* `Contacts Count 12 mon` -  Number of contacts made between the bank and the customer in the last 12 months.
+* `Months Inactive 12 mon` -  Number of months inactive in the last 12 months.
+
+**Transaction Activity Variables**
+
+* `Avg Open To Buy` - Open to buy credit line(Average of last 12 months)
+* `Total Amt Change Q4 Q1` -  Change in transaction amount by the customer comparing the 4th quarter against the 1st.
+* `Total Trans Amt` - Total Transaction amount in the last 12 months
+* `Total Trans Ct` - Total Transaction Count
+* ` Total Transaction Count` - Change in transaction comparing the 4th quarter against 1st
+* `Avg Utilization Ratio`  - Average credit card utilization ratio; the ratio of(credit card spent + money withdrawal)/(Total available limit for credit card spends + Total money withdrawal limit)
+* `Total revolving bal` -  Unpaid amount that the credit card holder does not pay in time and that
+is carried on to their next credit card’s cycle.
+
+
+Loading our libraries
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(here)
+library(ggthemes)
+library(caret)
+library(smotefamily)
+library(VIF)
+library(scales)
+library(treemap)
+library(gridExtra)
+library(grid)
+library(corrplot)
+```
+
+```{r include=FALSE}
+knitr::opts_chunk$set(comment = NA, message = FALSE, warning = FALSE)
+```
+
+Reading our data set
+
+```{r echo=TRUE}
+Bank<-read_csv(here("BankChurners.csv"))
+rmarkdown::paged_table(Bank)
+```
+
+# Data Cleaning
+
+I dropped the variable `Clientum` which represents the unique identiﬁer for each customer`s accounts. ID variables should always be excluded when building a machine learning model. Failure to do so would lead to inaccurate ﬁndings and over-ﬁtting since the ID variable will be used to uniquely predict each entry (Lantz, 2013).
+
+```{r}
+bank<-Bank[,-1]
+```
+
+Checking for missing values
+
+```{r}
+sum(is.na(bank))
+```
+
+```{r include=FALSE}
+bank<-bank[,-c(21:22)]
+```
+
+There were no missing values in our data set, fortunately.
+
+
+# Data Visualization
+
+## Categorical Variables
+
+```{r include=FALSE}
+options(scipen = 999)
+```
+
+```{r,out.width="55%",fig.keep="hold"}
+
+bank%>%ggplot(aes(x=Income_Category,fill=Attrition_Flag))+geom_bar(position = "fill")+labs(title="Income category",y="Percent",x="Income category")+scale_fill_brewer(palette = "Set2")+scale_y_continuous(breaks=seq(0,1,.2),label=percent)+theme(axis.title.y = element_blank(),legend.title = element_blank(),plot.margin = unit(c(1,1,0,1),"cm"))+theme_fivethirtyeight()
+
+bank%>%ggplot(aes(x=Card_Category,fill=Attrition_Flag))+geom_bar(position = "fill")+theme_fivethirtyeight()+labs(title="Card category",y="Percent",x="Card category")+scale_fill_brewer(palette = "Set2")+scale_y_continuous(breaks=seq(0,1,.2),label=percent)
+
+bank%>%ggplot(aes(x=Education_Level,fill=Attrition_Flag))+geom_bar(position = "fill")+theme_fivethirtyeight()+labs(title="Education Level",y="Percent",x="Education level")+scale_fill_brewer(palette = "Set2")+scale_y_continuous(breaks=seq(0,1,.2),label=percent)
+
+bank%>%ggplot(aes(x=Gender,fill=Attrition_Flag))+geom_bar(position = "fill")+theme_fivethirtyeight()+labs(title="Gender",y="Percent",x="Gender")+scale_fill_brewer(palette = "Set2")+scale_y_continuous(breaks=seq(0,1,.2),label=percent)
+
+bank%>%ggplot(aes(x=Marital_Status,fill=Attrition_Flag))+geom_bar(position = "fill")+theme_fivethirtyeight()+labs(title="Marital Status",y="Percent",x="Marital")+scale_fill_brewer(palette = "Set2")+scale_y_continuous(breaks=seq(0,1,.2),label=percent)
+```
+
+Looking at the graphs of each variable, it seems the level of churned vs non churned customers  looks similar among the groups. This could be foreshadowing that none of our categorical variables are signiﬁcant in predicting churn. However, there might be more we could find out if we only look at the number of churns for each variable.
+
+## Categorical Variables Looking Only at Attrition
+
+```{r,out.width="50%",fig.keep="hold"}
+bank%>%filter(Attrition_Flag=="Attrited Customer")%>%count(Education_Level)%>%rename("Attrited Customer"=n)%>%treemap(bank2,index = c("Education_Level"),vSize = "Attrited Customer",palette = "Set2")
+
+bank2=bank%>%filter(Attrition_Flag=="Attrited Customer")%>%count(Card_Category)%>%rename("Attrited Customer"=n)%>%treemap(bank2,index = c("Card_Category"),vSize = "Attrited Customer",palette = "Set2")
+
+bank2=bank%>%filter(Attrition_Flag=="Attrited Customer")%>%count(Gender)%>%rename("Attrited Customer"=n)%>%treemap(bank2,index = c("Gender"),vSize = "Attrited Customer",palette = "Set2")
+
+bank2=bank%>%filter(Attrition_Flag=="Attrited Customer")%>%count(Marital_Status)%>%rename("Attrited Customer"=n)%>%treemap(bank2,index = c("Marital_Status"),vSize = "Attrited Customer",palette = "Set2")
+```
+
+From the graphs above we can ﬁlter the following information.
+
+* `Education level` - Most of the credit card cancellations are from customers who have graduated and the lowest number of cancellations are from customers with a post doctorate.
+
+* `Card category` - Most of the credit card cancellations are from customers with a blue card, while the lowest are from customers with a platinum card.
+
+* `Gender` - Even though female customers seem to have more credit card cancellations, the diﬀerence between them and the male customers who have churned does not seem signiﬁcant.
+
+* `Marital status` - Most of the credit card cancellations are from married customers while the lowest are from divorced customers.
+
+
+
+## Spearman's Correlation Plot Continuous Variables
+
+The spearmans ranks correlation coefficient or spearman`s $\rho$ is a non-parametric measure of rank correlation. It describes the relationship between two variables using a monotonic (a scenario in which the size of one variable increases as another variable either increases or decreases) function. We will use this co-efficient to show the relationship between our target variable and the continuous variables 
+
+We first store the continuous variables in one data set.
+
+```{r}
+cont.variables<-bank%>%select(Attrition_Flag,Dependent_count,Total_Relationship_Count,Months_Inactive_12_mon	,Contacts_Count_12_mon,Credit_Limit,Total_Revolving_Bal,Total_Amt_Chng_Q4_Q1,Total_Trans_Amt,Total_Trans_Ct, Total_Ct_Chng_Q4_Q1,Customer_Age,Avg_Utilization_Ratio,Months_on_book,Avg_Open_To_Buy)
+
+```
+
+```{r include=FALSE}
+cont.variables<-cont.variables%>%mutate(Attrition_Flag=if_else(Attrition_Flag=="Existing Customer",1,0))%>%mutate_if(is.character,factor)
+```
+
+Now we create a corrplot.
+
+```{r,out.width="120%"}
+m<-cor(cont.variables,method='spearman')
+corrplot(m,method="color",type = "full",addCoef.col = "black",number.cex = 0.50)
+```
+
+The variables`Total_Relationship_Count`, `Total_Revolving_Bal`, `Total_Trans_Ct`, `Total_Ct_Chng_Q4_Q1`, and `Avg_Utilization_Rati0` exhibit a positive monotonic association with our target variable. This might indicate that they are signiﬁcant in predicting churn. While `Contact_Count_12_mon` and `Months_Inactive_12_mon` exhibit a negative monotonic association with our target variable. This might also indicate that they are signiﬁcant in predicting churn. The others do not exhibit a strong relationship with our target variable.
+
+
+# Feature and Target Engineering
+
+We now perform feature and target engineering. 
+
+Feature and target engineering refer to methods that alter (addition, deletion or transformation) raw data into features that better represent the underlying goal of the predictive model so as to better train our algorithm (Boehmke & Greenwell, 2019).
+
+## Dummy Coding
+
+We are changing the values in the `Attrition_Flag` ﬁeld which is our target variable to 1 if it is an existing customer, and 0 if it is a churned customer.
+
+```{r}
+df<-bank%>%mutate(Attrition_Flag=if_else(Attrition_Flag=="Existing Customer",1,0))%>%mutate_if(is.character,factor)
+```
+
+
+## Feature Importance
+
+Feature importance refers to methods that assigns a score to input features based on how good their predictive power is. We will use the Random Forest algorithm to perform feature importance.
+
+```{r}
+model<-lm(Attrition_Flag~., method="rf",data=df)
+
+var<-data.frame(var=row.names(varImp(model)),Import=varImp(model)$Overall)
+```
+
+Storing the most important variables in one data set.
+
+```{r}
+final<-filter(var,Import>= 0.1)$Var
+```
+
+```{r include=FALSE}
+final<-df%>%select(Attrition_Flag,Dependent_count,Total_Relationship_Count,Months_Inactive_12_mon	,Contacts_Count_12_mon,Credit_Limit,Total_Revolving_Bal,Total_Amt_Chng_Q4_Q1,Total_Trans_Amt,Total_Trans_Ct, Total_Ct_Chng_Q4_Q1,Customer_Age,Avg_Utilization_Ratio,Months_on_book,Avg_Open_To_Buy)
+
+final$Attrition_Flag<-as.numeric(final$Attrition_Flag)
+```
+
+```{r}
+names(final)
+```
+
+* As we can see above from our feature engineering, most of the significant variables were transaction variables.
+
+## Splitting the Data into the Training Set and Test Set.
+
+Since we are dealing with a classification problem that also happens to be severely imbalanced we will use stratified sampling to split the data.
+
+```{r}
+set.seed(1337)
+
+train1<-createDataPartition(final$Attrition_Flag,p=0.7,times=1,list=F)
+train<-final[train1,]
+test<-final[-train1,]
+```
+
+```{r include=FALSE}
+test$class<-test$Attrition_Flag
+test$class<-as.factor(test$class)
+test<-test[,-1]
+```
+
+
+## Dealing with Class Imbalance Using SMOTE
+
+Our target variable was very imbalanced. Existing customers only make up 84% of the training data while those who have churned make up only 16%. We use SMOTE to deal with this.
+
+```{r}
+smote<-SMOTE(as.data.frame(train[,-14]),train$Attrition_Flag,K=5)
+train_smote<-smote$data
+```
+
+```{r include=FALSE}
+train_smote$class<-as.factor(train_smote$class)
+train_smote<-train_smote[,-1]
+```
+
+## Before and After Applying SMOTE Visualization
+
+```{r}
+prop.table(table(train_smote$class))
+```
+
+```{r echo=FALSE,out.width="60%",fig.align='center'}
+
+perc1<-bank%>%group_by(Attrition_Flag)%>%summarise(Count=n())%>%mutate(Attrition_Flag=factor(Attrition_Flag),ratio=Count/sum(Count),label=percent(ratio%>%round(2)))
+
+a=perc1%>%ggplot(aes(x=Attrition_Flag,y=ratio,fill=Attrition_Flag,label=label))+geom_col()+theme_void()+theme(legend.position = "bottom",axis.title.x =element_blank(),axis.title.y = element_blank(),plot.title = element_text(hjust=0.5))+geom_text(vjust=0.5)+labs(title = "Original Data")+theme(plot.margin = unit(c(1,1,0,1),"cm"))
+
+
+perc2<-train_smote%>%group_by(class)%>%summarise(Count=n())%>%mutate(class=factor(class),ratio=Count/sum(Count),label=percent(ratio%>%round(2)))
+
+b=perc2%>%ggplot(aes(x=class,y=ratio,fill=class,label=label))+geom_col()+theme_void()+theme(legend.position = "bottom",axis.title.x =element_blank(),axis.title.y = element_blank(),plot.title = element_text(hjust = 0.5))+geom_text(vjust=0.5)+labs(title = "After Applying SMOTE")+theme(plot.margin = unit(c(1,1,0,1),"cm"))
+
+glegend<-function(a.gplot){
+  tmp<-ggplot_gtable(ggplot_build(a.gplot))
+  leg<-which(sapply(tmp$grobs, function(x) x$name)=="guide-box")
+  legend<-tmp$grobs[[leg]]
+  return(legend)
+}
+mylegend<-glegend(a)
+
+grid.arrange(arrangeGrob(a+theme(legend.position = "none",plot.margin = unit(c(1,1,0,1),"cm")),b+theme(legend.position = "none"),nrow=1),mylegend,nrow=2)
+
+
+```
+
+
+# Fitting Our XGBOOST Model
+
+```{r warning=FALSE,results='hide',warn.conflicts=F,quietly=T,error=F}
+control<-trainControl(method = "cv",number = 5)
+
+grid<-expand.grid(max_depth=17,
+                  nrounds=172,
+                  eta=0.4,
+                  gamma=0.2,
+                  colsample_bytree=0.8,
+                  min_child_weight=0.6,
+                  subsample=0.8)
+
+xgbm.tune=train(
+  x=select(train_smote,-c("class")),
+  y=train_smote$class,
+  method="xgbTree",
+  tunegrid=grid,
+  metric="Kappa",
+  verbose=FALSE,
+  trControl=control,
+                
+  )
+
+```
+
+
+## Evaluating Our Model
+
+```{r}
+predict_xgm=predict(xgbm.tune,select(test, c(-"class")))
+confusionMatrix(predict_xgm,test$class)
+```
+
+* From the confusion matrix 2944 values from our test set were correctly predicted (TN(*true negative*), TP(*true positive*)), while 94 were wrongly predicted (FN(*false negative*),FP(*false positive*)).
+* Our model ended up with an accuracy of 96.91%. This is very accurate as expected since our model predicted most values correctly. It also performed well on other metrics such as sensitivity, specificity and kappa.
+
+# References{ .unlisted .unnumbered}
+
+Boehmke, B., & Greenwell, B. (2019). Hands-on machine learning with R. Chapman and Hall/CRC.
+
+Lantz, B. (2013). Machine learning with R. Packt publishing ltd, 77.
+
+
+
+
+
+
+
+
+

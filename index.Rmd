@@ -1,7 +1,7 @@
 ---
 title: "My homepage"
 ---
-Resourceful and highly motivated graduate statistic student skilled in data analysis and machine learning methods. Seeking to my skills to help organizations in decision-making and boosting business performance. Proven to be adept in problem solving and encouraging team work. Also passionate about using statistical research to shine light on social issues. 
+Resourceful and highly motivated graduate statistic student, skilled in data analysis and machine learning methods. Seeking to my skills to help organizations in decision-making and boosting business performance. Proven to be adept in problem solving and encouraging team work. Also passionate about using statistical research to shine light on social issues. 
 
 Take a tour around my website to see some of the projects I've done.
 
