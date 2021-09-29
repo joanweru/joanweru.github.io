@@ -91,8 +91,8 @@ retail%>%ggplot(aes(x=Weekly_Sales))+geom_histogram(fill="royalblue",color="blac
 
 ```
 
-* Fuel Price looks fairly normally distributed
-* Weekly Sales is positively skewed. This could be due certain holidays causing our sales to peak so we wont try to fix it since it might helps shed light in our analysis.
+
+* Weekly Sales is positively skewed. This could be due certain holidays causing an increase in sales. Therefore, we won't try to fix this skewness since, it might help us shed light in our analysis(which holidays cause a peak in sales, etc.).
 
 # Data cleaning
 
@@ -289,5 +289,9 @@ monthly_view%>%ggplot(aes(x=month_yr,y=sales_total,group=1))+geom_line(color="St
 ```
 
 * We can see a peak in sales in December of 2010 and 2011 and a drop in sales in January of 2010 and 2011.
+
+* The peak in sales around December may be due to sales increasing as people buy gifts, decorations and christmas supplies for the holidays.
+
+* The drop in sales in January may be due more people choosing to save after overindulging and splurging on the holidays. 
 
 
