@@ -152,7 +152,7 @@ In our improved model, the model accuracy is 94.16%, not quite a big improvement
 We compare the two models
 
 $$Original\ model: Sales \approx \beta_0+\beta_1\cdot TV + \beta_2 \cdot Radio + \beta_3 \cdot Newspaper$$
-$$Improved\ model: Sales \approx \beta_0+\beta_1 \cdot TV+\beta_2 \cdot Radio+ \beta_3 \cdot Newspaper+\\O\beta_4\cdot (TV \cdot Radio)+ \beta_5 \cdot(TV \cdot Newspaper)+ \beta_6 \cdot (Radio \cdot Nespaper)$$
+$$Improved\ model: Sales \approx \beta_0+\beta_1 \cdot TV+\beta_2 \cdot Radio+ \beta_3 \cdot Newspaper+\\\beta_4\cdot (TV \cdot Radio)+ \beta_5 \cdot(TV \cdot Newspaper)+ \beta_6 \cdot (Radio \cdot Nespaper)$$
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 RSE<-c(summary(model1)$sigma,summary(model2)$sigma)

@@ -1,11 +1,11 @@
 ---
-title: "My homepage"
+title: "My Homepage"
 ---
 Resourceful and highly motivated graduate statistic student, skilled in data analysis and machine learning methods. Seeking to my skills to help organizations in decision-making and boosting business performance. Proven to be adept in problem solving and encouraging team work. Also passionate about using statistical research to shine light on social issues. 
 
-Take a tour around my website to see some of the projects I've done.
+On this website I post some of the projects I've done.
 
-## Key skills
+## Key Skills
 
 <style>
   .col2 {
@@ -30,7 +30,7 @@ Take a tour around my website to see some of the projects I've done.
 
 </div>
  
-## Soft skills
+## Soft Skills
 
 * Problem solving
 * Analytical skills

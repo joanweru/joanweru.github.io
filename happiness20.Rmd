@@ -20,9 +20,6 @@ Use data visualization to unearth key insights that could help decision makers i
 
 # Importing the Data
 
-```{r message=FALSE, warning=FALSE, include=FALSE}
-library(dplyr)
-```
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -64,13 +61,14 @@ happiness20$region<-countrycode(sourcevar = happiness20[[1]],origin = "country.n
 
 I had to custom match Kosovo because it wasn't mapping for some reason
 
-```{r echo=TRUE, fig.align='center', fig.height=10, fig.width=15, message=FALSE, warning=FALSE, dpi=200}
+```{r echo=TRUE, fig.align='center', fig.height=10, fig.width=15, message=FALSE, warning=FALSE, dpi=200,out.width="150%"}
 a<-ggplot(happiness20,aes(x=`Logged GDP per capita`,y=`Ladder score`,add="reg.line"))+
-  geom_point(size=4,aes(colour=region))+theme_fivethirtyeight()+geom_smooth(method = lm)+
-    labs(title = "GPD per capita")+
+  geom_point(size=4,aes(colour=region))+theme_fivethirtyeight()+
+  geom_smooth(method = lm)+labs(title = "GPD per capita")+
   theme(axis.title = element_text(face="bold",size = 18),axis.title.x = element_blank(),legend.position = "top")+
   ylab("Happiness score\n")+scale_color_viridis_d(direction = -1)+
-  stat_regline_equation(aes(label=paste(..adj.rr.label..)),geom = "label",position = "identity")
+  stat_regline_equation(aes(label=paste(..adj.rr.label..)),
+  geom = "label",position = "identity")
 
 
 b<-ggplot(happiness20,aes(y=`Ladder score`,x=`Social support`))+
@@ -105,7 +103,7 @@ annotate_figure(g,top=text_grob("Linear relationship between happiness and vario
 ```
 
 
-# Visualizing the Top Ten Happiest Countries and Top Ten Worst Countries 
+# Visualizing the Top Ten Happiest Countries and Unhappiest Countries 
 
 We use `geom_flag` for to visualize the countries alongside their individual flags
 

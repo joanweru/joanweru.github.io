@@ -7,11 +7,16 @@ navbar:
     - text: "Home"
       icon: fa-home
       href: index.html
+    - text: "Data Analysis"
+      icon: fa-chart-line
+      menu:
+        - text: "Walmart Retail Analysis"
+          href: retailsales.html
     - text: "Data Visualization"
       icon: fa-pie-chart
       menu:
         - text: "Happiness Report,2020"
-          href: happiness20.html
+          href: happiness20.html     
     - text: "Machine Learning"
       icon: fa-cogs
       menu: 

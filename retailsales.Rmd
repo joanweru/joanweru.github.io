@@ -1,0 +1,293 @@
+---
+title: "Retail Analysis with Walmart Sales Data"
+output:
+  html_document:
+   theme: flatly
+   highlight: zenburn
+   toc: true
+   number_sections: true
+---
+
+# Project Description
+
+## Problem Statement
+
+Historical sales data for 45 Walmart stores located in different regions are available. There are certain events and holidays which impact sales on each day.
+
+Holiday events
+
+* Super Bowl: `12-Feb-10`, `11-Feb-11`, `10-Feb-12`, `8-Feb-13`
+* Labour Day: `10-Sep-10`, `9-Sep-11`,  `7-Sep-12`, `6-Sep-13`
+* Thanksgiving: `26-Nov-10`, `25-Nov-11`, `23-Nov-12`, `29-Nov-13`
+* Christmas: `31-Dec-10`, `30-Dec-11`, `28-Dec-12`, `27-Dec-13`
+
+
+
+## Basic Statistics Tasks
+
+1. Which store has maximum sales
+2. Which store has maximum standard deviation i.e., the sales vary a lot. Also find out the coefficient of mean to standard deviation
+3. Which store(s) has good quarterly growth in Q3` 2012
+4. Some holidays have a negative impact on sales. Find out holidays which have higher sales than the mean sales mean sales in non-holiday season for all stores together.
+5. Provide a monthly and semester view of sales in units and give insights
+
+## About the data
+
+* `Store` - The store number from 1 to 45
+* `Date` - Week of the sales(date)
+* `Weekly_Sales` - Sales for the given store
+* `Holiday_Flag` - Whether the week is a special holiday or not(1-Holiday week, 0- Non-holiday week)
+* `Temperature` - Temperature on the day of sale
+* `Fuel_Price` - Cost of fuel in the region
+* `CPI` - Prevailing consumer price index
+* `Unemployment` - Prevailing unemployment rate
+
+
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(here)
+library(ggthemes)
+library(scales)
+library(lubridate)
+```
+
+```{r include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, comment = NA)
+options(scipen = 999)
+```
+
+Let's read in our data
+
+```{r}
+retail<-read_csv(here("walmart.csv"))
+
+```
+
+# Data Exploration
+
+```{r}
+dim(retail)
+```
+
+* Our data has 6435 observations and 8 variables.
+
+```{r}
+rmarkdown::paged_table(retail)
+```
+
+```{r}
+str(retail)
+```
+
+```{r}
+summary(retail)
+```
+
+We take a look at our variable of interest for this project: `Weekly_Sales`
+
+```{r}
+retail%>%ggplot(aes(x=Weekly_Sales))+geom_histogram(fill="royalblue",color="black")+theme_fivethirtyeight()+labs(x="Weekly Sales",y="Frequency")+scale_x_continuous(breaks = (seq(from=0,to=4000000,by=1000000)),labels = scales::label_number_si())+labs(title="Weekly Sales Histogram Plot")+theme(plot.title = element_text(family="sans",size=20,hjust=0.5),axis.title = element_text(size=12.5))
+
+```
+
+* Fuel Price looks fairly normally distributed
+* Weekly Sales is positively skewed. This could be due certain holidays causing our sales to peak so we wont try to fix it since it might helps shed light in our analysis.
+
+# Data cleaning
+
+Checking for missing values
+
+```{r}
+sum(is.na(retail))
+```
+
+Checking for any duplicates in our data 
+
+```{r}
+sum(duplicated(retail)==TRUE)
+```
+
+# Question One
+
+> Which store has maximum sales
+
+```{r}
+max.sales<-retail%>%group_by(Store)%>%summarize(sum=sum(Weekly_Sales))%>%arrange(desc(sum))
+max.sales[1,]
+```
+
+## Answer
+
+```{r echo=FALSE}
+print(paste("Store no.", max.sales[1,]$Store,"has the maximum sales with", max.sales[1,]$sum))
+```
+
+
+```{r,fig.width=10}
+max.sales%>%ggplot(aes(x=reorder(Store,-sum),y=sum,fill=ifelse(Store=="20",'tomato','grey54')))+geom_col()+scale_fill_identity()+labs(title ="Stores vs Sales",y="Total Sales",x="Store no.")+scale_y_continuous(labels=scales::label_number_si())+theme_fivethirtyeight()+theme(legend.position = "none",plot.title = element_text(hjust = 0.5,size=20),axis.title = element_text(size=12.5),axis.text = element_text(size=9.5))
+```
+
+
+# Question Two
+
+> Which store has maximum standard deviation i.e., the sales vary a lot. Also find out the coefficient of mean to standard deviation
+
+```{r}
+max.sd<-retail%>%group_by(Store)%>%summarize(std.dev=sd(Weekly_Sales),mean=mean(Weekly_Sales))%>%mutate(coef=(std.dev/mean)*100)%>%arrange(desc(std.dev))
+max.sd[1,]
+```
+
+
+## Answer
+
+```{r echo=FALSE}
+print(paste("Store no.",max.sd[1,]$Store,"has the maximum standard deviation of",round(max.sd[1,]$std.dev,1), "and coefficient of variation is",round(max.sd[1,]$coef,4)))
+```
+
+```{r,fig.width=10}
+max.sd%>%ggplot(aes(x=reorder(Store,-std.dev),y=std.dev,fill=ifelse(Store=="14",'tomato','grey54')))+geom_col()+scale_fill_identity()+labs(title ="Stores vs Standard Deviation",y="Standard Deviation",x="Store no.")+scale_y_continuous(labels=scales::label_number_si(),breaks = seq(from=0,to=300000,by=75000))+theme_fivethirtyeight()+theme(legend.position = "none",plot.title = element_text(hjust=0.5,size=20),axis.text.y = element_text(size=9.5),axis.text.x = element_text(size = 9.5),axis.title = element_text(size=12.5))
+```
+
+```{r,fig.width=10}
+retail%>%filter(Store==14)%>%ggplot(aes(x=Weekly_Sales))+geom_density(color="Royalblue",fill="lightblue",size=1)+theme_fivethirtyeight()+labs(title="Sales Distribution for Store no. 14",y="Density",x="Weekly Sales")+geom_vline(aes(xintercept=mean(Weekly_Sales)),color="steelblue",size=1,linetype="dashed")+theme(plot.title = element_text(hjust=0.5,size=20),axis.title = element_text(size=12.5))
+```
+
+# Question Three
+
+> 3. Which store(s) has good quarterly growth in Q3` 2012
+
+
+We first extract the months and date and store them in a new column `month-yr`
+
+```{r}
+retail$month_yr<-format(as.Date(retail$Date,format = "%d-%m-%Y"),"%Y-%m")
+```
+
+We then filter out Q3' 2012 and Q2' 2012.
+
+```{r}
+
+Q3.2012<-retail%>%filter(month_yr=="2012-07" | month_yr=="2012-08" | month_yr=="2012-09")
+
+Q2.2012<-retail%>%filter(month_yr=="2012-04" | month_yr=="2012-05" | month_yr=="2012-06")
+```
+
+We group the data by store, getting the sum of each store.
+
+```{r}
+
+Q3.2012.Sales<-Q3.2012%>%group_by(Store)%>%summarise(sumQ3=sum(Weekly_Sales))
+
+Q2.2012.Sales<-Q2.2012%>%group_by(Store)%>%summarise(sumQ2=sum(Weekly_Sales))
+
+```
+
+We merge the two data sets by a common denominator, in this case `Store`
+
+
+We also create a new column `growth_rate` that measures the quarterly growth in Q3` 2012.
+
+We filter those stores with a positive growth rate and store them in a new data set called "positive_growth".
+
+```{r}
+Q3.2012.Growth<-merge(Q2.2012.Sales,Q3.2012.Sales,by="Store")%>%mutate(growth_rate=((sumQ3-sumQ2)*100)/sumQ2)
+
+positive_growth<-Q3.2012.Growth%>%select(Store,growth_rate)%>%filter(growth_rate>0)%>%arrange(desc(growth_rate))
+```
+
+```{r}
+knitr::kable(positive_growth)
+```
+
+## Answer
+
+```{r echo=FALSE}
+print(paste(c("Store no.",positive_growth$Store, "all had a good quarterly growth in Q3 2012", "with store no",positive_growth[1,1],"having the most growth"),collapse = " "))
+```
+
+```{r include=FALSE}
+attach(Q3.2012.Growth)
+```
+
+```{r,fig.width=10}
+Q3.2012.Growth%>%ggplot(aes(x=as.factor(Store),y=growth_rate))+geom_col(fill=ifelse(growth_rate>0,"royalblue","#6699FF"))+theme_fivethirtyeight()+theme(axis.title = element_text(size=12.5),plot.title = element_text(hjust=0.5,size=20),axis.text.y  = element_text(size=9.5),axis.text.x =element_text(size=9.5) )+scale_y_continuous(breaks = seq(from=-15,to=15,by=5 ))+labs(title="Q3' Quarterly Growth in 2012")+ylab("Growth rate")+xlab("Store no.")
+
+```
+
+
+# Question Four
+
+> Some holidays have a negative impact on sales. Find out holidays which have higher sales than the mean sales in non-holiday season for all stores together.
+
+Lets create a new data set similar to our retail data set, with a new column made up of Holiday names mapped to their respective dates and save the non-holidays as "Non-Holiday".
+
+```{r}
+Date<- c("12-02-2010", "11-02-2011", "10-02-2012", "08-02-2013","10-09-2010", "09-09-2011",  "07-09-2012", "06-09-2013","26-11-2010", "25-11-2011", "23-11-2012", "29-11-2013","31-12-2010", "30-12-2011", "28-12-2012", "27-12-2013")
+
+Holiday_Names<-c(rep("Super Bowl",4),rep("Labour Day",4),rep("Thanksgiving",4),rep("Christmas",4))
+
+Holiday<-data.frame(Date,Holiday_Names)
+Holiday_data<-merge(retail,Holiday,by.x="Date",all.x = TRUE,)
+
+Holiday_data$Holiday_Names<-as.character(Holiday_data$Holiday_Names)
+
+Holiday_data$Holiday_Names[is.na(Holiday_data$Holiday_Names)]="Non-Holiday"
+
+```
+
+Lets group by holiday name to find the mean of non holidays.
+
+```{r}
+holiday_mean_data<-Holiday_data%>%group_by(Holiday_Names)%>%summarise(mean=mean(Weekly_Sales))
+holiday_mean_data
+```
+
+The mean sales of non holidays is 1,041,256.4
+
+
+* Lets see which holiday dates have a greater mean than the non holiday mean.
+
+```{r}
+Holiday_Mean<-Holiday_data%>%group_by(Date,Holiday_Names)%>%summarise(mean=mean(Weekly_Sales))
+
+Holiday_Mean$id<-ifelse(Holiday_Mean$mean>1041256	,"TRUE","FALSE")
+
+Greater_than_non_holidays<-Holiday_Mean%>%filter(id=="TRUE" & Holiday_Names %in% c("Christmas","Labour Day","Super Bowl","Thanksgiving"))
+Greater_than_non_holidays
+```
+
+## Answer
+
+```{r echo=FALSE}
+print(paste(c("The holidays" ,Greater_than_non_holidays$Date ,"all have higher sales than the mean sales in non-holiday season for all stores together."),collapse = ", "))
+      
+```
+
+```{r,fig.width=10}
+Holiday_Mean$Date<-as.Date(Holiday_Mean$Date,format="%d-%m-%Y")
+
+
+
+Holiday_Mean%>%arrange(Date)%>%filter(Holiday_Names %in% c("Christmas","Labour Day","Super Bowl","Thanksgiving"))%>%ggplot(aes(x=as.factor(Date),y=mean,fill=factor(Holiday_Names)))+geom_col()+geom_hline(aes(yintercept=1041256.4	),color="#333333",size=1,linetype="dashed")+labs(title = "Mean Sales vs Holidays",y="Mean Sales",x="Date")+theme_fivethirtyeight()+theme(axis.title.x = element_text(family = "sans",size=12.5),axis.title.y = element_text(family="sans",size = 12.5),legend.title = element_blank(),plot.title = element_text(hjust = 0.4,size=20))+scale_fill_manual(values=c("#FF9900","#FF6600","#009966","#6699FF"))+scale_y_continuous(labels = scales::label_number_si())
+```
+
+
+
+# Question Five
+
+> Provide a monthly view of sales in units and give insights
+
+## Answer
+
+```{r,fig.width=10}
+monthly_view<-retail%>%group_by(month_yr)%>%summarise(sales_total=sum(Weekly_Sales))
+
+
+monthly_view%>%ggplot(aes(x=month_yr,y=sales_total,group=1))+geom_line(color="Steelblue",size=1.2)+geom_point()+labs(title="Monthly View of Sales: 2010 to 2012",x="Months",y="Total Sales")+theme_fivethirtyeight()+theme(axis.title.x = element_text(family = "sans",size = 12),axis.text.x = element_text(angle = 60,family = "sans",size=9.5),axis.title.y = element_text(family="sans",size = 12),axis.text.y = element_text(size=9.5),plot.title = element_text(hjust = 0.5,size=20))+scale_y_continuous(labels = label_number(suffix="M",scale = 1e-6),limits = c(150000000,300000000))
+
+```
+
+* We can see a peak in sales in December of 2010 and 2011 and a drop in sales in January of 2010 and 2011.
+
+
