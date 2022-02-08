@@ -29,7 +29,6 @@ library(corrplot)
 ```
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
-setwd("~/R- CLASS DATASETS/joanweru.github.io")
 knitr::opts_chunk$set(comment = NA)
 ```
 

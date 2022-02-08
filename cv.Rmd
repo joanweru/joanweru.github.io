@@ -2,4 +2,4 @@
 title: "cv"
 ---
 
-<a href="joanweru.pdf#" class="download" title="Download my CV">Download CV</a> 
+<a href="joan weru.pdf#" class="download" title="Download my CV">Download CV</a> 

@@ -1,9 +1,9 @@
 ---
 title: "My Homepage"
 ---
-Resourceful and highly motivated graduate statistic student, skilled in data analysis and machine learning methods. Seeking to my skills to help organizations in decision-making and boosting business performance. Proven to be adept in problem solving and encouraging team work. Also passionate about using statistical research to shine light on social issues. 
+Resourceful and highly motivated junior data analyst, skilled in data analysis and machine learning methods. Seeking to my skills to help organizations in decision-making and boosting business performance. Proven to be adept in problem solving, research and encouraging team work. Moreover I have shown ability to meet deadlines without compromising the accuracy and quality of work.
 
-On this website I post some of the projects I've done.
+On this website, I post some of the projects I've done and the services I offer.
 
 ## Key Skills
 
@@ -17,37 +17,63 @@ On this website I post some of the projects I've done.
 
 <div class="col2">
 
-* Data analysis
-* Data visualization
-* Machine learning
-* Microsoft excel
 * Coding - R, Latex
-* Time series analysis
+* Advanced Microsoft Excel
+* Data analysis
+* Data visualization - Tableau, Ggplot, Shiny R
+* Data modelling - Regression, Random Forest, Time series
+* Forecasting - Time series
 * Hypothesis testing
 * Inferential statistics
-* Report writing in Rmarkdown
-* Building websites using R
+* Report writing on data analysis findings
+* Research
+
 
 </div>
  
 ## Soft Skills
 
 * Problem solving
-* Analytical skills
-* Excellent research skills
+* Analytical 
+* Detail oriented
 * Communication and interpersonal skills
+* Team player
+* Self motivated
+
+## Services
+
+* Data analysis with R and Microsoft Excel
+* Statistics and Math assignments
+* Math tutoring 
+* Essay and report writing
+* Data entry tasks
+* Undergraduate projects
  
+## Experience
+
+<i class="fa fa-briefcase"></i><font size="3"> **Data Analyst Intern**, *Kenya Revenue Authority*
+
+Jan 2022-Dec 2022
+
+<i class="fa fa-briefcase"></i><font size="3"> **Data Analyst**, *Freelance* 
+
+Jan 2020- Present
+
+<i class="fa fa-briefcase"></i><font size="3"> **In- home Tutor**, *Freelance* 
+
+Aug 2021-Dec 2021
+
 ## Education
 
-<i class="fa fa-graduation-cap"></i><font size="3"> **Bachelor of Science in Statistics, 2021**
+<i class="fa fa-graduation-cap"></i><font size="3"> **Bachelor of Science in Statistics**, *University of Nairobi*
 
-University of Nairobi
+Sep 2021
 
 ## Certificates
 
-<i class="fa fa-award"></i><font size="3"> **R Statistical Data Analysis Training, 2020** </font>
+<i class="fa fa-award"></i><font size="3"> **R Statistical Data Analysis Training**, *University of Nairobi* </font>
 
-University of Nairobi
+2022
 
 
 

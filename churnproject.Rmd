@@ -24,7 +24,7 @@ A manager at the bank is disturbed with more and more customer leaving their cre
 
 This data set contains 10,000 customers mentioning their age, salary, marital_status, credit card limit, credit card category, etc.
 
-I tried to divide the variables into the following segments that i thought unearth insights into which variables are more likely to predict churn.
+I tried to divide the variables into the following segments that I thought would be useful in finding out which type of variables could predict credit churn.
 
 **Target Variable** 
 
@@ -38,7 +38,7 @@ I tried to divide the variables into the following segments that i thought unear
 * `Dependent Count` - Number of dependents
 * `Education Level` - Education qualification of customer(high school, college, graduation, etc.)
 * `Marital Status` - Married, single, divorced, unknown
-* `Income Category` - Demographic variable - Annual income category of the account holder(< \$ 40k, \$ 40k-\$ 60k, \$60k-\$80k, \$80k-\$120k, > \$120k, Unknown)
+* `Income Category` - Annual income category of the account holder(< \$ 40k, \$ 40k-\$ 60k, \$60k-\$80k, \$80k-\$120k, > \$120k, Unknown)
 
 **Product Related Variables**
 
@@ -78,6 +78,7 @@ library(treemap)
 library(gridExtra)
 library(grid)
 library(corrplot)
+library(xgboost)
 ```
 
 ```{r include=FALSE}
@@ -112,7 +113,7 @@ summary(Bank)
 
 # Data Cleaning
 
-I dropped the variable `Clientum` which represents the unique identiﬁer for each customer`s accounts. ID variables should always be excluded when building a machine learning model. Failure to do so would lead to inaccurate ﬁndings and over-ﬁtting since the ID variable will be used to uniquely predict each entry (Lantz, 2013).
+I dropped the variable `Clientum` which represents the unique identiﬁer for each customer`s account. ID variables should always be excluded when building a machine learning model. Failure to do so, would lead to inaccurate ﬁndings and over-ﬁtting since the ID variable will be used to uniquely predict each entry (Lantz, 2013).
 
 ```{r}
 bank<-Bank[,-1]
