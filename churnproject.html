@@ -404,94 +404,158 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Predicting Credit Card Cancellations (96.91% Accuracy)</h1>
+<h1 class="title toc-ignore">Predicting Credit Card Cancellations
+(96.91% Accuracy)</h1>
 
 </div>
 
 <div id="TOC">
 <ul>
-<li><a href="#project-description"><span class="toc-section-number">1</span> Project Description</a>
+<li><a href="#project-description" id="toc-project-description"><span
+class="toc-section-number">1</span> Project Description</a>
 <ul>
-<li><a href="#problem-statement"><span class="toc-section-number">1.1</span> Problem Statement</a></li>
-<li><a href="#goal-of-this-project"><span class="toc-section-number">1.2</span> Goal of this Project</a></li>
-<li><a href="#about-the-data"><span class="toc-section-number">1.3</span> About the data</a></li>
+<li><a href="#problem-statement" id="toc-problem-statement"><span
+class="toc-section-number">1.1</span> Problem Statement</a></li>
+<li><a href="#goal-of-this-project" id="toc-goal-of-this-project"><span
+class="toc-section-number">1.2</span> Goal of this Project</a></li>
+<li><a href="#about-the-data" id="toc-about-the-data"><span
+class="toc-section-number">1.3</span> About the data</a></li>
 </ul></li>
-<li><a href="#data-exploration"><span class="toc-section-number">2</span> Data Exploration</a></li>
-<li><a href="#data-cleaning"><span class="toc-section-number">3</span> Data Cleaning</a></li>
-<li><a href="#data-visualization"><span class="toc-section-number">4</span> Data Visualization</a>
+<li><a href="#data-exploration" id="toc-data-exploration"><span
+class="toc-section-number">2</span> Data Exploration</a></li>
+<li><a href="#data-cleaning" id="toc-data-cleaning"><span
+class="toc-section-number">3</span> Data Cleaning</a></li>
+<li><a href="#data-visualization" id="toc-data-visualization"><span
+class="toc-section-number">4</span> Data Visualization</a>
 <ul>
-<li><a href="#categorical-variables"><span class="toc-section-number">4.1</span> Categorical Variables</a></li>
-<li><a href="#categorical-variables-looking-only-at-attrition"><span class="toc-section-number">4.2</span> Categorical Variables Looking Only at Attrition</a></li>
-<li><a href="#spearmans-correlation-plot-continuous-variables"><span class="toc-section-number">4.3</span> Spearman’s Correlation Plot Continuous Variables</a></li>
+<li><a href="#categorical-variables"
+id="toc-categorical-variables"><span
+class="toc-section-number">4.1</span> Categorical Variables</a></li>
+<li><a href="#categorical-variables-looking-only-at-attrition"
+id="toc-categorical-variables-looking-only-at-attrition"><span
+class="toc-section-number">4.2</span> Categorical Variables Looking Only
+at Attrition</a></li>
+<li><a href="#spearmans-correlation-plot-continuous-variables"
+id="toc-spearmans-correlation-plot-continuous-variables"><span
+class="toc-section-number">4.3</span> Spearman’s Correlation Plot
+Continuous Variables</a></li>
 </ul></li>
-<li><a href="#feature-and-target-engineering"><span class="toc-section-number">5</span> Feature and Target Engineering</a>
+<li><a href="#feature-and-target-engineering"
+id="toc-feature-and-target-engineering"><span
+class="toc-section-number">5</span> Feature and Target Engineering</a>
 <ul>
-<li><a href="#dummy-coding"><span class="toc-section-number">5.1</span> Dummy Coding</a></li>
-<li><a href="#feature-importance"><span class="toc-section-number">5.2</span> Feature Importance</a></li>
-<li><a href="#splitting-the-data-into-the-training-set-and-test-set."><span class="toc-section-number">5.3</span> Splitting the Data into the Training Set and Test Set.</a></li>
-<li><a href="#dealing-with-class-imbalance-using-smote"><span class="toc-section-number">5.4</span> Dealing with Class Imbalance Using SMOTE</a>
+<li><a href="#dummy-coding" id="toc-dummy-coding"><span
+class="toc-section-number">5.1</span> Dummy Coding</a></li>
+<li><a href="#feature-importance" id="toc-feature-importance"><span
+class="toc-section-number">5.2</span> Feature Importance</a></li>
+<li><a href="#splitting-the-data-into-the-training-set-and-test-set."
+id="toc-splitting-the-data-into-the-training-set-and-test-set."><span
+class="toc-section-number">5.3</span> Splitting the Data into the
+Training Set and Test Set.</a></li>
+<li><a href="#dealing-with-class-imbalance-using-smote"
+id="toc-dealing-with-class-imbalance-using-smote"><span
+class="toc-section-number">5.4</span> Dealing with Class Imbalance Using
+SMOTE</a>
 <ul>
-<li><a href="#before-and-after-applying-smote-visualization"><span class="toc-section-number">5.4.1</span> Before and After Applying SMOTE Visualization</a></li>
+<li><a href="#before-and-after-applying-smote-visualization"
+id="toc-before-and-after-applying-smote-visualization"><span
+class="toc-section-number">5.4.1</span> Before and After Applying SMOTE
+Visualization</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#fitting-our-xgboost-model"><span class="toc-section-number">6</span> Fitting Our XGBOOST Model</a>
+<li><a href="#fitting-our-xgboost-model"
+id="toc-fitting-our-xgboost-model"><span
+class="toc-section-number">6</span> Fitting Our XGBOOST Model</a>
 <ul>
-<li><a href="#evaluating-our-model"><span class="toc-section-number">6.1</span> Evaluating Our Model</a></li>
+<li><a href="#evaluating-our-model" id="toc-evaluating-our-model"><span
+class="toc-section-number">6.1</span> Evaluating Our Model</a></li>
 </ul></li>
 </ul>
 </div>
 
 <div id="project-description" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Project Description</h1>
+<h1><span class="header-section-number">1</span> Project
+Description</h1>
 <div id="problem-statement" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Problem Statement</h2>
-<p>A manager at the bank is disturbed with more and more customer leaving their credit card services. They would really appreciate if one could predict for them who is gonna get churned so they can proactively go to the customer to provide them better services and turn customers’ decisions in the opposite direction.</p>
+<h2><span class="header-section-number">1.1</span> Problem
+Statement</h2>
+<p>A manager at the bank is disturbed with more and more customer
+leaving their credit card services. They would really appreciate if one
+could predict for them who is gonna get churned so they can proactively
+go to the customer to provide them better services and turn customers’
+decisions in the opposite direction.</p>
 </div>
 <div id="goal-of-this-project" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> Goal of this Project</h2>
+<h2><span class="header-section-number">1.2</span> Goal of this
+Project</h2>
 <ul>
-<li>Create a model that can accurately predict which customer will churn.</li>
-<li>Identify customer characteristics and behavioral aspects that are key in predicting customer churn.</li>
+<li>Create a model that can accurately predict which customer will
+churn.</li>
+<li>Identify customer characteristics and behavioral aspects that are
+key in predicting customer churn.</li>
 </ul>
 </div>
 <div id="about-the-data" class="section level2" number="1.3">
 <h2><span class="header-section-number">1.3</span> About the data</h2>
-<p>This data set contains 10,000 customers mentioning their age, salary, marital_status, credit card limit, credit card category, etc.</p>
-<p>I tried to divide the variables into the following segments that I thought would be useful in finding out which type of variables could predict credit churn.</p>
+<p>This data set contains 10,000 customers mentioning their age, salary,
+marital_status, credit card limit, credit card category, etc.</p>
+<p>I tried to divide the variables into the following segments that I
+thought would be useful in finding out which type of variables could
+predict credit churn.</p>
 <p><strong>Target Variable</strong></p>
 <ul>
-<li><code>Attrition ﬂag</code> - If the credit card subscription has been cancelled or not(“<em>Attrited Customer</em>”=it is cancelled, “<em>Existing Customer</em>”=it is not cancelled)</li>
+<li><code>Attrition ﬂag</code> - If the credit card subscription has
+been cancelled or not(“<em>Attrited Customer</em>”=it is cancelled,
+“<em>Existing Customer</em>”=it is not cancelled)</li>
 </ul>
 <p><strong>Demographic Variables</strong></p>
 <ul>
 <li><code>Customer age</code> - Customer`s age in years</li>
 <li><code>Gender</code> - Customer`s gender (M=Male, F=Female)</li>
 <li><code>Dependent Count</code> - Number of dependents</li>
-<li><code>Education Level</code> - Education qualification of customer(high school, college, graduation, etc.)</li>
-<li><code>Marital Status</code> - Married, single, divorced, unknown</li>
-<li><code>Income Category</code> - Annual income category of the account holder(&lt; $ 40k, $ 40k-$ 60k, $60k-$80k, $80k-$120k, &gt; $120k, Unknown)</li>
+<li><code>Education Level</code> - Education qualification of
+customer(high school, college, graduation, etc.)</li>
+<li><code>Marital Status</code> - Married, single, divorced,
+unknown</li>
+<li><code>Income Category</code> - Annual income category of the account
+holder(&lt; $ 40k, $ 40k-$ 60k, $60k-$80k, $80k-$120k, &gt; $120k,
+Unknown)</li>
 </ul>
 <p><strong>Product Related Variables</strong></p>
 <ul>
-<li><code>Card category</code> - Type of card(Blue, silver, Gold, Platinum)</li>
+<li><code>Card category</code> - Type of card(Blue, silver, Gold,
+Platinum)</li>
 <li><code>Credit Limit</code> - Credit limit on the credit card</li>
-<li><code>Total Relationship Count</code> - Total numbers of products held by the customer(cards, accounts, etc.)</li>
+<li><code>Total Relationship Count</code> - Total numbers of products
+held by the customer(cards, accounts, etc.)</li>
 </ul>
 <p><strong>Customer/Company Interaction Variables</strong></p>
 <ul>
 <li><code>Months on book</code> - Period of relationship with bank</li>
-<li><code>Contacts Count 12 mon</code> - Number of contacts made between the bank and the customer in the last 12 months.</li>
-<li><code>Months Inactive 12 mon</code> - Number of months inactive in the last 12 months.</li>
+<li><code>Contacts Count 12 mon</code> - Number of contacts made between
+the bank and the customer in the last 12 months.</li>
+<li><code>Months Inactive 12 mon</code> - Number of months inactive in
+the last 12 months.</li>
 </ul>
 <p><strong>Transaction Activity Variables</strong></p>
 <ul>
-<li><code>Avg Open To Buy</code> - Open to buy credit line(Average of last 12 months)</li>
-<li><code>Total Amt Change Q4 Q1</code> - Change in transaction amount by the customer comparing the 4th quarter against the 1st.</li>
-<li><code>Total Trans Amt</code> - Total Transaction amount in the last 12 months</li>
+<li><code>Avg Open To Buy</code> - Open to buy credit line(Average of
+last 12 months)</li>
+<li><code>Total Amt Change Q4 Q1</code> - Change in transaction amount
+by the customer comparing the 4th quarter against the 1st.</li>
+<li><code>Total Trans Amt</code> - Total Transaction amount in the last
+12 months</li>
 <li><code>Total Trans Ct</code> - Total Transaction Count</li>
-<li><code>Total Transaction Count</code> - Change in transaction comparing the <span class="math inline">\(4^{th}\)</span> quarter against <span class="math inline">\(1^{st}\)</span></li>
-<li><code>Avg Utilization Ratio</code> - Average credit card utilization ratio; the ratio of(credit card spent + money withdrawal)/(Total available limit for credit card spends + Total money withdrawal limit)</li>
-<li><code>Total revolving bal</code> - Unpaid amount that the credit card holder does not pay in time and that is carried on to their next credit card’s cycle.</li>
+<li><code>Total Transaction Count</code> - Change in transaction
+comparing the <span class="math inline">\(4^{th}\)</span> quarter
+against <span class="math inline">\(1^{st}\)</span></li>
+<li><code>Avg Utilization Ratio</code> - Average credit card utilization
+ratio; the ratio of(credit card spent + money withdrawal)/(Total
+available limit for credit card spends + Total money withdrawal
+limit)</li>
+<li><code>Total revolving bal</code> - Unpaid amount that the credit
+card holder does not pay in time and that is carried on to their next
+credit card’s cycle.</li>
 </ul>
 <p>Loading our libraries</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -569,7 +633,11 @@ $(document).ready(function () {
 </div>
 <div id="data-cleaning" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Data Cleaning</h1>
-<p>I dropped the variable <code>Clientum</code> which represents the unique identiﬁer for each customer`s account. ID variables should always be excluded when building a machine learning model. Failure to do so, would lead to inaccurate ﬁndings and over-ﬁtting since the ID variable will be used to uniquely predict each entry (Lantz, 2013).</p>
+<p>I dropped the variable <code>Clientum</code> which represents the
+unique identiﬁer for each customer`s account. ID variables should always
+be excluded when building a machine learning model. Failure to do so,
+would lead to inaccurate ﬁndings and over-ﬁtting since the ID variable
+will be used to uniquely predict each entry (Lantz, 2013).</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>bank<span class="ot">&lt;-</span>Bank[,<span class="sc">-</span><span class="dv">1</span>]</span></code></pre></div>
 <p>Checking for missing values</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(bank))</span></code></pre></div>
@@ -583,7 +651,8 @@ $(document).ready(function () {
 <div id="data-visualization" class="section level1" number="4">
 <h1><span class="header-section-number">4</span> Data Visualization</h1>
 <div id="categorical-variables" class="section level2" number="4.1">
-<h2><span class="header-section-number">4.1</span> Categorical Variables</h2>
+<h2><span class="header-section-number">4.1</span> Categorical
+Variables</h2>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>bank<span class="sc">%&gt;%</span><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Income_Category,<span class="at">fill=</span>Attrition_Flag))<span class="sc">+</span><span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">&quot;fill&quot;</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Income category&quot;</span>,<span class="at">y=</span><span class="st">&quot;Percent&quot;</span>,<span class="at">x=</span><span class="st">&quot;Income category&quot;</span>)<span class="sc">+</span><span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Set2&quot;</span>)<span class="sc">+</span><span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,.<span class="dv">2</span>),<span class="at">label=</span>percent)<span class="sc">+</span><span class="fu">theme_fivethirtyeight</span>()<span class="sc">+</span><span class="fu">theme</span>(<span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),<span class="at">legend.title =</span> <span class="fu">element_blank</span>(),<span class="at">plot.margin =</span> <span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="st">&quot;cm&quot;</span>),<span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="fl">9.5</span>),<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">20</span>,<span class="at">hjust =</span> <span class="fl">0.5</span>))</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>bank<span class="sc">%&gt;%</span><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Card_Category,<span class="at">fill=</span>Attrition_Flag))<span class="sc">+</span><span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">&quot;fill&quot;</span>)<span class="sc">+</span><span class="fu">theme_fivethirtyeight</span>()<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Card category&quot;</span>,<span class="at">y=</span><span class="st">&quot;Percent&quot;</span>,<span class="at">x=</span><span class="st">&quot;Card category&quot;</span>)<span class="sc">+</span><span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Set2&quot;</span>)<span class="sc">+</span><span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,.<span class="dv">2</span>),<span class="at">label=</span>percent)<span class="sc">+</span><span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="fl">9.5</span>),<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">20</span>,<span class="at">hjust=</span><span class="fl">0.5</span>))</span>
@@ -594,10 +663,16 @@ $(document).ready(function () {
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>bank<span class="sc">%&gt;%</span><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Marital_Status,<span class="at">fill=</span>Attrition_Flag))<span class="sc">+</span><span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">&quot;fill&quot;</span>)<span class="sc">+</span><span class="fu">theme_fivethirtyeight</span>()<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Marital Status&quot;</span>,<span class="at">y=</span><span class="st">&quot;Percent&quot;</span>,<span class="at">x=</span><span class="st">&quot;Marital&quot;</span>)<span class="sc">+</span><span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Set2&quot;</span>)<span class="sc">+</span><span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,.<span class="dv">2</span>),<span class="at">label=</span>percent)<span class="sc">+</span><span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="fl">9.5</span>),<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">20</span>,<span class="at">hjust =</span> <span class="fl">0.5</span>))</span></code></pre></div>
 <p><img src="churnproject_files/figure-html/unnamed-chunk-12-1.png" width="50%" /><img src="churnproject_files/figure-html/unnamed-chunk-12-2.png" width="50%" /><img src="churnproject_files/figure-html/unnamed-chunk-12-3.png" width="50%" /><img src="churnproject_files/figure-html/unnamed-chunk-12-4.png" width="50%" /><img src="churnproject_files/figure-html/unnamed-chunk-12-5.png" width="50%" /></p>
-<p>Looking at the graphs of each variable, it seems the level of churned vs non churned customers looks similar among the groups. This could be foreshadowing that none of our categorical variables are signiﬁcant in predicting churn. However, there might be more we could find out if we only look at the number of churns for each variable.</p>
+<p>Looking at the graphs of each variable, it seems the level of churned
+vs non churned customers looks similar among the groups. This could be
+foreshadowing that none of our categorical variables are signiﬁcant in
+predicting churn. However, there might be more we could find out if we
+only look at the number of churns for each variable.</p>
 </div>
-<div id="categorical-variables-looking-only-at-attrition" class="section level2" number="4.2">
-<h2><span class="header-section-number">4.2</span> Categorical Variables Looking Only at Attrition</h2>
+<div id="categorical-variables-looking-only-at-attrition"
+class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Categorical Variables
+Looking Only at Attrition</h2>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>bank<span class="sc">%&gt;%</span><span class="fu">filter</span>(Attrition_Flag<span class="sc">==</span><span class="st">&quot;Attrited Customer&quot;</span>)<span class="sc">%&gt;%</span><span class="fu">count</span>(Education_Level)<span class="sc">%&gt;%</span><span class="fu">rename</span>(<span class="st">&quot;Education Level&quot;</span><span class="ot">=</span>n)<span class="sc">%&gt;%</span><span class="fu">treemap</span>(bank2,<span class="at">index =</span> <span class="fu">c</span>(<span class="st">&quot;Education_Level&quot;</span>),<span class="at">vSize =</span> <span class="st">&quot;Education Level&quot;</span>,<span class="at">palette =</span> <span class="st">&quot;Set2&quot;</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>bank<span class="sc">%&gt;%</span><span class="fu">filter</span>(Attrition_Flag<span class="sc">==</span><span class="st">&quot;Attrited Customer&quot;</span>)<span class="sc">%&gt;%</span><span class="fu">count</span>(Card_Category)<span class="sc">%&gt;%</span><span class="fu">rename</span>(<span class="st">&quot;Card Category&quot;</span><span class="ot">=</span>n)<span class="sc">%&gt;%</span><span class="fu">treemap</span>(bank2,<span class="at">index =</span> <span class="fu">c</span>(<span class="st">&quot;Card_Category&quot;</span>),<span class="at">vSize =</span> <span class="st">&quot;Card Category&quot;</span>,<span class="at">palette =</span> <span class="st">&quot;Set2&quot;</span>)</span>
@@ -608,36 +683,72 @@ $(document).ready(function () {
 <p><img src="churnproject_files/figure-html/unnamed-chunk-13-1.png" width="50%" /><img src="churnproject_files/figure-html/unnamed-chunk-13-2.png" width="50%" /><img src="churnproject_files/figure-html/unnamed-chunk-13-3.png" width="50%" /><img src="churnproject_files/figure-html/unnamed-chunk-13-4.png" width="50%" /></p>
 <p>From the graphs above we can ﬁlter the following information.</p>
 <ul>
-<li><p><code>Education level</code> - Most of the credit card cancellations are from customers who have graduated and the lowest number of cancellations are from customers with a post doctorate.</p></li>
-<li><p><code>Card category</code> - Most of the credit card cancellations are from customers with a blue card, while the lowest are from customers with a platinum card.</p></li>
-<li><p><code>Gender</code> - Even though female customers seem to have more credit card cancellations, the diﬀerence between them and the male customers who have churned does not seem signiﬁcant.</p></li>
-<li><p><code>Marital status</code> - Most of the credit card cancellations are from married customers while the lowest are from divorced customers.</p></li>
+<li><p><code>Education level</code> - Most of the credit card
+cancellations are from customers who have graduated and the lowest
+number of cancellations are from customers with a post
+doctorate.</p></li>
+<li><p><code>Card category</code> - Most of the credit card
+cancellations are from customers with a blue card, while the lowest are
+from customers with a platinum card.</p></li>
+<li><p><code>Gender</code> - Even though female customers seem to have
+more credit card cancellations, the diﬀerence between them and the male
+customers who have churned does not seem signiﬁcant.</p></li>
+<li><p><code>Marital status</code> - Most of the credit card
+cancellations are from married customers while the lowest are from
+divorced customers.</p></li>
 </ul>
 </div>
-<div id="spearmans-correlation-plot-continuous-variables" class="section level2" number="4.3">
-<h2><span class="header-section-number">4.3</span> Spearman’s Correlation Plot Continuous Variables</h2>
-<p>The spearmans ranks correlation coefficient or spearman`s <span class="math inline">\(\rho\)</span> is a non-parametric measure of rank correlation. It describes the relationship between two variables using a monotonic (a scenario in which the size of one variable increases as another variable either increases or decreases) function. We will use this co-efficient to show the relationship between our target variable and the continuous variables</p>
+<div id="spearmans-correlation-plot-continuous-variables"
+class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Spearman’s
+Correlation Plot Continuous Variables</h2>
+<p>The spearmans ranks correlation coefficient or spearman`s <span
+class="math inline">\(\rho\)</span> is a non-parametric measure of rank
+correlation. It describes the relationship between two variables using a
+monotonic (a scenario in which the size of one variable increases as
+another variable either increases or decreases) function. We will use
+this co-efficient to show the relationship between our target variable
+and the continuous variables</p>
 <p>We first store the continuous variables in one data set.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>cont.variables<span class="ot">&lt;-</span>bank<span class="sc">%&gt;%</span><span class="fu">select</span>(Attrition_Flag,Dependent_count,Total_Relationship_Count,Months_Inactive_12_mon    ,Contacts_Count_12_mon,Credit_Limit,Total_Revolving_Bal,Total_Amt_Chng_Q4_Q1,Total_Trans_Amt,Total_Trans_Ct, Total_Ct_Chng_Q4_Q1,Customer_Age,Avg_Utilization_Ratio,Months_on_book,Avg_Open_To_Buy)</span></code></pre></div>
 <p>Now we create a corrplot.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>m<span class="ot">&lt;-</span><span class="fu">cor</span>(cont.variables,<span class="at">method=</span><span class="st">&#39;spearman&#39;</span>)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(m,<span class="at">method=</span><span class="st">&quot;color&quot;</span>,<span class="at">type =</span> <span class="st">&quot;full&quot;</span>,<span class="at">addCoef.col =</span> <span class="st">&quot;black&quot;</span>,<span class="at">number.cex =</span> <span class="fl">0.50</span>)</span></code></pre></div>
 <p><img src="churnproject_files/figure-html/unnamed-chunk-16-1.png" width="120%" /></p>
-<p>The variables<code>Total_Relationship_Count</code>, <code>Total_Revolving_Bal</code>, <code>Total_Trans_Ct</code>, <code>Total_Ct_Chng_Q4_Q1</code>, and <code>Avg_Utilization_Rati0</code> exhibit a positive monotonic association with our target variable. This might indicate that they are signiﬁcant in predicting churn. While <code>Contact_Count_12_mon</code> and <code>Months_Inactive_12_mon</code> exhibit a negative monotonic association with our target variable. This might also indicate that they are signiﬁcant in predicting churn. The others do not exhibit a strong relationship with our target variable.</p>
+<p>The variables<code>Total_Relationship_Count</code>,
+<code>Total_Revolving_Bal</code>, <code>Total_Trans_Ct</code>,
+<code>Total_Ct_Chng_Q4_Q1</code>, and <code>Avg_Utilization_Rati0</code>
+exhibit a positive monotonic association with our target variable. This
+might indicate that they are signiﬁcant in predicting churn. While
+<code>Contact_Count_12_mon</code> and
+<code>Months_Inactive_12_mon</code> exhibit a negative monotonic
+association with our target variable. This might also indicate that they
+are signiﬁcant in predicting churn. The others do not exhibit a strong
+relationship with our target variable.</p>
 </div>
 </div>
-<div id="feature-and-target-engineering" class="section level1" number="5">
-<h1><span class="header-section-number">5</span> Feature and Target Engineering</h1>
+<div id="feature-and-target-engineering" class="section level1"
+number="5">
+<h1><span class="header-section-number">5</span> Feature and Target
+Engineering</h1>
 <p>We now perform feature and target engineering.</p>
-<p>Feature and target engineering refer to methods that alter (addition, deletion or transformation) raw data into features that better represent the underlying goal of the predictive model so as to better train our algorithm (Boehmke &amp; Greenwell, 2019).</p>
+<p>Feature and target engineering refer to methods that alter (addition,
+deletion or transformation) raw data into features that better represent
+the underlying goal of the predictive model so as to better train our
+algorithm (Boehmke &amp; Greenwell, 2019).</p>
 <div id="dummy-coding" class="section level2" number="5.1">
 <h2><span class="header-section-number">5.1</span> Dummy Coding</h2>
-<p>We are changing the values in the <code>Attrition_Flag</code> ﬁeld which is our target variable to 1 if it is an existing customer, and 0 if it is a churned customer.</p>
+<p>We are changing the values in the <code>Attrition_Flag</code> ﬁeld
+which is our target variable to 1 if it is an existing customer, and 0
+if it is a churned customer.</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df<span class="ot">&lt;-</span>bank<span class="sc">%&gt;%</span><span class="fu">mutate</span>(<span class="at">Attrition_Flag=</span><span class="fu">if_else</span>(Attrition_Flag<span class="sc">==</span><span class="st">&quot;Existing Customer&quot;</span>,<span class="dv">1</span>,<span class="dv">0</span>))<span class="sc">%&gt;%</span><span class="fu">mutate_if</span>(is.character,factor)</span></code></pre></div>
 </div>
 <div id="feature-importance" class="section level2" number="5.2">
-<h2><span class="header-section-number">5.2</span> Feature Importance</h2>
-<p>Feature importance refers to methods that assigns a score to input features based on how good their predictive power is. We will use the Random Forest algorithm to perform feature importance.</p>
+<h2><span class="header-section-number">5.2</span> Feature
+Importance</h2>
+<p>Feature importance refers to methods that assigns a score to input
+features based on how good their predictive power is. We will use the
+Random Forest algorithm to perform feature importance.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>model<span class="ot">&lt;-</span><span class="fu">lm</span>(Attrition_Flag<span class="sc">~</span>., <span class="at">method=</span><span class="st">&quot;rf&quot;</span>,<span class="at">data=</span>df)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>var<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">var=</span><span class="fu">row.names</span>(<span class="fu">varImp</span>(model)),<span class="at">Import=</span><span class="fu">varImp</span>(model)<span class="sc">$</span>Overall)</span></code></pre></div>
@@ -653,25 +764,36 @@ $(document).ready(function () {
 [13] &quot;Avg_Utilization_Ratio&quot;    &quot;Months_on_book&quot;          
 [15] &quot;Avg_Open_To_Buy&quot;         </code></pre>
 <ul>
-<li>As we can see above from our feature engineering, most of the significant variables were transaction variables.</li>
+<li>As we can see above from our feature engineering, most of the
+significant variables were transaction variables.</li>
 </ul>
 </div>
-<div id="splitting-the-data-into-the-training-set-and-test-set." class="section level2" number="5.3">
-<h2><span class="header-section-number">5.3</span> Splitting the Data into the Training Set and Test Set.</h2>
-<p>Since we are dealing with a classification problem that also happens to be severely imbalanced we will use stratified sampling to split the data.</p>
+<div id="splitting-the-data-into-the-training-set-and-test-set."
+class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Splitting the Data
+into the Training Set and Test Set.</h2>
+<p>Since we are dealing with a classification problem that also happens
+to be severely imbalanced we will use stratified sampling to split the
+data.</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1337</span>)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>train1<span class="ot">&lt;-</span><span class="fu">createDataPartition</span>(final<span class="sc">$</span>Attrition_Flag,<span class="at">p=</span><span class="fl">0.7</span>,<span class="at">times=</span><span class="dv">1</span>,<span class="at">list=</span>F)</span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>train<span class="ot">&lt;-</span>final[train1,]</span>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>test<span class="ot">&lt;-</span>final[<span class="sc">-</span>train1,]</span></code></pre></div>
 </div>
-<div id="dealing-with-class-imbalance-using-smote" class="section level2" number="5.4">
-<h2><span class="header-section-number">5.4</span> Dealing with Class Imbalance Using SMOTE</h2>
-<p>Our target variable was very imbalanced. Existing customers only make up 84% of the training data while those who have churned make up only 16%. We use SMOTE to deal with this.</p>
+<div id="dealing-with-class-imbalance-using-smote"
+class="section level2" number="5.4">
+<h2><span class="header-section-number">5.4</span> Dealing with Class
+Imbalance Using SMOTE</h2>
+<p>Our target variable was very imbalanced. Existing customers only make
+up 84% of the training data while those who have churned make up only
+16%. We use SMOTE to deal with this.</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>smote<span class="ot">&lt;-</span><span class="fu">SMOTE</span>(<span class="fu">as.data.frame</span>(train[,<span class="sc">-</span><span class="dv">14</span>]),train<span class="sc">$</span>Attrition_Flag,<span class="at">K=</span><span class="dv">5</span>)</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>train_smote<span class="ot">&lt;-</span>smote<span class="sc">$</span>data</span></code></pre></div>
-<div id="before-and-after-applying-smote-visualization" class="section level3" number="5.4.1">
-<h3><span class="header-section-number">5.4.1</span> Before and After Applying SMOTE Visualization</h3>
+<div id="before-and-after-applying-smote-visualization"
+class="section level3" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> Before and After
+Applying SMOTE Visualization</h3>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(train_smote<span class="sc">$</span>class))</span></code></pre></div>
 <pre><code>
         0         1 
@@ -681,7 +803,8 @@ $(document).ready(function () {
 </div>
 </div>
 <div id="fitting-our-xgboost-model" class="section level1" number="6">
-<h1><span class="header-section-number">6</span> Fitting Our XGBOOST Model</h1>
+<h1><span class="header-section-number">6</span> Fitting Our XGBOOST
+Model</h1>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>control<span class="ot">&lt;-</span><span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">&quot;cv&quot;</span>,<span class="at">number =</span> <span class="dv">5</span>)</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>grid<span class="ot">&lt;-</span><span class="fu">expand.grid</span>(<span class="at">max_depth=</span><span class="dv">17</span>,</span>
@@ -703,7 +826,8 @@ $(document).ready(function () {
 <span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>                </span>
 <span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <div id="evaluating-our-model" class="section level2" number="6.1">
-<h2><span class="header-section-number">6.1</span> Evaluating Our Model</h2>
+<h2><span class="header-section-number">6.1</span> Evaluating Our
+Model</h2>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>predict_xgm<span class="ot">=</span><span class="fu">predict</span>(xgbm.tune,<span class="fu">select</span>(test, <span class="fu">c</span>(<span class="sc">-</span><span class="st">&quot;class&quot;</span>)))</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(predict_xgm,test<span class="sc">$</span>class)</span></code></pre></div>
 <pre><code>Confusion Matrix and Statistics
@@ -734,15 +858,23 @@ Prediction    0    1
        &#39;Positive&#39; Class : 0                   
                                               </code></pre>
 <ul>
-<li>From the confusion matrix 2944 values from our test set were correctly predicted (TN(<em>true negative</em>), TP(<em>true positive</em>)), while 94 were wrongly predicted (FN(<em>false negative</em>),FP(<em>false positive</em>)).</li>
-<li>Our model ended up with an accuracy of 96.91%. This is very accurate as expected since our model predicted most values correctly. It also performed well on other metrics such as sensitivity, specificity and kappa.</li>
+<li>From the confusion matrix 2944 values from our test set were
+correctly predicted (TN(<em>true negative</em>), TP(<em>true
+positive</em>)), while 94 were wrongly predicted (FN(<em>false
+negative</em>),FP(<em>false positive</em>)).</li>
+<li>Our model ended up with an accuracy of 96.91%. This is very accurate
+as expected since our model predicted most values correctly. It also
+performed well on other metrics such as sensitivity, specificity and
+kappa.</li>
 </ul>
 </div>
 </div>
 <div id="references" class="section level1 unlisted unnumbered">
 <h1 class="unlisted unnumbered">References</h1>
-<p>Boehmke, B., &amp; Greenwell, B. (2019). Hands-on machine learning with R. Chapman and Hall/CRC.</p>
-<p>Lantz, B. (2013). Machine learning with R. Packt publishing ltd, 77.</p>
+<p>Boehmke, B., &amp; Greenwell, B. (2019). Hands-on machine learning
+with R. Chapman and Hall/CRC.</p>
+<p>Lantz, B. (2013). Machine learning with R. Packt publishing ltd,
+77.</p>
 </div>
 
 

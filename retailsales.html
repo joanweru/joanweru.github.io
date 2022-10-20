@@ -404,64 +404,95 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Retail Analysis with Walmart Sales Data</h1>
+<h1 class="title toc-ignore">Retail Analysis with Walmart Sales
+Data</h1>
 
 </div>
 
 <div id="TOC">
 <ul>
-<li><a href="#project-description"><span class="toc-section-number">1</span> Project Description</a>
+<li><a href="#project-description" id="toc-project-description"><span
+class="toc-section-number">1</span> Project Description</a>
 <ul>
-<li><a href="#problem-statement"><span class="toc-section-number">1.1</span> Problem Statement</a></li>
-<li><a href="#basic-statistics-tasks"><span class="toc-section-number">1.2</span> Basic Statistics Tasks</a></li>
-<li><a href="#about-the-data"><span class="toc-section-number">1.3</span> About the data</a></li>
+<li><a href="#problem-statement" id="toc-problem-statement"><span
+class="toc-section-number">1.1</span> Problem Statement</a></li>
+<li><a href="#basic-statistics-tasks"
+id="toc-basic-statistics-tasks"><span
+class="toc-section-number">1.2</span> Basic Statistics Tasks</a></li>
+<li><a href="#about-the-data" id="toc-about-the-data"><span
+class="toc-section-number">1.3</span> About the data</a></li>
 </ul></li>
-<li><a href="#data-exploration"><span class="toc-section-number">2</span> Data Exploration</a></li>
-<li><a href="#data-cleaning"><span class="toc-section-number">3</span> Data cleaning</a></li>
-<li><a href="#question-one"><span class="toc-section-number">4</span> Question One</a>
+<li><a href="#data-exploration" id="toc-data-exploration"><span
+class="toc-section-number">2</span> Data Exploration</a></li>
+<li><a href="#data-cleaning" id="toc-data-cleaning"><span
+class="toc-section-number">3</span> Data cleaning</a></li>
+<li><a href="#question-one" id="toc-question-one"><span
+class="toc-section-number">4</span> Question One</a>
 <ul>
-<li><a href="#answer"><span class="toc-section-number">4.1</span> Answer</a></li>
+<li><a href="#answer" id="toc-answer"><span
+class="toc-section-number">4.1</span> Answer</a></li>
 </ul></li>
-<li><a href="#question-two"><span class="toc-section-number">5</span> Question Two</a>
+<li><a href="#question-two" id="toc-question-two"><span
+class="toc-section-number">5</span> Question Two</a>
 <ul>
-<li><a href="#answer-1"><span class="toc-section-number">5.1</span> Answer</a></li>
+<li><a href="#answer-1" id="toc-answer-1"><span
+class="toc-section-number">5.1</span> Answer</a></li>
 </ul></li>
-<li><a href="#question-three"><span class="toc-section-number">6</span> Question Three</a>
+<li><a href="#question-three" id="toc-question-three"><span
+class="toc-section-number">6</span> Question Three</a>
 <ul>
-<li><a href="#answer-2"><span class="toc-section-number">6.1</span> Answer</a></li>
+<li><a href="#answer-2" id="toc-answer-2"><span
+class="toc-section-number">6.1</span> Answer</a></li>
 </ul></li>
-<li><a href="#question-four"><span class="toc-section-number">7</span> Question Four</a>
+<li><a href="#question-four" id="toc-question-four"><span
+class="toc-section-number">7</span> Question Four</a>
 <ul>
-<li><a href="#answer-3"><span class="toc-section-number">7.1</span> Answer</a></li>
+<li><a href="#answer-3" id="toc-answer-3"><span
+class="toc-section-number">7.1</span> Answer</a></li>
 </ul></li>
-<li><a href="#question-five"><span class="toc-section-number">8</span> Question Five</a>
+<li><a href="#question-five" id="toc-question-five"><span
+class="toc-section-number">8</span> Question Five</a>
 <ul>
-<li><a href="#answer-4"><span class="toc-section-number">8.1</span> Answer</a></li>
+<li><a href="#answer-4" id="toc-answer-4"><span
+class="toc-section-number">8.1</span> Answer</a></li>
 </ul></li>
 </ul>
 </div>
 
 <div id="project-description" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Project Description</h1>
+<h1><span class="header-section-number">1</span> Project
+Description</h1>
 <div id="problem-statement" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Problem Statement</h2>
-<p>Historical sales data for 45 Walmart stores located in different regions are available. There are certain events and holidays which impact sales on each day.</p>
+<h2><span class="header-section-number">1.1</span> Problem
+Statement</h2>
+<p>Historical sales data for 45 Walmart stores located in different
+regions are available. There are certain events and holidays which
+impact sales on each day.</p>
 <p>Holiday events</p>
 <ul>
-<li>Super Bowl: <code>12-Feb-10</code>, <code>11-Feb-11</code>, <code>10-Feb-12</code>, <code>8-Feb-13</code></li>
-<li>Labour Day: <code>10-Sep-10</code>, <code>9-Sep-11</code>, <code>7-Sep-12</code>, <code>6-Sep-13</code></li>
-<li>Thanksgiving: <code>26-Nov-10</code>, <code>25-Nov-11</code>, <code>23-Nov-12</code>, <code>29-Nov-13</code></li>
-<li>Christmas: <code>31-Dec-10</code>, <code>30-Dec-11</code>, <code>28-Dec-12</code>, <code>27-Dec-13</code></li>
+<li>Super Bowl: <code>12-Feb-10</code>, <code>11-Feb-11</code>,
+<code>10-Feb-12</code>, <code>8-Feb-13</code></li>
+<li>Labour Day: <code>10-Sep-10</code>, <code>9-Sep-11</code>,
+<code>7-Sep-12</code>, <code>6-Sep-13</code></li>
+<li>Thanksgiving: <code>26-Nov-10</code>, <code>25-Nov-11</code>,
+<code>23-Nov-12</code>, <code>29-Nov-13</code></li>
+<li>Christmas: <code>31-Dec-10</code>, <code>30-Dec-11</code>,
+<code>28-Dec-12</code>, <code>27-Dec-13</code></li>
 </ul>
 </div>
 <div id="basic-statistics-tasks" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> Basic Statistics Tasks</h2>
+<h2><span class="header-section-number">1.2</span> Basic Statistics
+Tasks</h2>
 <ol style="list-style-type: decimal">
 <li>Which store has maximum sales</li>
-<li>Which store has maximum standard deviation i.e., the sales vary a lot. Also find out the coefficient of mean to standard deviation</li>
+<li>Which store has maximum standard deviation i.e., the sales vary a
+lot. Also find out the coefficient of mean to standard deviation</li>
 <li>Which store(s) has good quarterly growth in Q3` 2012</li>
-<li>Some holidays have a negative impact on sales. Find out holidays which have higher sales than the mean sales mean sales in non-holiday season for all stores together.</li>
-<li>Provide a monthly and semester view of sales in units and give insights</li>
+<li>Some holidays have a negative impact on sales. Find out holidays
+which have higher sales than the mean sales mean sales in non-holiday
+season for all stores together.</li>
+<li>Provide a monthly and semester view of sales in units and give
+insights</li>
 </ol>
 </div>
 <div id="about-the-data" class="section level2" number="1.3">
@@ -470,7 +501,8 @@ $(document).ready(function () {
 <li><code>Store</code> - The store number from 1 to 45</li>
 <li><code>Date</code> - Week of the sales(date)</li>
 <li><code>Weekly_Sales</code> - Sales for the given store</li>
-<li><code>Holiday_Flag</code> - Whether the week is a special holiday or not(1-Holiday week, 0- Non-holiday week)</li>
+<li><code>Holiday_Flag</code> - Whether the week is a special holiday or
+not(1-Holiday week, 0- Non-holiday week)</li>
 <li><code>Temperature</code> - Temperature on the day of sale</li>
 <li><code>Fuel_Price</code> - Cost of fuel in the region</li>
 <li><code>CPI</code> - Prevailing consumer price index</li>
@@ -535,11 +567,15 @@ $(document).ready(function () {
  Mean   : 60.66   Mean   :3.359   Mean   :171.6   Mean   : 7.999  
  3rd Qu.: 74.94   3rd Qu.:3.735   3rd Qu.:212.7   3rd Qu.: 8.622  
  Max.   :100.14   Max.   :4.468   Max.   :227.2   Max.   :14.313  </code></pre>
-<p>We take a look at our variable of interest for this project: <code>Weekly_Sales</code></p>
+<p>We take a look at our variable of interest for this project:
+<code>Weekly_Sales</code></p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>retail<span class="sc">%&gt;%</span><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Weekly_Sales))<span class="sc">+</span><span class="fu">geom_histogram</span>(<span class="at">fill=</span><span class="st">&quot;royalblue&quot;</span>,<span class="at">color=</span><span class="st">&quot;black&quot;</span>)<span class="sc">+</span><span class="fu">theme_fivethirtyeight</span>()<span class="sc">+</span><span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Weekly Sales&quot;</span>,<span class="at">y=</span><span class="st">&quot;Frequency&quot;</span>)<span class="sc">+</span><span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> (<span class="fu">seq</span>(<span class="at">from=</span><span class="dv">0</span>,<span class="at">to=</span><span class="dv">4000000</span>,<span class="at">by=</span><span class="dv">1000000</span>)),<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_number_si</span>())<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Weekly Sales Histogram Plot&quot;</span>)<span class="sc">+</span><span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">family=</span><span class="st">&quot;sans&quot;</span>,<span class="at">size=</span><span class="dv">20</span>,<span class="at">hjust=</span><span class="fl">0.5</span>),<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="fl">12.5</span>))</span></code></pre></div>
 <p><img src="retailsales_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <ul>
-<li>Weekly Sales is positively skewed. This could be due certain holidays causing an increase in sales. Therefore, we won’t try to fix this skewness since, it might help us shed light in our analysis(which holidays cause a peak in sales, etc.).</li>
+<li>Weekly Sales is positively skewed. This could be due certain
+holidays causing an increase in sales. Therefore, we won’t try to fix
+this skewness since, it might help us shed light in our analysis(which
+holidays cause a peak in sales, etc.).</li>
 </ul>
 </div>
 <div id="data-cleaning" class="section level1" number="3">
@@ -572,7 +608,8 @@ $(document).ready(function () {
 <div id="question-two" class="section level1" number="5">
 <h1><span class="header-section-number">5</span> Question Two</h1>
 <blockquote>
-<p>Which store has maximum standard deviation i.e., the sales vary a lot. Also find out the coefficient of mean to standard deviation</p>
+<p>Which store has maximum standard deviation i.e., the sales vary a
+lot. Also find out the coefficient of mean to standard deviation</p>
 </blockquote>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>max.sd<span class="ot">&lt;-</span>retail<span class="sc">%&gt;%</span><span class="fu">group_by</span>(Store)<span class="sc">%&gt;%</span><span class="fu">summarize</span>(<span class="at">std.dev=</span><span class="fu">sd</span>(Weekly_Sales),<span class="at">mean=</span><span class="fu">mean</span>(Weekly_Sales))<span class="sc">%&gt;%</span><span class="fu">mutate</span>(<span class="at">coef=</span>(std.dev<span class="sc">/</span>mean)<span class="sc">*</span><span class="dv">100</span>)<span class="sc">%&gt;%</span><span class="fu">arrange</span>(<span class="fu">desc</span>(std.dev))</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>max.sd[<span class="dv">1</span>,]</span></code></pre></div>
@@ -596,7 +633,8 @@ $(document).ready(function () {
 <li>Which store(s) has good quarterly growth in Q3` 2012</li>
 </ol>
 </blockquote>
-<p>We first extract the months and date and store them in a new column <code>month-yr</code></p>
+<p>We first extract the months and date and store them in a new column
+<code>month-yr</code></p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>retail<span class="sc">$</span>month_yr<span class="ot">&lt;-</span><span class="fu">format</span>(<span class="fu">as.Date</span>(retail<span class="sc">$</span>Date,<span class="at">format =</span> <span class="st">&quot;%d-%m-%Y&quot;</span>),<span class="st">&quot;%Y-%m&quot;</span>)</span></code></pre></div>
 <p>We then filter out Q3’ 2012 and Q2’ 2012.</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>Q3<span class="fl">.2012</span><span class="ot">&lt;-</span>retail<span class="sc">%&gt;%</span><span class="fu">filter</span>(month_yr<span class="sc">==</span><span class="st">&quot;2012-07&quot;</span> <span class="sc">|</span> month_yr<span class="sc">==</span><span class="st">&quot;2012-08&quot;</span> <span class="sc">|</span> month_yr<span class="sc">==</span><span class="st">&quot;2012-09&quot;</span>)</span>
@@ -606,9 +644,12 @@ $(document).ready(function () {
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>Q3.<span class="fl">2012.</span>Sales<span class="ot">&lt;-</span>Q3<span class="fl">.2012</span><span class="sc">%&gt;%</span><span class="fu">group_by</span>(Store)<span class="sc">%&gt;%</span><span class="fu">summarise</span>(<span class="at">sumQ3=</span><span class="fu">sum</span>(Weekly_Sales))</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>Q2.<span class="fl">2012.</span>Sales<span class="ot">&lt;-</span>Q2<span class="fl">.2012</span><span class="sc">%&gt;%</span><span class="fu">group_by</span>(Store)<span class="sc">%&gt;%</span><span class="fu">summarise</span>(<span class="at">sumQ2=</span><span class="fu">sum</span>(Weekly_Sales))</span></code></pre></div>
-<p>We merge the two data sets by a common denominator, in this case <code>Store</code></p>
-<p>We also create a new column <code>growth_rate</code> that measures the quarterly growth in Q3` 2012.</p>
-<p>We filter those stores with a positive growth rate and store them in a new data set called “positive_growth”.</p>
+<p>We merge the two data sets by a common denominator, in this case
+<code>Store</code></p>
+<p>We also create a new column <code>growth_rate</code> that measures
+the quarterly growth in Q3` 2012.</p>
+<p>We filter those stores with a positive growth rate and store them in
+a new data set called “positive_growth”.</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>Q3.<span class="fl">2012.</span>Growth<span class="ot">&lt;-</span><span class="fu">merge</span>(Q2.<span class="fl">2012.</span>Sales,Q3.<span class="fl">2012.</span>Sales,<span class="at">by=</span><span class="st">&quot;Store&quot;</span>)<span class="sc">%&gt;%</span><span class="fu">mutate</span>(<span class="at">growth_rate=</span>((sumQ3<span class="sc">-</span>sumQ2)<span class="sc">*</span><span class="dv">100</span>)<span class="sc">/</span>sumQ2)</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>positive_growth<span class="ot">&lt;-</span>Q3.<span class="fl">2012.</span>Growth<span class="sc">%&gt;%</span><span class="fu">select</span>(Store,growth_rate)<span class="sc">%&gt;%</span><span class="fu">filter</span>(growth_rate<span class="sc">&gt;</span><span class="dv">0</span>)<span class="sc">%&gt;%</span><span class="fu">arrange</span>(<span class="fu">desc</span>(growth_rate))</span></code></pre></div>
@@ -673,9 +714,13 @@ $(document).ready(function () {
 <div id="question-four" class="section level1" number="7">
 <h1><span class="header-section-number">7</span> Question Four</h1>
 <blockquote>
-<p>Some holidays have a negative impact on sales. Find out holidays which have higher sales than the mean sales in non-holiday season for all stores together.</p>
+<p>Some holidays have a negative impact on sales. Find out holidays
+which have higher sales than the mean sales in non-holiday season for
+all stores together.</p>
 </blockquote>
-<p>Lets create a new data set similar to our retail data set, with a new column made up of Holiday names mapped to their respective dates and save the non-holidays as “Non-Holiday”.</p>
+<p>Lets create a new data set similar to our retail data set, with a new
+column made up of Holiday names mapped to their respective dates and
+save the non-holidays as “Non-Holiday”.</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>Date<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;12-02-2010&quot;</span>, <span class="st">&quot;11-02-2011&quot;</span>, <span class="st">&quot;10-02-2012&quot;</span>, <span class="st">&quot;08-02-2013&quot;</span>,<span class="st">&quot;10-09-2010&quot;</span>, <span class="st">&quot;09-09-2011&quot;</span>,  <span class="st">&quot;07-09-2012&quot;</span>, <span class="st">&quot;06-09-2013&quot;</span>,<span class="st">&quot;26-11-2010&quot;</span>, <span class="st">&quot;25-11-2011&quot;</span>, <span class="st">&quot;23-11-2012&quot;</span>, <span class="st">&quot;29-11-2013&quot;</span>,<span class="st">&quot;31-12-2010&quot;</span>, <span class="st">&quot;30-12-2011&quot;</span>, <span class="st">&quot;28-12-2012&quot;</span>, <span class="st">&quot;27-12-2013&quot;</span>)</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>Holiday_Names<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;Super Bowl&quot;</span>,<span class="dv">4</span>),<span class="fu">rep</span>(<span class="st">&quot;Labour Day&quot;</span>,<span class="dv">4</span>),<span class="fu">rep</span>(<span class="st">&quot;Thanksgiving&quot;</span>,<span class="dv">4</span>),<span class="fu">rep</span>(<span class="st">&quot;Christmas&quot;</span>,<span class="dv">4</span>))</span>
@@ -699,7 +744,8 @@ $(document).ready(function () {
 5 Thanksgiving  1471273.</code></pre>
 <p>The mean sales of non holidays is 1,041,256.4</p>
 <ul>
-<li>Lets see which holiday dates have a greater mean than the non holiday mean.</li>
+<li>Lets see which holiday dates have a greater mean than the non
+holiday mean.</li>
 </ul>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>Holiday_Mean<span class="ot">&lt;-</span>Holiday_data<span class="sc">%&gt;%</span><span class="fu">group_by</span>(Date,Holiday_Names)<span class="sc">%&gt;%</span><span class="fu">summarise</span>(<span class="at">mean=</span><span class="fu">mean</span>(Weekly_Sales))</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -741,9 +787,13 @@ $(document).ready(function () {
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>monthly_view<span class="sc">%&gt;%</span><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>month_yr,<span class="at">y=</span>sales_total,<span class="at">group=</span><span class="dv">1</span>))<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">&quot;Steelblue&quot;</span>,<span class="at">size=</span><span class="fl">1.2</span>)<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Monthly View of Sales: 2010 to 2012&quot;</span>,<span class="at">x=</span><span class="st">&quot;Months&quot;</span>,<span class="at">y=</span><span class="st">&quot;Total Sales&quot;</span>)<span class="sc">+</span><span class="fu">theme_fivethirtyeight</span>()<span class="sc">+</span><span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">&quot;sans&quot;</span>,<span class="at">size =</span> <span class="dv">12</span>),<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">60</span>,<span class="at">family =</span> <span class="st">&quot;sans&quot;</span>,<span class="at">size=</span><span class="fl">9.5</span>),<span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">family=</span><span class="st">&quot;sans&quot;</span>,<span class="at">size =</span> <span class="dv">12</span>),<span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="fl">9.5</span>),<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>,<span class="at">size=</span><span class="dv">20</span>))<span class="sc">+</span><span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="fu">label_number</span>(<span class="at">suffix=</span><span class="st">&quot;M&quot;</span>,<span class="at">scale =</span> <span class="fl">1e-6</span>),<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">150000000</span>,<span class="dv">300000000</span>))</span></code></pre></div>
 <p><img src="retailsales_files/figure-html/unnamed-chunk-31-1.png" width="960" /></p>
 <ul>
-<li><p>We can see a peak in sales in December of 2010 and 2011 and a drop in sales in January of 2010 and 2011.</p></li>
-<li><p>The peak in sales around December may be due to sales increasing as people buy gifts, decorations and christmas supplies for the holidays.</p></li>
-<li><p>The drop in sales in January may be due more people choosing to save after overindulging and splurging on the holidays.</p></li>
+<li><p>We can see a peak in sales in December of 2010 and 2011 and a
+drop in sales in January of 2010 and 2011.</p></li>
+<li><p>The peak in sales around December may be due to sales increasing
+as people buy gifts, decorations and christmas supplies for the
+holidays.</p></li>
+<li><p>The drop in sales in January may be due more people choosing to
+save after overindulging and splurging on the holidays.</p></li>
 </ul>
 </div>
 </div>
